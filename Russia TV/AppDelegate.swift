@@ -12,12 +12,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var video:VideoController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        SVProgressHUD.setDefaultStyle(.custom)
+        SVProgressHUD.setBackgroundColor(UIColor.mainColor())
+        SVProgressHUD.setForegroundColor(UIColor.white)
         
-        video = window?.rootViewController as? VideoController
-        
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName : UIFont.condensedFont()], for: .normal)
+        SVProgressHUD.setFont(UIFont.condensedFont())
+
         return true
     }
 
@@ -28,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        video?.start()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -37,5 +40,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
     }
 
+}
+
+extension UIFont {
+    
+    class func condensedFont(_ size:CGFloat = 17) -> UIFont {
+        return UIFont(name: "HelveticaNeue-CondensedBold", size: size)!
+    }
+}
+
+extension UIColor {
+    
+    class func color(_ r: Float, _ g: Float, _ b: Float, _ a: Float) -> UIColor {
+        return UIColor(red: CGFloat(r/255.0), green: CGFloat(g/255.0), blue: CGFloat(b/255.0), alpha: CGFloat(a))
+    }
+    
+    class func mainColor() -> UIColor {
+        return color(0, 113, 165, 1)
+    }
+   
 }
 

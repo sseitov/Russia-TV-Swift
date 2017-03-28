@@ -1,32 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cfO-mE-9pn">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ts3-yc-AV3">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Video Controller-->
-        <scene sceneID="oJO-hh-IuM">
+        <!--Navigation Controller-->
+        <scene sceneID="KFj-wp-jis">
             <objects>
-                <viewController id="cfO-mE-9pn" customClass="VideoController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="f6p-qB-UAe"/>
-                        <viewControllerLayoutGuide type="bottom" id="Yia-bp-az0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rhJ-hE-Be9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="e3I-JD-VgL"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iBk-eY-h5e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="Ts3-yc-AV3" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="4uf-SB-oqs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.043137254899999998" green="0.60392156860000001" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="man-XC-lNn" kind="relationship" relationship="rootViewController" id="6bI-xh-hDv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sur-06-9SB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="608.79999999999995" y="162.3688155922039"/>
+            <point key="canvasLocation" x="-393" y="1133"/>
+        </scene>
+        <!--Video Controller-->
+        <scene sceneID="xZm-bM-091">
+            <objects>
+                <viewController id="man-XC-lNn" customClass="VideoController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xpo-Cd-l1O"/>
+                        <viewControllerLayoutGuide type="bottom" id="xCr-YS-Hsj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bTZ-QT-Esd">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HCR-zI-1Ow">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="man-XC-lNn" id="7XR-QK-PSp"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="HCR-zI-1Ow" secondAttribute="trailing" id="YUN-KW-RTx"/>
+                            <constraint firstItem="HCR-zI-1Ow" firstAttribute="leading" secondItem="bTZ-QT-Esd" secondAttribute="leading" id="dsU-ES-j7I"/>
+                            <constraint firstItem="xCr-YS-Hsj" firstAttribute="top" secondItem="HCR-zI-1Ow" secondAttribute="bottom" id="hqr-f8-Zss"/>
+                            <constraint firstItem="HCR-zI-1Ow" firstAttribute="top" secondItem="Xpo-Cd-l1O" secondAttribute="bottom" id="w3d-cU-dNd"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="bAL-8o-M5r">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="jLu-hQ-2QM">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="refresh" destination="man-XC-lNn" id="6gR-Sd-n9a"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="webView" destination="HCR-zI-1Ow" id="Eh7-pg-Oeu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="in2-Da-BVc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="531" y="1132"/>
         </scene>
     </scenes>
 </document>
