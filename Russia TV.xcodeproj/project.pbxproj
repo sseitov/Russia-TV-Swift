@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C6C9EC31E91034E000A3557 /* HtmlScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9EC21E91034E000A3557 /* HtmlScrapper.swift */; };
+		2C6C9EC51E910FDA000A3557 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6C9EC41E910FDA000A3557 /* AVFoundation.framework */; };
+		2C6C9EC81E912964000A3557 /* YouTubeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9EC71E912964000A3557 /* YouTubeParser.m */; };
 		2CB6B8541E84F3B7009A3A61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6B8531E84F3B7009A3A61 /* AppDelegate.swift */; };
 		2CB6B8591E84F3B7009A3A61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CB6B8571E84F3B7009A3A61 /* Main.storyboard */; };
 		2CB6B85B1E84F3B7009A3A61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB6B85A1E84F3B7009A3A61 /* Assets.xcassets */; };
@@ -19,6 +22,10 @@
 
 /* Begin PBXFileReference section */
 		21AC0E742ABCD93C084F1C49 /* Pods-Russia TV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Russia TV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Russia TV/Pods-Russia TV.debug.xcconfig"; sourceTree = "<group>"; };
+		2C6C9EC21E91034E000A3557 /* HtmlScrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HtmlScrapper.swift; sourceTree = "<group>"; };
+		2C6C9EC41E910FDA000A3557 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2C6C9EC61E912964000A3557 /* YouTubeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeParser.h; sourceTree = "<group>"; };
+		2C6C9EC71E912964000A3557 /* YouTubeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeParser.m; sourceTree = "<group>"; };
 		2CB6B8501E84F3B7009A3A61 /* Russia TV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Russia TV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB6B8531E84F3B7009A3A61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CB6B8581E84F3B7009A3A61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -38,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C6C9EC51E910FDA000A3557 /* AVFoundation.framework in Frameworks */,
 				2CB6B8701E850284009A3A61 /* AVKit.framework in Frameworks */,
 				E51362A30352F85F1ECB80A8 /* libPods-Russia TV.a in Frameworks */,
 			);
@@ -70,6 +78,9 @@
 			children = (
 				2CB6B8531E84F3B7009A3A61 /* AppDelegate.swift */,
 				2CB6B86D1E84FE65009A3A61 /* VideoController.swift */,
+				2C6C9EC21E91034E000A3557 /* HtmlScrapper.swift */,
+				2C6C9EC61E912964000A3557 /* YouTubeParser.h */,
+				2C6C9EC71E912964000A3557 /* YouTubeParser.m */,
 				2CB6B8651E84F715009A3A61 /* Resources */,
 			);
 			path = "Russia TV";
@@ -90,6 +101,7 @@
 		2CB6B8661E84F7A5009A3A61 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C6C9EC41E910FDA000A3557 /* AVFoundation.framework */,
 				2CB6B86F1E850284009A3A61 /* AVKit.framework */,
 				3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */,
 			);
@@ -231,6 +243,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C6C9EC81E912964000A3557 /* YouTubeParser.m in Sources */,
+				2C6C9EC31E91034E000A3557 /* HtmlScrapper.swift in Sources */,
 				2CB6B8541E84F3B7009A3A61 /* AppDelegate.swift in Sources */,
 				2CB6B86E1E84FE65009A3A61 /* VideoController.swift in Sources */,
 			);

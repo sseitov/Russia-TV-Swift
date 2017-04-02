@@ -32,6 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        if let video = window?.rootViewController as? VideoController {
+            video.refresh()
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
