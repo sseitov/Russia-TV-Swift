@@ -263,12 +263,6 @@ class HtmlScrapper {
                 
             }
         }
-        
-        if let maxWeightNOdeDesc = maxWeightNode?.stringValue() {
-            //dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            // print("Max weight \(self.maxWeight) for \(maxWeightNOdeDesc)")
-            //});
-        }
     }
     
     private func sizeWeight(_ imgNode: GDataXMLElement) -> Int {
@@ -442,11 +436,9 @@ class HtmlScrapper {
                             values?.append(node.stringValue())
                         }
                     }
-                    
                 }
             }
         }
-            
         catch _ {
             return values
         }
@@ -519,13 +511,129 @@ class HtmlScrapper {
         
         return nil
     }
-
-    func items()->[String]? {
+/*
+    private func extractElementsUsing(_ document:GDataXMLDocument, path:String, attrName:String?, attrValue:String) -> [GDataXMLElement]?
+    {
+        var elements : [GDataXMLElement]?
         
-        if let document = document {
-            return extractValuesUsing(document, path: "//div", attribute: "data-context-item-id")
+        do {
+            if let nodes = try document.nodes(forXPath: path) as? [GDataXMLElement] {
+                elements = [GDataXMLElement]()
+                nodes.forEach{ (nodeObj:AnyObject) in
+                    if let node = nodeObj as? GDataXMLElement {
+                        if let value = node.attribute(forName: attrName)?.stringValue() {
+                            if value == attrValue {
+                                elements?.append(node)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch _ {
+            return elements
+        }
+        
+        return elements
+    }
+ */
+    private func extractNodesUsing(_ document:GDataXMLDocument, path:String, attribute:String?) -> [GDataXMLElement]? {
+        var values : [GDataXMLElement]?
+        
+        do {
+            if let nodes = try document.nodes(forXPath: path) as? [GDataXMLElement] {
+                values = [GDataXMLElement]()
+                nodes.forEach{ (nodeObj:AnyObject) in
+                    if let node = nodeObj as? GDataXMLElement {
+                        if node.attribute(forName: attribute) != nil {
+                            values?.append(node)
+                        }
+                    }
+                }
+            }
+        }
+        catch _ {
+            return values
+        }
+        
+        return values
+    }
+
+    private func nodeChildWithAttribute(_ node: GDataXMLElement, attrName:String? , attrValue:String) -> GDataXMLElement? {
+        if let attribute = node.attribute(forName: attrName) {
+            if attribute.stringValue() == attrValue {
+//                print("\(attribute) - \(attribute.stringValue())")
+                return node
+            }
+        }
+        if let childs = node.children() {
+            for child in childs {
+                if let childNode = child as? GDataXMLElement {
+                    if let target = nodeChildWithAttribute(childNode, attrName: attrName, attrValue: attrValue) {
+                        return target
+                    }
+                }
+            }
+            return nil
         } else {
             return nil
+        }
+    }
+    
+    func videoChannels()->[Channel] {
+        
+        if let document = document {
+            if let nodes = extractNodesUsing(document, path: "//div", attribute: "data-context-item-id") {
+                var channels:[Channel] = []
+                for node in nodes {
+                    if let id = node.attribute(forName: "data-context-item-id").stringValue() {
+                        let channel = Channel()
+                        let urlString = "https://www.youtube.com/watch?v=\(id)"
+                        channel.channelURL = URL(string: urlString)
+                        if let titleNode = nodeChildWithAttribute(node, attrName: "class", attrValue: "yt-uix-sessionlink yt-uix-tile-link  spf-link  yt-ui-ellipsis yt-ui-ellipsis-2") {
+                            channel.channelTitle = titleNode.attribute(forName: "title").stringValue()
+                        }
+                        if let thumbNode = nodeChildWithAttribute(node, attrName: "class", attrValue: "yt-lockup-thumbnail") {
+                            if let clip = nodeChildWithAttribute(thumbNode, attrName: "class", attrValue: "yt-thumb-clip") {
+                                if let images = clip.elements(forName: "img") {
+                                    if images.count > 0 {
+                                        if let thumb = images[0] as? GDataXMLElement {
+                                            if let attr = thumb.attribute(forName: "src") {
+                                                if let thumbStr = attr.stringValue() {
+                                                    let comps = thumbStr.components(separatedBy: "?")
+                                                    if comps.count > 0 {
+                                                        channel.channelThumb = URL(string: comps[0])
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if let metaNode = nodeChildWithAttribute(node, attrName: "class", attrValue: "yt-lockup-meta-info") {
+                            if let childs = metaNode.children() {
+                                var meta = ""
+                                for item in childs {
+                                    if let child = item as? GDataXMLNode {
+                                        if let val = child.stringValue() {
+                                            meta +=  "\(val) "
+                                        }
+                                    }
+                                }
+                                channel.channelMeta = meta
+                            }
+                        }
+                        channels.append(channel)
+                    }
+                }
+                
+                return channels
+            } else {
+                return []
+            }
+        } else {
+            return []
         }
     }
 }

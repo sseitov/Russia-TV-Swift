@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0437D61E923CAE00B8B23E /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0437D51E923CAE00B8B23E /* ChannelCell.swift */; };
 		2C6C9EC31E91034E000A3557 /* HtmlScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9EC21E91034E000A3557 /* HtmlScrapper.swift */; };
 		2C6C9EC51E910FDA000A3557 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6C9EC41E910FDA000A3557 /* AVFoundation.framework */; };
 		2C6C9EC81E912964000A3557 /* YouTubeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9EC71E912964000A3557 /* YouTubeParser.m */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		21AC0E742ABCD93C084F1C49 /* Pods-Russia TV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Russia TV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Russia TV/Pods-Russia TV.debug.xcconfig"; sourceTree = "<group>"; };
+		2C0437D51E923CAE00B8B23E /* ChannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCell.swift; sourceTree = "<group>"; };
 		2C6C9EC21E91034E000A3557 /* HtmlScrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HtmlScrapper.swift; sourceTree = "<group>"; };
 		2C6C9EC41E910FDA000A3557 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2C6C9EC61E912964000A3557 /* YouTubeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeParser.h; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			children = (
 				2CB6B8531E84F3B7009A3A61 /* AppDelegate.swift */,
 				2CB6B86D1E84FE65009A3A61 /* VideoController.swift */,
+				2C0437D51E923CAE00B8B23E /* ChannelCell.swift */,
 				2C6C9EC21E91034E000A3557 /* HtmlScrapper.swift */,
 				2C6C9EC61E912964000A3557 /* YouTubeParser.h */,
 				2C6C9EC71E912964000A3557 /* YouTubeParser.m */,
@@ -247,6 +250,7 @@
 				2C6C9EC31E91034E000A3557 /* HtmlScrapper.swift in Sources */,
 				2CB6B8541E84F3B7009A3A61 /* AppDelegate.swift in Sources */,
 				2CB6B86E1E84FE65009A3A61 /* VideoController.swift in Sources */,
+				2C0437D61E923CAE00B8B23E /* ChannelCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

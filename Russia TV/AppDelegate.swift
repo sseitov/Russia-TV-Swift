@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         if let video = window?.rootViewController as? VideoController {
-            video.refresh()
+            video.refreshTable()
         }
     }
 
@@ -50,6 +50,11 @@ extension UIFont {
     class func condensedFont(_ size:CGFloat = 17) -> UIFont {
         return UIFont(name: "HelveticaNeue-CondensedBold", size: size)!
     }
+    
+    class func mainFont(_ size:CGFloat = 15) -> UIFont {
+        return UIFont(name: "HelveticaNeue", size: size)!
+    }
+
 }
 
 extension UIColor {
