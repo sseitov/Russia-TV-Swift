@@ -2,152 +2,130 @@
 //  VideoController.swift
 //  Russia TV
 //
-//  Created by Сергей Сейтов on 24.03.17.
+//  Created by Сергей Сейтов on 16.04.17.
 //  Copyright © 2017 V-Channel. All rights reserved.
 //
 
 import UIKit
-import AVKit
-import AVFoundation
 
-enum MessageType {
-    case error, success, information
+class TimeLine: UIView {
+    
+    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var indicator:UILabel!
+    @IBOutlet weak var button:UIButton!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        slider.setThumbImage(UIImage(named: "thumb"), for: .normal)
+        slider.value = 0
+    }
+    
+    func setupButton(_ target:Any?, image:UIImage?, selector:Selector) {
+        button.setImage(image, for: .normal)
+        button.addTarget(target, action: selector, for: .touchUpInside)
+    }
 }
 
-class Channel : NSObject {
-    var channelURL:URL?
-    var channelThumb:URL?
-    var channelTitle:String?
-    var channelMeta:String?
-}
+class VideoController: UIViewController, PlayerDelegate {
 
-class VideoController: UITableViewController {
+    @IBOutlet weak var videoView: UIView!
+    @IBOutlet weak var timeLine: TimeLine!
+    @IBOutlet weak var controlPosition: NSLayoutConstraint!
     
-    private var channels:[Channel] = []
+    var isFullScreen = false
+    var target:[String:Any]?
     
+    private var videoPlayer:VideoView?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTitle("НАВАЛЬНЫЙ LIVE")
-        refreshTable()
-    }
-    
-    @IBAction func refresh(_ sender: UIRefreshControl) {
-        refreshContent({ success in
-            sender.endRefreshing()
-            self.tableView.reloadData()
-            if !success {
-                self.showMessage("Can not load content.", messageType: .error)
-            }
-        })
-    }
-    
-    func refreshTable() {
-        SVProgressHUD.show(withStatus: "Refresh...")
-        refreshContent({ success in
-            SVProgressHUD.dismiss()
-            self.tableView.reloadData()
-            if !success {
-                self.showMessage("Can not load content.", messageType: .error)
-            }
-        })
-    }
-    
-    func refreshContent(_ success: @escaping(Bool) -> ()) {
-        if let url = URL(string: "https://www.youtube.com/channel/UCgxTPTFbIbCWfTR9I2-5SeQ/videos") {
-            DispatchQueue.global().async {
-                if let pageData = try? Data(contentsOf: url) {
-                    DispatchQueue.main.async {
-                        success(self.parseHtml(pageData))
-                    }
-                } else {
-                    success(false)
-                }
-            }
-        } else {
-            success(false)
+        
+        setupBackButton()
+        if let name = target!["title"] as? String {
+            let comps = name.components(separatedBy: ".")
+            setupTitle(comps[0])
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.fullScreen))
+        videoView.addGestureRecognizer(tap)
+        
+        videoPlayer = VideoView(frame: videoView.bounds)
+        videoPlayer!.autoresizingMask = UIViewAutoresizing.flexibleHeight.union(.flexibleWidth)
+        videoPlayer!.contentMode = .scaleAspectFit
+        videoPlayer!.delegate = self
+        videoPlayer!.url = target!["url"] as? URL
+        
+        timeLine.slider.addTarget(videoPlayer, action: #selector(VideoView.sliderBeganTracking(_:)), for: .touchDown)
+        let events = UIControlEvents.touchUpInside.union(UIControlEvents.touchUpOutside)
+        timeLine.slider.addTarget(videoPlayer, action: #selector(VideoView.sliderEndedTracking(_:)), for: events)
+        videoView.addSubview(videoPlayer!)
+    }
+
+    func fullScreen() {
+        isFullScreen = !isFullScreen
+        self.navigationController?.setNavigationBarHidden(self.isFullScreen, animated: true)
+        controlPosition.constant = isFullScreen ? -60 : 0
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { _ in
+        })
     }
     
-    func parseHtml(_ data:Data) -> Bool {
-        let scrapper = HtmlScrapper(data: data)
-        channels = scrapper.videoChannels()
-        return channels.count > 0
+    override func goBack() {
+        SVProgressHUD.dismiss()
+        videoPlayer?.pause()
+        videoPlayer!.delegate = nil
+        super.goBack()
     }
     
-    
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        videoPlayer?.start()
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return channels.count
+    // MARK: - Video player
+    
+    func play() {
+        timeLine.setupButton(self, image: UIImage(named: "pause"), selector: #selector(self.pause))
+        videoPlayer!.play()
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 1
+    func pause() {
+        timeLine.setupButton(self, image: UIImage(named: "play"), selector: #selector(self.play))
+        videoPlayer!.pause()
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "channel", for: indexPath) as! ChannelCell
-        cell.channel = channels[indexPath.row]
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let channel = channels[indexPath.row]
+    func prepareForStart() {
         SVProgressHUD.show(withStatus: "Load...")
-        YouTubeParser.video(withYoutubeURL: channel.channelURL, complete: { media, error in
-            if media != nil, let url = URL(string: media!) {
-                SVProgressHUD.dismiss()
-                let video = AVPlayerViewController()
-                self.present(video, animated: true, completion: {
-                    video.player = AVPlayer(url: url)
-                    video.player?.seek(to: CMTimeMakeWithSeconds(10, 1))
-                    video.player?.play()
-                })
-            } else {
-                self.showMessage("Can not load content.", messageType: .error)
-            }
-        })
-    }
-}
-
-
-extension UIViewController {
-    
-    func setupTitle(_ text:String) {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
-        label.textAlignment = .center
-        label.font = UIFont(name: "HelveticaNeue-CondensedBold", size: 15)
-        label.text = text
-        label.textColor = UIColor.white
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        navigationItem.titleView = label
     }
     
-    func showMessage(_ message:String, messageType:MessageType, messageHandler: (() -> ())? = nil) {
-        var title:String = ""
-        switch messageType {
-        case .success:
-            title = "Success"
-        case .information:
-            title = "Information"
-        default:
-            title = "Error"
+    func playerStarted() {
+        SVProgressHUD.dismiss()
+        play()
+    }
+    
+    private func timeToString(_ time:Double) -> String {
+        let hour = Int(time) / 3600
+        let min = hour == 0 ? Int(time) / 60 : (Int(time) % 3600) / 60
+        let sec = Int(time) % 60
+        if hour == 0 {
+            return String(format: "%d:%.2d", min, sec)
+        } else {
+            return String(format: "%d.%.2d:%.2d", hour, min, sec)
         }
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-            if messageHandler != nil {
-                messageHandler!()
-            }
-        }))
-        present(alert, animated: true, completion: nil)
     }
+
+    func playSetPosition(_ elapsed:Double, duration:Double) {
+        let position = elapsed/duration
+        timeLine.slider.value = Float(position)
+        timeLine.indicator.text = "\(timeToString(elapsed)) / \(timeToString(duration))"
+    }
+    
+    func playerFinished() {
+        timeLine.slider.value = 0
+        videoPlayer!.sliderEndedTracking(timeLine.slider)
+        timeLine.setupButton(self, image: UIImage(named: "play"), selector: #selector(self.play))
+    }
+
 }

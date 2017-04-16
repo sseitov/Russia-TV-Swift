@@ -11,12 +11,14 @@
 		2C6C9EC31E91034E000A3557 /* HtmlScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9EC21E91034E000A3557 /* HtmlScrapper.swift */; };
 		2C6C9EC51E910FDA000A3557 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6C9EC41E910FDA000A3557 /* AVFoundation.framework */; };
 		2C6C9EC81E912964000A3557 /* YouTubeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9EC71E912964000A3557 /* YouTubeParser.m */; };
+		2C8E75A81EA34FF300DC69AA /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E75A71EA34FF300DC69AA /* VideoController.swift */; };
+		2C8E75AA1EA352E700DC69AA /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E75A91EA352E700DC69AA /* VideoView.swift */; };
 		2CB6B8541E84F3B7009A3A61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6B8531E84F3B7009A3A61 /* AppDelegate.swift */; };
 		2CB6B8591E84F3B7009A3A61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CB6B8571E84F3B7009A3A61 /* Main.storyboard */; };
 		2CB6B85B1E84F3B7009A3A61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB6B85A1E84F3B7009A3A61 /* Assets.xcassets */; };
 		2CB6B85E1E84F3B7009A3A61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CB6B85C1E84F3B7009A3A61 /* LaunchScreen.storyboard */; };
 		2CB6B86C1E84FB3A009A3A61 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CB6B86B1E84FB3A009A3A61 /* logo.png */; };
-		2CB6B86E1E84FE65009A3A61 /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6B86D1E84FE65009A3A61 /* VideoController.swift */; };
+		2CB6B86E1E84FE65009A3A61 /* ChannelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6B86D1E84FE65009A3A61 /* ChannelsController.swift */; };
 		2CB6B8701E850284009A3A61 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB6B86F1E850284009A3A61 /* AVKit.framework */; };
 		E51362A30352F85F1ECB80A8 /* libPods-Russia TV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */; };
 /* End PBXBuildFile section */
@@ -28,6 +30,8 @@
 		2C6C9EC41E910FDA000A3557 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2C6C9EC61E912964000A3557 /* YouTubeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeParser.h; sourceTree = "<group>"; };
 		2C6C9EC71E912964000A3557 /* YouTubeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeParser.m; sourceTree = "<group>"; };
+		2C8E75A71EA34FF300DC69AA /* VideoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
+		2C8E75A91EA352E700DC69AA /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		2CB6B8501E84F3B7009A3A61 /* Russia TV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Russia TV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB6B8531E84F3B7009A3A61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CB6B8581E84F3B7009A3A61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -35,7 +39,7 @@
 		2CB6B85D1E84F3B7009A3A61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2CB6B85F1E84F3B7009A3A61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CB6B86B1E84FB3A009A3A61 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = SOURCE_ROOT; };
-		2CB6B86D1E84FE65009A3A61 /* VideoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
+		2CB6B86D1E84FE65009A3A61 /* ChannelsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelsController.swift; sourceTree = "<group>"; };
 		2CB6B86F1E850284009A3A61 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		2CB6B8711E8503E9009A3A61 /* Russia TV-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Russia TV-Bridging-Header.h"; path = "Russia TV/Russia TV-Bridging-Header.h"; sourceTree = "<group>"; };
 		3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Russia TV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,7 +83,9 @@
 			isa = PBXGroup;
 			children = (
 				2CB6B8531E84F3B7009A3A61 /* AppDelegate.swift */,
-				2CB6B86D1E84FE65009A3A61 /* VideoController.swift */,
+				2CB6B86D1E84FE65009A3A61 /* ChannelsController.swift */,
+				2C8E75A71EA34FF300DC69AA /* VideoController.swift */,
+				2C8E75A91EA352E700DC69AA /* VideoView.swift */,
 				2C0437D51E923CAE00B8B23E /* ChannelCell.swift */,
 				2C6C9EC21E91034E000A3557 /* HtmlScrapper.swift */,
 				2C6C9EC61E912964000A3557 /* YouTubeParser.h */,
@@ -247,9 +253,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C6C9EC81E912964000A3557 /* YouTubeParser.m in Sources */,
+				2C8E75AA1EA352E700DC69AA /* VideoView.swift in Sources */,
+				2C8E75A81EA34FF300DC69AA /* VideoController.swift in Sources */,
 				2C6C9EC31E91034E000A3557 /* HtmlScrapper.swift in Sources */,
 				2CB6B8541E84F3B7009A3A61 /* AppDelegate.swift in Sources */,
-				2CB6B86E1E84FE65009A3A61 /* VideoController.swift in Sources */,
+				2CB6B86E1E84FE65009A3A61 /* ChannelsController.swift in Sources */,
 				2C0437D61E923CAE00B8B23E /* ChannelCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

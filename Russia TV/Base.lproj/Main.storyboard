@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Video Controller-->
+        <!--Channels Controller-->
         <scene sceneID="dlq-O5-TjT">
             <objects>
-                <tableViewController id="0ee-W2-cP5" customClass="VideoController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="0ee-W2-cP5" customClass="ChannelsController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="100" sectionHeaderHeight="18" sectionFooterHeight="18" id="O0b-sC-Cdp">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -79,10 +79,103 @@
                             <action selector="refresh:" destination="0ee-W2-cP5" eventType="valueChanged" id="s7h-qh-LNj"/>
                         </connections>
                     </refreshControl>
+                    <connections>
+                        <segue destination="IPf-zy-hNb" kind="show" identifier="video" id="BE3-aP-YDY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xCq-Ry-6FD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1014.375" y="1142.9577464788733"/>
+            <point key="canvasLocation" x="911" y="1143"/>
+        </scene>
+        <!--Video Controller-->
+        <scene sceneID="hes-Mb-nRc">
+            <objects>
+                <viewController id="IPf-zy-hNb" customClass="VideoController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mN4-qh-hu4"/>
+                        <viewControllerLayoutGuide type="bottom" id="9H6-xV-zgC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tja-aA-Pv1">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CEq-vU-hzQ" customClass="TimeLine" customModule="Russia_TV" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="444" width="320" height="60"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wym-tB-83m">
+                                        <rect key="frame" x="50" y="2" width="120" height="14"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="AGM-qy-nlJ"/>
+                                            <constraint firstAttribute="height" constant="14" id="zQM-ob-2g2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="069-2i-BAT">
+                                        <rect key="frame" x="6" y="8" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="UGt-ZB-ALT"/>
+                                            <constraint firstAttribute="height" constant="44" id="fcS-vu-WOL"/>
+                                        </constraints>
+                                        <state key="normal" image="play"/>
+                                    </button>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wjp-tZ-RpW">
+                                        <rect key="frame" x="50" y="15" width="260" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="6OB-DK-vBN"/>
+                                        </constraints>
+                                        <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </slider>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="1Em-cF-7me"/>
+                                    <constraint firstAttribute="trailing" secondItem="Wjp-tZ-RpW" secondAttribute="trailing" constant="12" id="8lA-z5-HdG"/>
+                                    <constraint firstItem="Wym-tB-83m" firstAttribute="top" secondItem="CEq-vU-hzQ" secondAttribute="top" constant="2" id="Cut-Zx-70M"/>
+                                    <constraint firstItem="069-2i-BAT" firstAttribute="centerY" secondItem="CEq-vU-hzQ" secondAttribute="centerY" id="Wgq-Rk-fZB"/>
+                                    <constraint firstItem="069-2i-BAT" firstAttribute="leading" secondItem="CEq-vU-hzQ" secondAttribute="leading" constant="6" id="Z7p-cy-KHz"/>
+                                    <constraint firstItem="Wym-tB-83m" firstAttribute="leading" secondItem="069-2i-BAT" secondAttribute="trailing" id="e98-Hp-apx"/>
+                                    <constraint firstItem="Wjp-tZ-RpW" firstAttribute="centerY" secondItem="CEq-vU-hzQ" secondAttribute="centerY" id="lrj-di-mxV"/>
+                                    <constraint firstItem="Wjp-tZ-RpW" firstAttribute="leading" secondItem="069-2i-BAT" secondAttribute="trailing" constant="2" id="oEi-JA-QBf"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="button" destination="069-2i-BAT" id="vSN-be-437"/>
+                                    <outlet property="indicator" destination="Wym-tB-83m" id="8Wc-Nw-OFZ"/>
+                                    <outlet property="slider" destination="Wjp-tZ-RpW" id="VAO-oc-y7r"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKy-M1-bkT">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="444"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CEq-vU-hzQ" firstAttribute="top" secondItem="iKy-M1-bkT" secondAttribute="bottom" id="5yt-NK-OYz"/>
+                            <constraint firstItem="iKy-M1-bkT" firstAttribute="top" secondItem="mN4-qh-hu4" secondAttribute="bottom" id="cAj-1H-IZ2"/>
+                            <constraint firstItem="9H6-xV-zgC" firstAttribute="top" secondItem="CEq-vU-hzQ" secondAttribute="bottom" id="clM-cP-FII"/>
+                            <constraint firstItem="CEq-vU-hzQ" firstAttribute="leading" secondItem="tja-aA-Pv1" secondAttribute="leading" id="hwr-ks-iN8"/>
+                            <constraint firstItem="iKy-M1-bkT" firstAttribute="leading" secondItem="tja-aA-Pv1" secondAttribute="leading" id="ldO-Qc-qca"/>
+                            <constraint firstAttribute="trailing" secondItem="iKy-M1-bkT" secondAttribute="trailing" id="vut-vh-yfD"/>
+                            <constraint firstAttribute="trailing" secondItem="CEq-vU-hzQ" secondAttribute="trailing" id="wBz-nu-VHE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="AMe-Sz-PZ2">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="hB0-Uw-8hk">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <connections>
+                        <outlet property="controlPosition" destination="clM-cP-FII" id="zv0-c4-s1k"/>
+                        <outlet property="timeLine" destination="CEq-vU-hzQ" id="m9F-lW-kKD"/>
+                        <outlet property="videoView" destination="iKy-M1-bkT" id="aWJ-Qk-apw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Br-pc-AFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1788.75" y="1142.9577464788733"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WV6-o2-BZc">
@@ -102,4 +195,8 @@
             <point key="canvasLocation" x="2" y="1144"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="back" width="22" height="22"/>
+        <image name="play" width="44" height="44"/>
+    </resources>
 </document>
