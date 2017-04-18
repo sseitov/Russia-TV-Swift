@@ -11,45 +11,77 @@ import Firebase
 
 class ForumController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    var fbButton:UIButton?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTitle("ФОРУМ")
         self.edgesForExtendedLayout = UIRectEdge()
         
+        self.senderId = ""
+        self.senderDisplayName = ""
+        
         collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSize(width: 36, height: 36)
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSize(width: 36, height: 36)
         
         if currentUser() != nil {
-            self.senderId = currentUser()!.uid!
-            self.senderDisplayName = currentUser()!.name!
-            inputToolbar.isHidden = false
-            navigationItem.rightBarButtonItem?.isEnabled = true
+            didLogin()
         } else {
-            self.senderId = ""
-            self.senderDisplayName = ""
-            inputToolbar.isHidden = true
-            navigationItem.rightBarButtonItem?.isEnabled = false
-            facebookSignIn()
+            didLogout()
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if fbButton != nil {
+            fbButton?.center = collectionView.center
         }
     }
     
     // MARK: - Facebook Auth
     
+    @IBAction func signOut(_ sender: Any) {
+        SVProgressHUD.show(withStatus: "Logout...")
+        Model.shared.signOut {
+            SVProgressHUD.dismiss()
+            self.didLogout()
+        }
+    }
+
+    func didLogout() {
+        self.senderId = ""
+        self.senderDisplayName = ""
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        navigationItem.leftBarButtonItem?.isEnabled = false
+        inputToolbar.isHidden = true
+        
+        fbButton = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 130))
+        fbButton?.setImage(UIImage(named: "fb"), for: .normal)
+        fbButton?.addTarget(self, action: #selector(self.facebookSignIn), for: .touchUpInside)
+        fbButton?.center = collectionView.center
+        collectionView.addSubview(fbButton!)
+    }
+
     func didLogin() {
+        if fbButton != nil {
+            fbButton?.removeFromSuperview()
+            fbButton = nil
+        }
         self.senderId = currentUser()!.uid!
         self.senderDisplayName = currentUser()!.name!
-        inputToolbar.isHidden = false
         navigationItem.rightBarButtonItem?.isEnabled = true
+        navigationItem.leftBarButtonItem?.isEnabled = true
+        inputToolbar.isHidden = false
     }
-    
-    func facebookSignIn() { // read_custom_friendlists
+
+    func facebookSignIn() {
         FBSDKLoginManager().logIn(withReadPermissions: ["public_profile","email","user_friends"], from: self, handler: { result, error in
             if error != nil {
                 self.showMessage("Facebook authorization error.", messageType: .error)
                 return
             }
             
-            SVProgressHUD.show(withStatus: "Login...") // interested_in
+            SVProgressHUD.show(withStatus: "Login...")
             let params = ["fields" : "name,email,picture.width(480).height(480)"]
             let request = FBSDKGraphRequest(graphPath: "me", parameters: params)
             request!.start(completionHandler: { _, result, fbError in

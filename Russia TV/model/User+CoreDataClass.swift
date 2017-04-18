@@ -29,7 +29,7 @@ public class User: NSManagedObject {
         return profile
     }
     
-    func setData(_ profile:[String : Any], completion: @escaping() -> ()) {
+    func setData(_ profile:[String : Any]) {
         facebookID = profile["facebookID"] as? String
         email = profile["email"] as? String
         name = profile["name"] as? String

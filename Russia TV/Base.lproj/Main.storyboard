@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -119,17 +120,85 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="W8n-Vw-026">
-                        <barButtonItem key="leftBarButtonItem" image="members" id="XTQ-ym-qdE">
+                        <barButtonItem key="leftBarButtonItem" image="exit" id="Wft-RW-ZaQ">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="signOut:" destination="6Ak-4d-ppS" id="iHc-2U-yRV"/>
+                            </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="exit" id="Wft-RW-ZaQ">
+                        <barButtonItem key="rightBarButtonItem" image="members" id="XTQ-ym-qdE">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="d1f-gG-f5v" kind="show" identifier="invite" id="MVq-HG-JTv"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FPZ-YL-k9Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="909" y="2092"/>
+        </scene>
+        <!--Invite Controller-->
+        <scene sceneID="0wd-yj-gEd">
+            <objects>
+                <tableViewController id="d1f-gG-f5v" customClass="InviteController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" id="7Y4-YN-Pvd">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="member" id="rhl-UR-AoH" customClass="MemberCell" customModule="Russia_TV" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rhl-UR-AoH" id="xO8-jJ-IYD">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s7Z-le-fpP">
+                                            <rect key="frame" x="20" y="10" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="VWP-ds-clZ"/>
+                                                <constraint firstAttribute="width" constant="40" id="csZ-Sl-hGb"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Tm-lS-eQT">
+                                            <rect key="frame" x="80" y="10" width="232" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="E0J-ye-SC6"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="5Tm-lS-eQT" firstAttribute="leading" secondItem="s7Z-le-fpP" secondAttribute="trailing" constant="20" id="5VN-cH-R2g"/>
+                                        <constraint firstItem="s7Z-le-fpP" firstAttribute="centerY" secondItem="xO8-jJ-IYD" secondAttribute="centerY" id="60r-Rz-KDa"/>
+                                        <constraint firstItem="s7Z-le-fpP" firstAttribute="leading" secondItem="xO8-jJ-IYD" secondAttribute="leadingMargin" constant="12" id="aYe-aa-hEG"/>
+                                        <constraint firstItem="5Tm-lS-eQT" firstAttribute="centerY" secondItem="xO8-jJ-IYD" secondAttribute="centerY" id="bVa-vc-tK2"/>
+                                        <constraint firstItem="5Tm-lS-eQT" firstAttribute="trailing" secondItem="xO8-jJ-IYD" secondAttribute="trailingMargin" id="hDd-Om-Y1I"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="avatar" destination="s7Z-le-fpP" id="ZOe-Sb-qKi"/>
+                                    <outlet property="name" destination="5Tm-lS-eQT" id="ecI-rb-ahb"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="d1f-gG-f5v" id="ePi-vb-RUw"/>
+                            <outlet property="delegate" destination="d1f-gG-f5v" id="6JS-WQ-Rfo"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="epl-as-7Dt">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="8c4-0J-lgS">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y23-vi-zqQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1779.375" y="2091.5492957746478"/>
         </scene>
         <!--Video Controller-->
         <scene sceneID="hes-Mb-nRc">
@@ -224,7 +293,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="uj1-Cr-eJt">
             <objects>
-                <tabBarController id="jzU-N0-52T" customClass="TabBarController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="jzU-N0-52T" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="iyL-Jh-Ey0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

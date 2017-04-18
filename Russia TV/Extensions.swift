@@ -41,6 +41,18 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image!
     }
+    
+    func inCircle() -> UIImage {
+        let newImage = self.copy() as! UIImage
+        let cornerRadius = self.size.height/2
+        UIGraphicsBeginImageContextWithOptions(self.size, false, 1.0)
+        let bounds = CGRect(origin: CGPoint(), size: self.size)
+        UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).addClip()
+        newImage.draw(in: bounds)
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return finalImage!
+    }
 }
 
 extension UIViewController {
@@ -81,6 +93,15 @@ extension UIViewController {
                 messageHandler!()
             }
         }))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func question(_ message:String, acceptHandler: @escaping (() -> ())) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { _ in
+            acceptHandler()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
 }

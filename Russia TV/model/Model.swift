@@ -102,13 +102,6 @@ class Model: NSObject {
             
             self.newTokenRefHandle = nil
             self.updateTokenRefHandle = nil
-/*
-            self.newMessageRefHandle = nil
-            self.deleteMessageRefHandle = nil
-            self.newContactRefHandle = nil
-            self.updateContactRefHandle = nil
-            self.deleteContactRefHandle = nil
- */
             FBSDKLoginManager().logOut()
             UserDefaults.standard.removeObject(forKey: "fbToken")
             completion()
@@ -180,12 +173,11 @@ class Model: NSObject {
             ref.child("users").child(uid).observeSingleEvent(of: .value, with: { snapshot in
                 if let userData = snapshot.value as? [String:Any] {
                     let user = self.createUser(uid)
-                    user.setData(userData, completion: {
-                        self.getUserToken(uid, token: { token in
-                            user.token = token
-                            self.saveContext()
-                            result(user)
-                        })
+                    user.setData(userData)
+                    self.getUserToken(uid, token: { token in
+                        user.token = token
+                        self.saveContext()
+                        result(user)
                     })
                 } else {
                     result(nil)
@@ -252,4 +244,14 @@ class Model: NSObject {
         updateUser(cashedUser)
     }
 
+    func facebookUser(_ id:String) -> User? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        let predicate = NSPredicate(format: "facebookID = %@", id)
+        fetchRequest.predicate = predicate
+        if let user = try? managedObjectContext.fetch(fetchRequest).first as? User {
+            return user
+        } else {
+            return nil
+        }
+    }
 }

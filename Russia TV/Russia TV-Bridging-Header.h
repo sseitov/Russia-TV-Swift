@@ -5,6 +5,7 @@
 #import <SVProgressHUD.h>
 #import <GDataXMLNode.h>
 #import <UIImageView+WebCache.h>
+#import <SDWebImageDownloader.h>
 #import "YouTubeParser.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
