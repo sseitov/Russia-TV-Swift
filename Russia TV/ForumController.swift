@@ -15,7 +15,6 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTitle("ФОРУМ")
         self.edgesForExtendedLayout = UIRectEdge()
         
         self.senderId = ""
@@ -49,6 +48,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
     }
 
     func didLogout() {
+        setupTitle("РЕГИСТРАЦИЯ")
         self.senderId = ""
         self.senderDisplayName = ""
         navigationItem.rightBarButtonItem?.isEnabled = false
@@ -63,6 +63,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
     }
 
     func didLogin() {
+        setupTitle("ФОРУМ")
         if fbButton != nil {
             fbButton?.removeFromSuperview()
             fbButton = nil

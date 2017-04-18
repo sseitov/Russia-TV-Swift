@@ -30,7 +30,15 @@ class InviteController: UITableViewController {
                             if let user = Model.shared.facebookUser(id) {
                                 self.friends.append(user)
                             } else {
-                                self.addUser(fieldName: "facebookID", fieldValue: id)
+                                InviteController.addUser(fieldName: "facebookID", fieldValue: id, result: { user in
+                                    if user != nil {
+                                        self.tableView.beginUpdates()
+                                        let indexPath = IndexPath(row: self.friends.count, section: 0)
+                                        self.friends.append(user!)
+                                        self.tableView.insertRows(at: [indexPath], with: .bottom)
+                                        self.tableView.endUpdates()
+                                    }
+                                })
                             }
                         }
                     }
@@ -114,16 +122,13 @@ class InviteController: UITableViewController {
     }
     */
     
-    func addUser(fieldName:String, fieldValue:String) {
+    class func addUser(fieldName:String, fieldValue:String, result: @escaping(User?) -> ()) {
         let ref = FIRDatabase.database().reference()
         ref.child("users").queryOrdered(byChild: fieldName).queryEqual(toValue: fieldValue).observeSingleEvent(of: .value, with: { snapshot in
             if let values = snapshot.value as? [String:Any] {
                 for uid in values.keys {
-                    if uid == currentUser()!.uid! {
-                        continue
-                    }
                     Model.shared.uploadUser(uid, result: { user in
-                        self.tableView.reloadData()
+                        result(user)
                     })
                 }
             }

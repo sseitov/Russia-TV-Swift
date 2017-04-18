@@ -14,7 +14,8 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var tabBarController: UITabBarController?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Use Firebase library to configure APIs
@@ -56,7 +57,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName : UIFont.condensedFont()], for: .normal)
         SVProgressHUD.setFont(UIFont.condensedFont())
         
+        tabBarController = window?.rootViewController as? UITabBarController
+        
+        UITabBar.appearance().tintColor = UIColor.white
+        UITabBar.appearance().unselectedItemTintColor = UIColor.color(192, 192, 192, 1)
+        
         return true
+    }
+    
+    // MARK: - TabBar visible
+
+    func setTabBarVisible(visible: Bool, animated: Bool, completion: @escaping (Bool)->Void) {
+        // bail if the current state matches the desired state
+        if (tabBarIsVisible() == visible) {
+            return completion(true)
+        }
+        
+        // get a frame calculation ready
+        let height = tabBarController!.tabBar.frame.size.height
+        let offsetY = (visible ? -height : height)
+        
+        // zero duration means no animation
+        let duration = (animated ? 0.3 : 0.0)
+        
+        UIView.animate(withDuration: duration, animations: {
+            let frame = self.tabBarController!.tabBar.frame
+            self.tabBarController!.tabBar.frame = frame.offsetBy(dx: 0, dy: offsetY);
+        }, completion: { finished in
+            completion(finished)
+        })
+    }
+    
+    func tabBarIsVisible() -> Bool {
+        return tabBarController!.tabBar.frame.origin.y < window!.rootViewController!.view.frame.maxY
     }
     
     // MARK: - Refresh FCM token

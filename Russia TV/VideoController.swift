@@ -60,12 +60,18 @@ class VideoController: UIViewController, PlayerDelegate {
         let events = UIControlEvents.touchUpInside.union(UIControlEvents.touchUpOutside)
         timeLine.slider.addTarget(videoPlayer, action: #selector(VideoView.sliderEndedTracking(_:)), for: events)
         videoView.addSubview(videoPlayer!)
+        videoPlayer?.start()
     }
 
     func fullScreen() {
         isFullScreen = !isFullScreen
         self.navigationController?.setNavigationBarHidden(self.isFullScreen, animated: true)
-        controlPosition.constant = isFullScreen ? -60 : 0
+        
+        let app = UIApplication.shared.delegate as! AppDelegate
+        app.setTabBarVisible(visible: !self.isFullScreen, animated: true, completion: { _ in
+        })
+
+        self.controlPosition.constant = self.isFullScreen ? -109 : 0
         UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()
         }, completion: { _ in
@@ -77,11 +83,6 @@ class VideoController: UIViewController, PlayerDelegate {
         videoPlayer?.pause()
         videoPlayer!.delegate = nil
         super.goBack()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        videoPlayer?.start()
     }
     
     // MARK: - Video player
