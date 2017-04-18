@@ -6,3 +6,7 @@
 #import <GDataXMLNode.h>
 #import <UIImageView+WebCache.h>
 #import "YouTubeParser.h"
+
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <JSQMessages.h>
