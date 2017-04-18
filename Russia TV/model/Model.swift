@@ -102,15 +102,15 @@ class Model: NSObject {
             
             self.newTokenRefHandle = nil
             self.updateTokenRefHandle = nil
-
 /*
             self.newMessageRefHandle = nil
             self.deleteMessageRefHandle = nil
             self.newContactRefHandle = nil
             self.updateContactRefHandle = nil
             self.deleteContactRefHandle = nil
-            UserDefaults.standard.removeObject(forKey: "fbToken")
  */
+            FBSDKLoginManager().logOut()
+            UserDefaults.standard.removeObject(forKey: "fbToken")
             completion()
         })
     }
@@ -239,8 +239,7 @@ class Model: NSObject {
         })
     }
     
-    func createFacebookUser(_ user:FIRUser, profile:[String:Any], completion: @escaping() -> ()) {
-        
+    func createFacebookUser(_ user:FIRUser, profile:[String:Any]) {
         let cashedUser = createUser(user.uid)
         cashedUser.facebookID = profile["id"] as? String
         cashedUser.email = profile["email"] as? String
@@ -250,6 +249,7 @@ class Model: NSObject {
                 cashedUser.avatar = data["url"] as? String
             }
         }
+        updateUser(cashedUser)
     }
 
 }

@@ -32,6 +32,7 @@
 		2CB6B86C1E84FB3A009A3A61 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CB6B86B1E84FB3A009A3A61 /* logo.png */; };
 		2CB6B86E1E84FE65009A3A61 /* ChannelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6B86D1E84FE65009A3A61 /* ChannelsController.swift */; };
 		2CB6B8701E850284009A3A61 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB6B86F1E850284009A3A61 /* AVKit.framework */; };
+		2CBC922A1EA66ACC003D5D96 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC92291EA66ACC003D5D96 /* TabBarController.swift */; };
 		E51362A30352F85F1ECB80A8 /* libPods-Russia TV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		2CB6B86D1E84FE65009A3A61 /* ChannelsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelsController.swift; sourceTree = "<group>"; };
 		2CB6B86F1E850284009A3A61 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		2CB6B8711E8503E9009A3A61 /* Russia TV-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Russia TV-Bridging-Header.h"; path = "Russia TV/Russia TV-Bridging-Header.h"; sourceTree = "<group>"; };
+		2CBC92291EA66ACC003D5D96 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Russia TV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		712D1CBF0B06E43304FDEE10 /* Pods-Russia TV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Russia TV.release.xcconfig"; path = "Pods/Target Support Files/Pods-Russia TV/Pods-Russia TV.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,6 +150,7 @@
 				2C3E56F41EA60D9B00A66AEC /* Forum */,
 				2C3E56F31EA60D7700A66AEC /* TV */,
 				2CB6B8531E84F3B7009A3A61 /* AppDelegate.swift */,
+				2CBC92291EA66ACC003D5D96 /* TabBarController.swift */,
 				2C3E56FF1EA6120600A66AEC /* Extensions.swift */,
 				2C3E570B1EA6196300A66AEC /* Credentials.swift */,
 				2CB6B8651E84F715009A3A61 /* Resources */,
@@ -330,6 +333,7 @@
 				2C6C9EC81E912964000A3557 /* YouTubeParser.m in Sources */,
 				2C3E57001EA6120600A66AEC /* Extensions.swift in Sources */,
 				2C3E57091EA6177000A66AEC /* User+CoreDataClass.swift in Sources */,
+				2CBC922A1EA66ACC003D5D96 /* TabBarController.swift in Sources */,
 				2C3E57041EA6157100A66AEC /* CACTUS.xcdatamodeld in Sources */,
 				2C8E75AA1EA352E700DC69AA /* VideoView.swift in Sources */,
 				2C8E75A81EA34FF300DC69AA /* VideoController.swift in Sources */,

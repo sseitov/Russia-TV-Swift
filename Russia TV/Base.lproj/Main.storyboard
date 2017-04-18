@@ -13,15 +13,15 @@
             <objects>
                 <tableViewController id="0ee-W2-cP5" customClass="ChannelsController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="100" sectionHeaderHeight="18" sectionFooterHeight="18" id="O0b-sC-Cdp">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="channel" id="fJh-iZ-MKD" customClass="ChannelCell" customModule="Russia_TV" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="56" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fJh-iZ-MKD" id="ywT-k1-o6c">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tbV-4q-ZMz">
@@ -85,7 +85,51 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xCq-Ry-6FD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="911" y="1143"/>
+            <point key="canvasLocation" x="908" y="1351"/>
+        </scene>
+        <!--ФОРУМ-->
+        <scene sceneID="kg0-ie-Exf">
+            <objects>
+                <navigationController id="fu7-AL-0nM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="ФОРУМ" image="forum" id="LbX-AF-OLi"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="0mD-bd-e6E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.4431372549" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="6Ak-4d-ppS" kind="relationship" relationship="rootViewController" id="DRm-Lu-SF5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WJI-Gd-N1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2" y="2092"/>
+        </scene>
+        <!--Forum Controller-->
+        <scene sceneID="fpQ-8T-taL">
+            <objects>
+                <viewController id="6Ak-4d-ppS" customClass="ForumController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kFA-BU-Evv"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jeo-n4-Em3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="er7-l0-nT9">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="W8n-Vw-026">
+                        <barButtonItem key="leftBarButtonItem" image="members" id="XTQ-ym-qdE">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="exit" id="Wft-RW-ZaQ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FPZ-YL-k9Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="909" y="2092"/>
         </scene>
         <!--Video Controller-->
         <scene sceneID="hes-Mb-nRc">
@@ -96,11 +140,11 @@
                         <viewControllerLayoutGuide type="bottom" id="9H6-xV-zgC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tja-aA-Pv1">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CEq-vU-hzQ" customClass="TimeLine" customModule="Russia_TV" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="444" width="320" height="60"/>
+                                <rect key="frame" x="0.0" y="395" width="320" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wym-tB-83m">
                                         <rect key="frame" x="50" y="2" width="120" height="14"/>
@@ -146,7 +190,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKy-M1-bkT">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="444"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -175,19 +219,20 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Br-pc-AFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1788.75" y="1142.9577464788733"/>
+            <point key="canvasLocation" x="1783" y="1350"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="uj1-Cr-eJt">
             <objects>
-                <tabBarController id="jzU-N0-52T" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="iyL-Jh-Ey0">
+                <tabBarController id="jzU-N0-52T" customClass="TabBarController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="iyL-Jh-Ey0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
                         <segue destination="rGG-c4-b7O" kind="relationship" relationship="viewControllers" id="pYY-j8-abn"/>
+                        <segue destination="fu7-AL-0nM" kind="relationship" relationship="viewControllers" id="aGf-Yy-UCU"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UJr-nq-gao" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -210,11 +255,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1WG-6s-f7e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2" y="1144"/>
+            <point key="canvasLocation" x="2" y="1352"/>
         </scene>
     </scenes>
     <resources>
         <image name="back" width="22" height="22"/>
+        <image name="exit" width="24" height="24"/>
+        <image name="forum" width="24" height="24"/>
+        <image name="members" width="24" height="24"/>
         <image name="play" width="44" height="44"/>
         <image name="tv" width="24" height="24"/>
     </resources>

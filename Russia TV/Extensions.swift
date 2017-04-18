@@ -32,3 +32,56 @@ extension UIColor {
     
 }
 
+extension UIImage {
+    class func imageWithColor(_ color: UIColor, size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContext(size)
+        color.setFill()
+        UIRectFill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
+}
+
+extension UIViewController {
+    
+    func setupTitle(_ text:String) {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
+        label.textAlignment = .center
+        label.font = UIFont(name: "HelveticaNeue-CondensedBold", size: 15)
+        label.text = text
+        label.textColor = UIColor.white
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        navigationItem.titleView = label
+    }
+    
+    func setupBackButton() {
+        navigationItem.leftBarButtonItem?.target = self
+        navigationItem.leftBarButtonItem?.action = #selector(self.goBack)
+    }
+    
+    func goBack() {
+        _ = self.navigationController!.popViewController(animated: true)
+    }
+    
+    func showMessage(_ message:String, messageType:MessageType, messageHandler: (() -> ())? = nil) {
+        var title:String = ""
+        switch messageType {
+        case .success:
+            title = "Success"
+        case .information:
+            title = "Information"
+        default:
+            title = "Error"
+        }
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+            if messageHandler != nil {
+                messageHandler!()
+            }
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+}
+
