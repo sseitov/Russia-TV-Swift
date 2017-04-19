@@ -44,6 +44,12 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>CACTUS can send your location as message.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>CACTUS needs your camera for share photos.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>CACTUS needs your photo library for share photos.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

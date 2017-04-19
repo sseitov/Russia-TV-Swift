@@ -13,42 +13,29 @@ class InviteController: UITableViewController {
 
     private var friends:[User] = []
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTitle("УЧАСТНИКИ")
         setupBackButton()
         
-        if let token = UserDefaults.standard.value(forKey: "fbToken") as? String {
-            SVProgressHUD.show(withStatus: "Load...")
-            let params = ["fields" : "name"]
-            let request = FBSDKGraphRequest(graphPath: "me/friends/", parameters: params, tokenString: token, version: nil, httpMethod: nil)
-            request!.start(completionHandler: { _, result, fbError in
-                if let friendList = result as? [String:Any], let list = friendList["data"] as? [Any] {
-                    for item in list {
-                        if let profile = item as? [String:Any],
-                            let id = profile["id"] as? String {
-                            if let user = Model.shared.facebookUser(id) {
-                                self.friends.append(user)
-                            } else {
-                                InviteController.addUser(fieldName: "facebookID", fieldValue: id, result: { user in
-                                    if user != nil {
-                                        self.tableView.beginUpdates()
-                                        let indexPath = IndexPath(row: self.friends.count, section: 0)
-                                        self.friends.append(user!)
-                                        self.tableView.insertRows(at: [indexPath], with: .bottom)
-                                        self.tableView.endUpdates()
-                                    }
-                                })
-                            }
-                        }
-                    }
-                }
-                SVProgressHUD.dismiss()
-                self.tableView.reloadData()
-            })
-        }
+        friends = Model.shared.getFriends()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.newUserNotify(_:)), name: newUserNotification, object: nil)
     }
 
+    func newUserNotify(_ notify:Notification) {
+        if let user = notify.object as? User {
+            self.tableView.beginUpdates()
+            let indexPath = IndexPath(row: self.friends.count, section: 0)
+            self.friends.append(user)
+            self.tableView.insertRows(at: [indexPath], with: .bottom)
+            self.tableView.endUpdates()
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -68,7 +55,7 @@ class InviteController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "my friends with cactus"
+        return "my facebook friends with cactus"
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,40 +64,20 @@ class InviteController: UITableViewController {
         return cell
     }
 
-    /*
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            tableView.beginUpdates()
+            let user = friends[indexPath.row]
+            Model.shared.deleteUser(user.uid!)
+            friends.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .top)
+            tableView.endUpdates()
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation
@@ -122,17 +89,5 @@ class InviteController: UITableViewController {
     }
     */
     
-    class func addUser(fieldName:String, fieldValue:String, result: @escaping(User?) -> ()) {
-        let ref = FIRDatabase.database().reference()
-        ref.child("users").queryOrdered(byChild: fieldName).queryEqual(toValue: fieldValue).observeSingleEvent(of: .value, with: { snapshot in
-            if let values = snapshot.value as? [String:Any] {
-                for uid in values.keys {
-                    Model.shared.uploadUser(uid, result: { user in
-                        result(user)
-                    })
-                }
-            }
-        })
-    }
 
 }

@@ -27,6 +27,23 @@
 		2C6C9EC81E912964000A3557 /* YouTubeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9EC71E912964000A3557 /* YouTubeParser.m */; };
 		2C8E75A81EA34FF300DC69AA /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E75A71EA34FF300DC69AA /* VideoController.swift */; };
 		2C8E75AA1EA352E700DC69AA /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E75A91EA352E700DC69AA /* VideoView.swift */; };
+		2C9A67B21EA743C700891832 /* Message+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A67B01EA743C700891832 /* Message+CoreDataClass.swift */; };
+		2C9A67B31EA743C700891832 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A67B11EA743C700891832 /* Message+CoreDataProperties.swift */; };
+		2C9A67B51EA74AFF00891832 /* LocationMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A67B41EA74AFF00891832 /* LocationMediaItem.swift */; };
+		2C9A67C31EA775BA00891832 /* LGAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A67B91EA775BA00891832 /* LGAlertView.m */; };
+		2C9A67C41EA775BA00891832 /* LGAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9A67BA1EA775BA00891832 /* LGAlertView.xib */; };
+		2C9A67C51EA775BA00891832 /* LGDecoratedAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9A67BB1EA775BA00891832 /* LGDecoratedAlertView.xib */; };
+		2C9A67C61EA775BA00891832 /* LGProgressAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9A67BC1EA775BA00891832 /* LGProgressAlertView.xib */; };
+		2C9A67C71EA775BA00891832 /* LGProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A67BE1EA775BA00891832 /* LGProgressView.m */; };
+		2C9A67C81EA775BA00891832 /* LGTextFieldAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9A67BF1EA775BA00891832 /* LGTextFieldAlertView.xib */; };
+		2C9A67C91EA775BA00891832 /* LGVAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9A67C01EA775BA00891832 /* LGVAlertView.xib */; };
+		2C9A67CA1EA775BA00891832 /* NSPointerArray+AbstractionHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A67C21EA775BA00891832 /* NSPointerArray+AbstractionHelpers.m */; };
+		2C9A67CE1EA7761100891832 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A67CC1EA7761100891832 /* ActionSheet.swift */; };
+		2C9A67CF1EA7761100891832 /* ActionSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9A67CD1EA7761100891832 /* ActionSheet.xib */; };
+		2C9A67D11EA778E700891832 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A67D01EA778E700891832 /* LocationManager.swift */; };
+		2C9A67D31EA7828C00891832 /* JSQAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A67D21EA7828C00891832 /* JSQAvatar.swift */; };
+		2C9A67D51EA78B4200891832 /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A67D41EA78B4200891832 /* PhotoController.swift */; };
+		2C9A67D71EA78D0800891832 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A67D61EA78D0800891832 /* LocationController.swift */; };
 		2CB6B8541E84F3B7009A3A61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6B8531E84F3B7009A3A61 /* AppDelegate.swift */; };
 		2CB6B8591E84F3B7009A3A61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CB6B8571E84F3B7009A3A61 /* Main.storyboard */; };
 		2CB6B85B1E84F3B7009A3A61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB6B85A1E84F3B7009A3A61 /* Assets.xcassets */; };
@@ -61,6 +78,26 @@
 		2C6C9EC71E912964000A3557 /* YouTubeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeParser.m; sourceTree = "<group>"; };
 		2C8E75A71EA34FF300DC69AA /* VideoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
 		2C8E75A91EA352E700DC69AA /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		2C9A67B01EA743C700891832 /* Message+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Message+CoreDataClass.swift"; path = "model/Message+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2C9A67B11EA743C700891832 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Message+CoreDataProperties.swift"; path = "model/Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2C9A67B41EA74AFF00891832 /* LocationMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMediaItem.swift; sourceTree = "<group>"; };
+		2C9A67B81EA775BA00891832 /* LGAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LGAlertView.h; path = "Russia TV/Vendor/LGAlertSheet/LGAlertView.h"; sourceTree = "<group>"; };
+		2C9A67B91EA775BA00891832 /* LGAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LGAlertView.m; path = "Russia TV/Vendor/LGAlertSheet/LGAlertView.m"; sourceTree = "<group>"; };
+		2C9A67BA1EA775BA00891832 /* LGAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LGAlertView.xib; path = "Russia TV/Vendor/LGAlertSheet/LGAlertView.xib"; sourceTree = "<group>"; };
+		2C9A67BB1EA775BA00891832 /* LGDecoratedAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LGDecoratedAlertView.xib; path = "Russia TV/Vendor/LGAlertSheet/LGDecoratedAlertView.xib"; sourceTree = "<group>"; };
+		2C9A67BC1EA775BA00891832 /* LGProgressAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LGProgressAlertView.xib; path = "Russia TV/Vendor/LGAlertSheet/LGProgressAlertView.xib"; sourceTree = "<group>"; };
+		2C9A67BD1EA775BA00891832 /* LGProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LGProgressView.h; path = "Russia TV/Vendor/LGAlertSheet/LGProgressView.h"; sourceTree = "<group>"; };
+		2C9A67BE1EA775BA00891832 /* LGProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LGProgressView.m; path = "Russia TV/Vendor/LGAlertSheet/LGProgressView.m"; sourceTree = "<group>"; };
+		2C9A67BF1EA775BA00891832 /* LGTextFieldAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LGTextFieldAlertView.xib; path = "Russia TV/Vendor/LGAlertSheet/LGTextFieldAlertView.xib"; sourceTree = "<group>"; };
+		2C9A67C01EA775BA00891832 /* LGVAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LGVAlertView.xib; path = "Russia TV/Vendor/LGAlertSheet/LGVAlertView.xib"; sourceTree = "<group>"; };
+		2C9A67C11EA775BA00891832 /* NSPointerArray+AbstractionHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPointerArray+AbstractionHelpers.h"; path = "Russia TV/Vendor/LGAlertSheet/NSPointerArray+AbstractionHelpers.h"; sourceTree = "<group>"; };
+		2C9A67C21EA775BA00891832 /* NSPointerArray+AbstractionHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPointerArray+AbstractionHelpers.m"; path = "Russia TV/Vendor/LGAlertSheet/NSPointerArray+AbstractionHelpers.m"; sourceTree = "<group>"; };
+		2C9A67CC1EA7761100891832 /* ActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionSheet.swift; path = CustomViews/ActionSheet.swift; sourceTree = "<group>"; };
+		2C9A67CD1EA7761100891832 /* ActionSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ActionSheet.xib; path = CustomViews/ActionSheet.xib; sourceTree = "<group>"; };
+		2C9A67D01EA778E700891832 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		2C9A67D21EA7828C00891832 /* JSQAvatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSQAvatar.swift; sourceTree = "<group>"; };
+		2C9A67D41EA78B4200891832 /* PhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
+		2C9A67D61EA78D0800891832 /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		2CB6B8501E84F3B7009A3A61 /* Russia TV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Russia TV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB6B8531E84F3B7009A3A61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CB6B8581E84F3B7009A3A61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -111,6 +148,10 @@
 			isa = PBXGroup;
 			children = (
 				2C3E56F51EA60DCA00A66AEC /* ForumController.swift */,
+				2C9A67D21EA7828C00891832 /* JSQAvatar.swift */,
+				2C9A67B41EA74AFF00891832 /* LocationMediaItem.swift */,
+				2C9A67D41EA78B4200891832 /* PhotoController.swift */,
+				2C9A67D61EA78D0800891832 /* LocationController.swift */,
 				2C4364601EA68C1200E61F64 /* InviteController.swift */,
 				2C4364621EA6AA6C00E61F64 /* MemberCell.swift */,
 			);
@@ -121,6 +162,8 @@
 			isa = PBXGroup;
 			children = (
 				2C3E57021EA6157100A66AEC /* CACTUS.xcdatamodeld */,
+				2C9A67B01EA743C700891832 /* Message+CoreDataClass.swift */,
+				2C9A67B11EA743C700891832 /* Message+CoreDataProperties.swift */,
 				2C3E57071EA6177000A66AEC /* User+CoreDataClass.swift */,
 				2C3E57081EA6177000A66AEC /* User+CoreDataProperties.swift */,
 				2C3E57051EA6159700A66AEC /* Model.swift */,
@@ -128,10 +171,46 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		2C9A67B61EA7759200891832 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				2C9A67B71EA7759D00891832 /* LGAlertSheet */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
+		2C9A67B71EA7759D00891832 /* LGAlertSheet */ = {
+			isa = PBXGroup;
+			children = (
+				2C9A67B81EA775BA00891832 /* LGAlertView.h */,
+				2C9A67B91EA775BA00891832 /* LGAlertView.m */,
+				2C9A67BA1EA775BA00891832 /* LGAlertView.xib */,
+				2C9A67BB1EA775BA00891832 /* LGDecoratedAlertView.xib */,
+				2C9A67BC1EA775BA00891832 /* LGProgressAlertView.xib */,
+				2C9A67BD1EA775BA00891832 /* LGProgressView.h */,
+				2C9A67BE1EA775BA00891832 /* LGProgressView.m */,
+				2C9A67BF1EA775BA00891832 /* LGTextFieldAlertView.xib */,
+				2C9A67C01EA775BA00891832 /* LGVAlertView.xib */,
+				2C9A67C11EA775BA00891832 /* NSPointerArray+AbstractionHelpers.h */,
+				2C9A67C21EA775BA00891832 /* NSPointerArray+AbstractionHelpers.m */,
+			);
+			name = LGAlertSheet;
+			sourceTree = "<group>";
+		};
+		2C9A67CB1EA775F700891832 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				2C9A67CC1EA7761100891832 /* ActionSheet.swift */,
+				2C9A67CD1EA7761100891832 /* ActionSheet.xib */,
+			);
+			name = "Custom Views";
+			sourceTree = "<group>";
+		};
 		2CB6B8471E84F3B4009A3A61 = {
 			isa = PBXGroup;
 			children = (
 				2CB6B8711E8503E9009A3A61 /* Russia TV-Bridging-Header.h */,
+				2C9A67B61EA7759200891832 /* Vendor */,
 				2CB6B8521E84F3B7009A3A61 /* Russia TV */,
 				2CB6B8511E84F3B7009A3A61 /* Products */,
 				2CB6B8661E84F7A5009A3A61 /* Frameworks */,
@@ -151,9 +230,11 @@
 			isa = PBXGroup;
 			children = (
 				2C3E57011EA6154000A66AEC /* Model */,
+				2C9A67CB1EA775F700891832 /* Custom Views */,
 				2C3E56F41EA60D9B00A66AEC /* Forum */,
 				2C3E56F31EA60D7700A66AEC /* TV */,
 				2CB6B8531E84F3B7009A3A61 /* AppDelegate.swift */,
+				2C9A67D01EA778E700891832 /* LocationManager.swift */,
 				2C3E56FF1EA6120600A66AEC /* Extensions.swift */,
 				2C43645C1EA68B9E00E61F64 /* Credentials.swift */,
 				2CB6B8651E84F715009A3A61 /* Resources */,
@@ -270,7 +351,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9A67C51EA775BA00891832 /* LGDecoratedAlertView.xib in Resources */,
+				2C9A67C41EA775BA00891832 /* LGAlertView.xib in Resources */,
+				2C9A67CF1EA7761100891832 /* ActionSheet.xib in Resources */,
+				2C9A67C81EA775BA00891832 /* LGTextFieldAlertView.xib in Resources */,
 				2CB6B86C1E84FB3A009A3A61 /* logo.png in Resources */,
+				2C9A67C61EA775BA00891832 /* LGProgressAlertView.xib in Resources */,
+				2C9A67C91EA775BA00891832 /* LGVAlertView.xib in Resources */,
 				2CB6B85E1E84F3B7009A3A61 /* LaunchScreen.storyboard in Resources */,
 				2C43645F1EA68BB700E61F64 /* GoogleService-Info.plist in Resources */,
 				2CB6B85B1E84F3B7009A3A61 /* Assets.xcassets in Resources */,
@@ -334,9 +421,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C6C9EC81E912964000A3557 /* YouTubeParser.m in Sources */,
+				2C9A67D31EA7828C00891832 /* JSQAvatar.swift in Sources */,
 				2C3E57001EA6120600A66AEC /* Extensions.swift in Sources */,
+				2C9A67B51EA74AFF00891832 /* LocationMediaItem.swift in Sources */,
+				2C9A67CA1EA775BA00891832 /* NSPointerArray+AbstractionHelpers.m in Sources */,
+				2C9A67CE1EA7761100891832 /* ActionSheet.swift in Sources */,
+				2C9A67C71EA775BA00891832 /* LGProgressView.m in Sources */,
 				2C3E57091EA6177000A66AEC /* User+CoreDataClass.swift in Sources */,
 				2C4364631EA6AA6C00E61F64 /* MemberCell.swift in Sources */,
+				2C9A67B21EA743C700891832 /* Message+CoreDataClass.swift in Sources */,
+				2C9A67C31EA775BA00891832 /* LGAlertView.m in Sources */,
 				2C4364611EA68C1200E61F64 /* InviteController.swift in Sources */,
 				2C3E57041EA6157100A66AEC /* CACTUS.xcdatamodeld in Sources */,
 				2C8E75AA1EA352E700DC69AA /* VideoView.swift in Sources */,
@@ -346,8 +440,12 @@
 				2C3E56F61EA60DCA00A66AEC /* ForumController.swift in Sources */,
 				2C3E57061EA6159700A66AEC /* Model.swift in Sources */,
 				2C3E570A1EA6177000A66AEC /* User+CoreDataProperties.swift in Sources */,
+				2C9A67B31EA743C700891832 /* Message+CoreDataProperties.swift in Sources */,
+				2C9A67D11EA778E700891832 /* LocationManager.swift in Sources */,
 				2C43645D1EA68B9E00E61F64 /* Credentials.swift in Sources */,
 				2CB6B86E1E84FE65009A3A61 /* ChannelsController.swift in Sources */,
+				2C9A67D51EA78B4200891832 /* PhotoController.swift in Sources */,
+				2C9A67D71EA78D0800891832 /* LocationController.swift in Sources */,
 				2C0437D61E923CAE00B8B23E /* ChannelCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

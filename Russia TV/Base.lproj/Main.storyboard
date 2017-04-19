@@ -134,6 +134,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="01c-64-G4r" kind="show" identifier="showPhoto" id="a9J-HX-EeC"/>
+                        <segue destination="98v-IN-5gi" kind="show" identifier="showMap" id="s2w-9m-xaL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FPZ-YL-k9Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -152,7 +156,7 @@
                                 <rect key="frame" x="0.0" y="56" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rhl-UR-AoH" id="xO8-jJ-IYD">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s7Z-le-fpP">
@@ -327,6 +331,101 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1WG-6s-f7e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2" y="1352"/>
+        </scene>
+        <!--Photo Controller-->
+        <scene sceneID="Pc0-dR-di5">
+            <objects>
+                <viewController id="01c-64-G4r" customClass="PhotoController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iNJ-SO-6r8"/>
+                        <viewControllerLayoutGuide type="bottom" id="SSD-jl-ua2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xHy-mk-Ntx">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tq8-B1-7fC">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <subviews>
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KUI-zq-gPq">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="KUI-zq-gPq" secondAttribute="bottom" id="2qD-64-4aQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="KUI-zq-gPq" secondAttribute="trailing" id="5ZJ-cT-2Vj"/>
+                                    <constraint firstItem="KUI-zq-gPq" firstAttribute="leading" secondItem="tq8-B1-7fC" secondAttribute="leading" id="ArU-M8-JQQ"/>
+                                    <constraint firstItem="KUI-zq-gPq" firstAttribute="top" secondItem="tq8-B1-7fC" secondAttribute="top" id="Rue-7N-IDi"/>
+                                    <constraint firstItem="KUI-zq-gPq" firstAttribute="centerY" secondItem="tq8-B1-7fC" secondAttribute="centerY" id="YF6-AJ-zrK"/>
+                                    <constraint firstItem="KUI-zq-gPq" firstAttribute="centerX" secondItem="tq8-B1-7fC" secondAttribute="centerX" id="elu-Hy-gVk"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="01c-64-G4r" id="TYw-Dt-EJ9"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="tq8-B1-7fC" firstAttribute="leading" secondItem="xHy-mk-Ntx" secondAttribute="leading" id="85Q-3n-k9Y"/>
+                            <constraint firstAttribute="trailing" secondItem="tq8-B1-7fC" secondAttribute="trailing" id="CeJ-ZP-o28"/>
+                            <constraint firstItem="SSD-jl-ua2" firstAttribute="top" secondItem="tq8-B1-7fC" secondAttribute="bottom" id="fLf-t2-q4a"/>
+                            <constraint firstItem="tq8-B1-7fC" firstAttribute="top" secondItem="iNJ-SO-6r8" secondAttribute="bottom" id="yok-uw-XdN"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="bz9-Q3-LNq">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="lff-wT-ikl">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="photoView" destination="KUI-zq-gPq" id="5dN-FJ-L8E"/>
+                        <outlet property="scrollView" destination="tq8-B1-7fC" id="Dvg-DF-hlY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aOF-Cr-4VR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="484" y="2903"/>
+        </scene>
+        <!--Location Controller-->
+        <scene sceneID="wzQ-nu-7wP">
+            <objects>
+                <viewController id="98v-IN-5gi" customClass="LocationController" customModule="Russia_TV" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zve-h2-Syu"/>
+                        <viewControllerLayoutGuide type="bottom" id="6AB-ic-ypv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="b4m-8f-gxu">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gK1-1u-42w">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                <connections>
+                                    <outlet property="delegate" destination="98v-IN-5gi" id="Z2H-vN-b1O"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="gK1-1u-42w" secondAttribute="trailing" id="Cqu-Pb-hTW"/>
+                            <constraint firstItem="6AB-ic-ypv" firstAttribute="top" secondItem="gK1-1u-42w" secondAttribute="bottom" id="l3c-eT-WLd"/>
+                            <constraint firstItem="gK1-1u-42w" firstAttribute="top" secondItem="Zve-h2-Syu" secondAttribute="bottom" id="lQs-eE-822"/>
+                            <constraint firstItem="gK1-1u-42w" firstAttribute="leading" secondItem="b4m-8f-gxu" secondAttribute="leading" id="uel-nZ-xoQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="idE-4G-5nC">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="f26-ns-IAb">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="map" destination="gK1-1u-42w" id="FCg-DR-Z3c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zMB-LV-fFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1400.625" y="2902.8169014084506"/>
         </scene>
     </scenes>
     <resources>

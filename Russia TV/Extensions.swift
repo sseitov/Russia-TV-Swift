@@ -30,6 +30,10 @@ extension UIColor {
         return color(0, 113, 165, 1)
     }
     
+    class func errorColor() -> UIColor {
+        return color(240, 90, 80, 1)
+    }
+
 }
 
 extension UIImage {
@@ -55,6 +59,16 @@ extension UIImage {
     }
 }
 
+extension UIView {
+    
+    func setupBorder(_ color:UIColor, radius:CGFloat) {
+        self.layer.borderColor = color.cgColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = radius
+        self.clipsToBounds = true
+    }
+}
+
 extension UIViewController {
     
     func setupTitle(_ text:String) {
@@ -77,7 +91,9 @@ extension UIViewController {
         _ = self.navigationController!.popViewController(animated: true)
     }
     
-    func showMessage(_ message:String, messageType:MessageType, messageHandler: (() -> ())? = nil) {
+    // MARK: - alerts
+    
+    func showMessage(_ error:String, messageType:MessageType, messageHandler: (() -> ())? = nil) {
         var title:String = ""
         switch messageType {
         case .success:
@@ -87,22 +103,32 @@ extension UIViewController {
         default:
             title = "Error"
         }
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+        let alert = LGAlertView.decoratedAlert(withTitle:title, message: error, cancelButtonTitle: "OK", cancelButtonBlock: { alert in
             if messageHandler != nil {
                 messageHandler!()
             }
-        }))
-        present(alert, animated: true, completion: nil)
+        })
+        alert!.titleLabel.textColor = messageType == .error ? UIColor.errorColor() : UIColor.mainColor()
+        alert?.show()
     }
     
-    func question(_ message:String, acceptHandler: @escaping (() -> ())) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .destructive, handler: { _ in
-            acceptHandler()
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
+    func createQuestion(_ question:String, acceptTitle:String, cancelTitle:String, acceptHandler:@escaping () -> (), cancelHandler: (() -> ())? = nil) -> LGAlertView? {
+        
+        let alert = LGAlertView.alert(
+            withTitle: "Attention!",
+            message: question,
+            cancelButtonTitle: cancelTitle,
+            otherButtonTitle: acceptTitle,
+            cancelButtonBlock: { alert in
+                if cancelHandler != nil {
+                    cancelHandler!()
+                }
+        },
+            otherButtonBlock: { alert in
+                alert?.dismiss()
+                acceptHandler()
+        })
+        return alert
     }
 }
 

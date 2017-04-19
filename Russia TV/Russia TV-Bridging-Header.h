@@ -11,3 +11,4 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <JSQMessages.h>
+#import "LGAlertView.h"
