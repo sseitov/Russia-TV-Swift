@@ -55,7 +55,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
     }
     
     func didLogout() {
-        setupTitle("РЕГИСТРАЦИЯ")
+        setupTitle(NSLocalizedString("registration", comment: ""))
         self.senderId = ""
         self.senderDisplayName = ""
         navigationItem.rightBarButtonItem?.isEnabled = false
@@ -75,7 +75,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
     }
     
     func didLogin() {
-        setupTitle("ФОРУМ")
+        setupTitle(NSLocalizedString("forum", comment: ""))
         if fbButton != nil {
             fbButton?.removeFromSuperview()
             fbButton = nil
@@ -237,8 +237,10 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
         UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
         
         let actionView = ActionSheet.create(
-            title: "Choose Data",
-            actions: ["Photo from Camera Roll", "Create photo use Camera", "My current location"],
+            title: NSLocalizedString("Choose Data", comment: ""),
+            actions: [NSLocalizedString("Photo from Camera Roll", comment: ""),
+                      NSLocalizedString("Create photo use Camera", comment: ""),
+                      NSLocalizedString("My current location", comment: "")],
             handler1: {
                 let imagePicker = UIImagePickerController()
                 imagePicker.allowsEditing = false
@@ -339,17 +341,17 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
             if IS_PAD() {
                 if message.senderId == currentUser()!.uid! {
                     var handler:CompletionBlock?
-                    var titles = ["Delete message"]
+                    var titles = [NSLocalizedString("Delete message", comment: "")]
                     if (message.media as? JSQPhotoMediaItem) != nil {
                         handler = {
                             self.performSegue(withIdentifier: "showPhoto", sender: message)
                         }
-                        titles.insert("Show photo", at: 0)
+                        titles.insert(NSLocalizedString("Show photo", comment: ""), at: 0)
                     } else if (message.media as? LocationMediaItem) != nil {
                         handler = {
                             self.performSegue(withIdentifier: "showMap", sender: message)
                         }
-                        titles.insert("Show map", at: 0)
+                        titles.insert(NSLocalizedString("Show map", comment: ""), at: 0)
                     }
                     let alert = ActionSheet.create(title: "Action", actions: titles, handler1: handler, handler2: {
                         if let msg = Model.shared.myMessage(message.date) {
@@ -362,12 +364,12 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
                     alert?.show()
                 } else {
                     if (message.media as? JSQPhotoMediaItem) != nil {
-                        let alert = createQuestion("Show photo?", acceptTitle: "Show", cancelTitle: "Cancel", acceptHandler: {
+                        let alert = createQuestion(NSLocalizedString("Show photo?", comment: ""), acceptTitle: "Yes", cancelTitle: "Cancel", acceptHandler: {
                             self.performSegue(withIdentifier: "showPhoto", sender: message)
                         })
                         alert?.show()
                     } else if (message.media as? LocationMediaItem) != nil {
-                        let alert = createQuestion("Show map?", acceptTitle: "Show", cancelTitle: "Cancel", acceptHandler: {
+                        let alert = createQuestion(NSLocalizedString("Show map?", comment: ""), acceptTitle: "Yes", cancelTitle: "Cancel", acceptHandler: {
                             self.performSegue(withIdentifier: "showMap", sender: message)
                         })
                         alert?.show()

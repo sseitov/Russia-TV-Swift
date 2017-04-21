@@ -17,8 +17,9 @@ class EmailInput: LGAlertView, TextFieldContainerDelegate {
     
     class func getEmail(cancelHandler:CompletionBlock?, acceptHandler:CompletionTextBlock?) -> EmailInput? {
         if let textInput = Bundle.main.loadNibNamed("EmailInput", owner: nil, options: nil)?.first as? EmailInput {
+            textInput.titleLabel.text = NSLocalizedString("emailInputTitle", comment: "")
             textInput.inputField.delegate = textInput
-            textInput.inputField.placeholder = "input email"
+            textInput.inputField.placeholder = "email"
             textInput.inputField.textType = .emailAddress
             textInput.cancelButtonBlock = { alert in
                 cancelHandler!()

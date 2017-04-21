@@ -14,7 +14,22 @@
 "Success" = "Success";
 "Information" = "Information";
 "Error" = "Error";
+"emailInputTitle" = "Friend email";
 
 "members" = "MEMBERS";
 "my friends with cactus" = "my friends with cactus";
 "other my friends" = "other my friends";
+
+"forum" = "FORUM";
+"registration" = "REGISTRATION";
+
+"Choose Data" = "Choose Data";
+"Photo from Camera Roll" = "Photo from Camera Roll";
+"Create photo use Camera" = "Create photo use Camera";
+"My current location" = "My current location";
+
+"Show photo" = "Show photo";
+"Show map" = "Show map";
+"Delete message" = "Delete message";
+"Show photo?" = "Show photo?";
+"Show map?" = "Show map?";

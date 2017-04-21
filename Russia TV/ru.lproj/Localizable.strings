@@ -14,7 +14,22 @@
 "Success" = "Успешно";
 "Information" = "Информация";
 "Error" = "Ошибка";
+"emailInputTitle" = "Email друга";
 
 "members" = "УЧАСТНИКИ";
 "my friends with cactus" = "мои друзья в форуме";
 "other my friends" = "остальные друзья";
+
+"forum" = "ФОРУМ";
+"registration" = "РЕГИСТРАЦИЯ";
+
+"Choose Data" = "Тип сообщения";
+"Photo from Camera Roll" = "Сохраненое фото";
+"Create photo use Camera" = "Сделать фото";
+"My current location" = "Моя текущая геопозиция";
+
+"Show photo" = "Посмотреть фото";
+"Show map" = "Открыть карту";
+"Delete message" = "Удалить сообщение";
+"Show photo?" = "Посмотреть фото?";
+"Show map?" = "Открыть карту?";
