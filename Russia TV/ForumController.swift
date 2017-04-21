@@ -194,7 +194,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
             }
             
             SVProgressHUD.show(withStatus: "Login...")
-            let params = ["fields" : "name,email,picture.width(480).height(480)"]
+            let params = ["fields" : "id,name,email,picture.width(480).height(480)"]
             let request = FBSDKGraphRequest(graphPath: "me", parameters: params)
             request!.start(completionHandler: { _, result, fbError in
                 if fbError != nil {

@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		2C0437D61E923CAE00B8B23E /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0437D51E923CAE00B8B23E /* ChannelCell.swift */; };
 		2C3E56F61EA60DCA00A66AEC /* ForumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E56F51EA60DCA00A66AEC /* ForumController.swift */; };
-		2C3E56FB1EA60EB800A66AEC /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3E56F71EA60EB800A66AEC /* Bolts.framework */; };
-		2C3E56FC1EA60EB800A66AEC /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3E56F81EA60EB800A66AEC /* FBSDKCoreKit.framework */; };
-		2C3E56FD1EA60EB800A66AEC /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3E56F91EA60EB800A66AEC /* FBSDKLoginKit.framework */; };
-		2C3E56FE1EA60EB800A66AEC /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3E56FA1EA60EB800A66AEC /* FBSDKShareKit.framework */; };
 		2C3E57001EA6120600A66AEC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E56FF1EA6120600A66AEC /* Extensions.swift */; };
 		2C3E57041EA6157100A66AEC /* CACTUS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E57021EA6157100A66AEC /* CACTUS.xcdatamodeld */; };
 		2C3E57061EA6159700A66AEC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E57051EA6159700A66AEC /* Model.swift */; };
@@ -22,6 +18,12 @@
 		2C43645F1EA68BB700E61F64 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C43645E1EA68BB700E61F64 /* GoogleService-Info.plist */; };
 		2C4364611EA68C1200E61F64 /* InviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4364601EA68C1200E61F64 /* InviteController.swift */; };
 		2C4364631EA6AA6C00E61F64 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4364621EA6AA6C00E61F64 /* MemberCell.swift */; };
+		2C64F7B11EAA18B400E85F0A /* EmailInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C64F7AF1EAA18B400E85F0A /* EmailInput.swift */; };
+		2C64F7B21EAA18B400E85F0A /* EmailInput.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C64F7B01EAA18B400E85F0A /* EmailInput.xib */; };
+		2C64F7B41EAA197200E85F0A /* TextFieldContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C64F7B31EAA197200E85F0A /* TextFieldContainer.swift */; };
+		2C64F7B61EAA243F00E85F0A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C64F7B51EAA243F00E85F0A /* MessageUI.framework */; };
+		2C64F7BB1EAA2C1100E85F0A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C64F7BD1EAA2C1100E85F0A /* InfoPlist.strings */; };
+		2C64F7BE1EAA2C8E00E85F0A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C64F7C01EAA2C8E00E85F0A /* Localizable.strings */; };
 		2C6C9EC31E91034E000A3557 /* HtmlScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9EC21E91034E000A3557 /* HtmlScrapper.swift */; };
 		2C6C9EC51E910FDA000A3557 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6C9EC41E910FDA000A3557 /* AVFoundation.framework */; };
 		2C6C9EC81E912964000A3557 /* YouTubeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9EC71E912964000A3557 /* YouTubeParser.m */; };
@@ -51,6 +53,10 @@
 		2CB6B86C1E84FB3A009A3A61 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CB6B86B1E84FB3A009A3A61 /* logo.png */; };
 		2CB6B86E1E84FE65009A3A61 /* ChannelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6B86D1E84FE65009A3A61 /* ChannelsController.swift */; };
 		2CB6B8701E850284009A3A61 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB6B86F1E850284009A3A61 /* AVKit.framework */; };
+		2CBF14A81EA9752B000DE321 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBF14A41EA9752B000DE321 /* Bolts.framework */; };
+		2CBF14A91EA9752B000DE321 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBF14A51EA9752B000DE321 /* FBSDKCoreKit.framework */; };
+		2CBF14AA1EA9752B000DE321 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBF14A61EA9752B000DE321 /* FBSDKLoginKit.framework */; };
+		2CBF14AB1EA9752B000DE321 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBF14A71EA9752B000DE321 /* FBSDKShareKit.framework */; };
 		E51362A30352F85F1ECB80A8 /* libPods-Russia TV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */; };
 /* End PBXBuildFile section */
 
@@ -59,10 +65,6 @@
 		2C0437D51E923CAE00B8B23E /* ChannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCell.swift; sourceTree = "<group>"; };
 		2C3E56F21EA5F75B00A66AEC /* Russia TV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Russia TV.entitlements"; sourceTree = "<group>"; };
 		2C3E56F51EA60DCA00A66AEC /* ForumController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumController.swift; sourceTree = "<group>"; };
-		2C3E56F71EA60EB800A66AEC /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		2C3E56F81EA60EB800A66AEC /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		2C3E56F91EA60EB800A66AEC /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
-		2C3E56FA1EA60EB800A66AEC /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		2C3E56FF1EA6120600A66AEC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2C3E57031EA6157100A66AEC /* CACTUS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CACTUS.xcdatamodel; sourceTree = "<group>"; };
 		2C3E57051EA6159700A66AEC /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = model/Model.swift; sourceTree = "<group>"; };
@@ -72,6 +74,16 @@
 		2C43645E1EA68BB700E61F64 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		2C4364601EA68C1200E61F64 /* InviteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteController.swift; sourceTree = "<group>"; };
 		2C4364621EA6AA6C00E61F64 /* MemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
+		2C64F7AF1EAA18B400E85F0A /* EmailInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmailInput.swift; path = CustomViews/EmailInput.swift; sourceTree = "<group>"; };
+		2C64F7B01EAA18B400E85F0A /* EmailInput.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmailInput.xib; path = CustomViews/EmailInput.xib; sourceTree = "<group>"; };
+		2C64F7B31EAA197200E85F0A /* TextFieldContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextFieldContainer.swift; path = CustomViews/TextFieldContainer.swift; sourceTree = "<group>"; };
+		2C64F7B51EAA243F00E85F0A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		2C64F7BC1EAA2C1100E85F0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2C64F7BF1EAA2C8E00E85F0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2C64F7C11EAA2CC300E85F0A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		2C64F7C21EAA2CC300E85F0A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2C64F7C31EAA2CC300E85F0A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2C64F7C41EAA2CC400E85F0A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2C6C9EC21E91034E000A3557 /* HtmlScrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HtmlScrapper.swift; sourceTree = "<group>"; };
 		2C6C9EC41E910FDA000A3557 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2C6C9EC61E912964000A3557 /* YouTubeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeParser.h; sourceTree = "<group>"; };
@@ -108,6 +120,10 @@
 		2CB6B86D1E84FE65009A3A61 /* ChannelsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelsController.swift; sourceTree = "<group>"; };
 		2CB6B86F1E850284009A3A61 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		2CB6B8711E8503E9009A3A61 /* Russia TV-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Russia TV-Bridging-Header.h"; path = "Russia TV/Russia TV-Bridging-Header.h"; sourceTree = "<group>"; };
+		2CBF14A41EA9752B000DE321 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		2CBF14A51EA9752B000DE321 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		2CBF14A61EA9752B000DE321 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		2CBF14A71EA9752B000DE321 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Russia TV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		712D1CBF0B06E43304FDEE10 /* Pods-Russia TV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Russia TV.release.xcconfig"; path = "Pods/Target Support Files/Pods-Russia TV/Pods-Russia TV.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,10 +133,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C3E56FB1EA60EB800A66AEC /* Bolts.framework in Frameworks */,
-				2C3E56FC1EA60EB800A66AEC /* FBSDKCoreKit.framework in Frameworks */,
-				2C3E56FD1EA60EB800A66AEC /* FBSDKLoginKit.framework in Frameworks */,
-				2C3E56FE1EA60EB800A66AEC /* FBSDKShareKit.framework in Frameworks */,
+				2C64F7B61EAA243F00E85F0A /* MessageUI.framework in Frameworks */,
+				2CBF14A81EA9752B000DE321 /* Bolts.framework in Frameworks */,
+				2CBF14A91EA9752B000DE321 /* FBSDKCoreKit.framework in Frameworks */,
+				2CBF14AA1EA9752B000DE321 /* FBSDKLoginKit.framework in Frameworks */,
+				2CBF14AB1EA9752B000DE321 /* FBSDKShareKit.framework in Frameworks */,
 				2C6C9EC51E910FDA000A3557 /* AVFoundation.framework in Frameworks */,
 				2CB6B8701E850284009A3A61 /* AVKit.framework in Frameworks */,
 				E51362A30352F85F1ECB80A8 /* libPods-Russia TV.a in Frameworks */,
@@ -200,6 +217,9 @@
 		2C9A67CB1EA775F700891832 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				2C64F7B31EAA197200E85F0A /* TextFieldContainer.swift */,
+				2C64F7AF1EAA18B400E85F0A /* EmailInput.swift */,
+				2C64F7B01EAA18B400E85F0A /* EmailInput.xib */,
 				2C9A67CC1EA7761100891832 /* ActionSheet.swift */,
 				2C9A67CD1EA7761100891832 /* ActionSheet.xib */,
 			);
@@ -252,6 +272,8 @@
 				2C3E56F21EA5F75B00A66AEC /* Russia TV.entitlements */,
 				2C43645E1EA68BB700E61F64 /* GoogleService-Info.plist */,
 				2CB6B85F1E84F3B7009A3A61 /* Info.plist */,
+				2C64F7BD1EAA2C1100E85F0A /* InfoPlist.strings */,
+				2C64F7C01EAA2C8E00E85F0A /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -259,10 +281,11 @@
 		2CB6B8661E84F7A5009A3A61 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2C3E56F71EA60EB800A66AEC /* Bolts.framework */,
-				2C3E56F81EA60EB800A66AEC /* FBSDKCoreKit.framework */,
-				2C3E56F91EA60EB800A66AEC /* FBSDKLoginKit.framework */,
-				2C3E56FA1EA60EB800A66AEC /* FBSDKShareKit.framework */,
+				2C64F7B51EAA243F00E85F0A /* MessageUI.framework */,
+				2CBF14A41EA9752B000DE321 /* Bolts.framework */,
+				2CBF14A51EA9752B000DE321 /* FBSDKCoreKit.framework */,
+				2CBF14A61EA9752B000DE321 /* FBSDKLoginKit.framework */,
+				2CBF14A71EA9752B000DE321 /* FBSDKShareKit.framework */,
 				2C6C9EC41E910FDA000A3557 /* AVFoundation.framework */,
 				2CB6B86F1E850284009A3A61 /* AVKit.framework */,
 				3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */,
@@ -335,6 +358,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 2CB6B8471E84F3B4009A3A61;
 			productRefGroup = 2CB6B8511E84F3B7009A3A61 /* Products */;
@@ -354,6 +378,9 @@
 				2C9A67C51EA775BA00891832 /* LGDecoratedAlertView.xib in Resources */,
 				2C9A67C41EA775BA00891832 /* LGAlertView.xib in Resources */,
 				2C9A67CF1EA7761100891832 /* ActionSheet.xib in Resources */,
+				2C64F7BE1EAA2C8E00E85F0A /* Localizable.strings in Resources */,
+				2C64F7BB1EAA2C1100E85F0A /* InfoPlist.strings in Resources */,
+				2C64F7B21EAA18B400E85F0A /* EmailInput.xib in Resources */,
 				2C9A67C81EA775BA00891832 /* LGTextFieldAlertView.xib in Resources */,
 				2CB6B86C1E84FB3A009A3A61 /* logo.png in Resources */,
 				2C9A67C61EA775BA00891832 /* LGProgressAlertView.xib in Resources */,
@@ -421,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C6C9EC81E912964000A3557 /* YouTubeParser.m in Sources */,
+				2C64F7B41EAA197200E85F0A /* TextFieldContainer.swift in Sources */,
 				2C9A67D31EA7828C00891832 /* JSQAvatar.swift in Sources */,
 				2C3E57001EA6120600A66AEC /* Extensions.swift in Sources */,
 				2C9A67B51EA74AFF00891832 /* LocationMediaItem.swift in Sources */,
@@ -439,6 +467,7 @@
 				2CB6B8541E84F3B7009A3A61 /* AppDelegate.swift in Sources */,
 				2C3E56F61EA60DCA00A66AEC /* ForumController.swift in Sources */,
 				2C3E57061EA6159700A66AEC /* Model.swift in Sources */,
+				2C64F7B11EAA18B400E85F0A /* EmailInput.swift in Sources */,
 				2C3E570A1EA6177000A66AEC /* User+CoreDataProperties.swift in Sources */,
 				2C9A67B31EA743C700891832 /* Message+CoreDataProperties.swift in Sources */,
 				2C9A67D11EA778E700891832 /* LocationManager.swift in Sources */,
@@ -453,10 +482,29 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		2C64F7BD1EAA2C1100E85F0A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C64F7BC1EAA2C1100E85F0A /* Base */,
+				2C64F7C31EAA2CC300E85F0A /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2C64F7C01EAA2C8E00E85F0A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C64F7BF1EAA2C8E00E85F0A /* Base */,
+				2C64F7C41EAA2CC400E85F0A /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		2CB6B8571E84F3B7009A3A61 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				2CB6B8581E84F3B7009A3A61 /* Base */,
+				2C64F7C11EAA2CC300E85F0A /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -465,6 +513,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2CB6B85D1E84F3B7009A3A61 /* Base */,
+				2C64F7C21EAA2CC300E85F0A /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -476,6 +525,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -526,6 +576,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

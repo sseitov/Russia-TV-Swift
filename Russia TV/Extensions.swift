@@ -8,6 +8,13 @@
 
 import UIKit
 
+extension String {
+    func isEmail() -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
+        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: self)
+    }
+}
+
 extension UIFont {
     
     class func condensedFont(_ size:CGFloat = 17) -> UIFont {
@@ -97,11 +104,11 @@ extension UIViewController {
         var title:String = ""
         switch messageType {
         case .success:
-            title = "Success"
+            title = NSLocalizedString("Success", comment: "")
         case .information:
-            title = "Information"
+            title = NSLocalizedString("Information", comment: "")
         default:
-            title = "Error"
+            title = NSLocalizedString("Error", comment: "")
         }
         let alert = LGAlertView.decoratedAlert(withTitle:title, message: error, cancelButtonTitle: "OK", cancelButtonBlock: { alert in
             if messageHandler != nil {

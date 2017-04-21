@@ -24,4 +24,20 @@ class MemberCell: UITableViewCell {
             })
         }
     }
+    
+    var friend:[String:Any]? {
+        didSet {
+            name.text = friend!["name"] as? String
+            if let picture = friend!["picture"] as? [String:Any],
+                let data = picture["data"] as? [String:Any],
+                let url = data["url"] as? String
+            {
+                SDWebImageDownloader.shared().downloadImage(with: URL(string: url), options: [], progress: nil, completed: {image, _, _, _ in
+                    if image != nil {
+                        self.avatar.image = image!.inCircle()
+                    }
+                })
+            }
+        }
+    }
 }

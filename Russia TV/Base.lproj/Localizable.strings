@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Russia TV
+
+  Created by Сергей Сейтов on 21.04.17.
+  Copyright © 2017 V-Channel. All rights reserved.
+*/
+
+"inviteTitle" = "Invite";
+"invite" = "<h3>Join us! Install <a href='https://fb.me/407956749561194'>CACTUS!</a></h3>";
+"inviteResult" = "Invite was sent.";
+"inviteError" = "Can not send invite. Error: %@";
+
+"Success" = "Success";
+"Information" = "Information";
+"Error" = "Error";
+
+"members" = "MEMBERS";
+"my friends with cactus" = "my friends with cactus";
+"other my friends" = "other my friends";

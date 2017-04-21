@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Russia TV
+
+  Created by Сергей Сейтов on 21.04.17.
+  Copyright © 2017 V-Channel. All rights reserved.
+*/
+
+"inviteTitle" = "Приглашение";
+"invite" = "<h3>Присоединяйся к нам! Установи <a href='https://fb.me/407956749561194'>КАКТУС!</a></h3>";
+"inviteResult" = "Приглашение отправлено.";
+"inviteError" = "Невозможно отправить приглашение. Ошибка: %@";
+
+"Success" = "Успешно";
+"Information" = "Информация";
+"Error" = "Ошибка";
+
+"members" = "УЧАСТНИКИ";
+"my friends with cactus" = "мои друзья в форуме";
+"other my friends" = "остальные друзья";

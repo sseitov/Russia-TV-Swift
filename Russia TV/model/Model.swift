@@ -253,6 +253,17 @@ class Model: NSObject {
         }
     }
     
+    func userByName(_ name:String) -> User? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        let predicate = NSPredicate(format: "name = %@", name)
+        fetchRequest.predicate = predicate
+        if let user = try? managedObjectContext.fetch(fetchRequest).first as? User {
+            return user
+        } else {
+            return nil
+        }
+    }
+    
     func getFriends() -> [User] {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
         let predicate = NSPredicate(format: "uid != %@", currentUser()!.uid!)
@@ -265,7 +276,7 @@ class Model: NSObject {
     }
     
     func findFriends(_ complete:@escaping() -> ()) {
-        let params = ["fields" : "name"]
+        let params = ["fields" : "id,name"]
         let token = UserDefaults.standard.value(forKey: "fbToken") as? String
         if token == nil {
             complete()
