@@ -37,14 +37,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if currentUser() != nil {
-            SVProgressHUD.show(withStatus: "Refresh...")
-            Model.shared.findFriends {
-                SVProgressHUD.dismiss()
-            }
-            scrollToBottom(animated: true)
-        }
+        scrollToBottom(animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -105,8 +98,12 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
                                                name: deleteMessageNotification,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.refreshMessageNotify(_:)),
-                                               name: refreshUserNotification,
+                                               selector: #selector(self.refreshAvatarNotify(_:)),
+                                               name: refreshAvatarNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.refreshMessagesNotify),
+                                               name: refreshMessagesNotification,
                                                object: nil)
 
     }
@@ -136,10 +133,22 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
         }
     }
 
-    func refreshMessageNotify(_ notify:Notification) {
+    func refreshAvatarNotify(_ notify:Notification) {
         if let indexPath = notify.object as? IndexPath {
             collectionView.reloadItems(at: [indexPath])
         }
+    }
+    
+    func refreshMessagesNotify() {
+        messages.removeAll()
+        let cashedMessages = Model.shared.chatMessages()
+        for message in cashedMessages {
+            if let jsqMessage = addMessage(message) {
+                messages.append(jsqMessage)
+                self.finishReceivingMessage()
+            }
+        }
+        collectionView.reloadData()
     }
     
     private func addMessage(_ message:Message) -> JSQMessage? {
@@ -201,9 +210,6 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
                     SVProgressHUD.dismiss()
                     self.showMessage(fbError!.localizedDescription, messageType: .error)
                 } else {
-                    print(FBSDKAccessToken.current().tokenString)
-                    UserDefaults.standard.set(FBSDKAccessToken.current().tokenString, forKey: "fbToken")
-                    UserDefaults.standard.synchronize()
                     let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
                     FIRAuth.auth()?.signIn(with: credential, completion: { firUser, error in
                         if error != nil {

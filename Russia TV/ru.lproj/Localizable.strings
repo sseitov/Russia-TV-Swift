@@ -17,8 +17,7 @@
 "emailInputTitle" = "Email друга";
 
 "members" = "УЧАСТНИКИ";
-"my friends with cactus" = "мои друзья в форуме";
-"other my friends" = "остальные друзья";
+"friends" = "участники форума";
 
 "forum" = "ФОРУМ";
 "registration" = "РЕГИСТРАЦИЯ";

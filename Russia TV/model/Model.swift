@@ -25,6 +25,7 @@ func currentUser() -> User? {
 let newUserNotification = Notification.Name("NEW_USER")
 let newMessageNotification = Notification.Name("NEW_MESSAGE")
 let deleteMessageNotification = Notification.Name("DELETE_MESSAGE")
+let refreshMessagesNotification = Notification.Name("REFRESH_MESSAGES")
 
 class Model: NSObject {
     
@@ -110,8 +111,6 @@ class Model: NSObject {
             self.deleteMessageRefHandle = nil
             
             FBSDKLoginManager().logOut()
-            UserDefaults.standard.removeObject(forKey: "fbToken")
-            completion()
         })
     }
     
@@ -155,14 +154,36 @@ class Model: NSObject {
             return nil
         }
     }
-    
-    func deleteUser(_ uid:String) {
-        if let user = getUser(uid) {
-            self.managedObjectContext.delete(user)
-            self.saveContext()
+
+    func moveUserToBan(_ user:User) {
+        var banList = UserDefaults.standard.object(forKey: "banList") as? [String]
+        if banList == nil {
+            banList = []
         }
+        banList?.append(user.uid!)
+        UserDefaults.standard.set(banList!, forKey: "banList")
+        UserDefaults.standard.synchronize()
     }
     
+    func isUserBan(_ user:User) -> Bool {
+        if let banList = UserDefaults.standard.object(forKey: "banList") as? [String] {
+            return banList.contains(user.uid!)
+        } else {
+            return false
+        }
+    }
+    func deleteUser(_ uid:String) {
+        if let user = getUser(uid) {
+            let messages = userMessages(user)
+            for message in messages {
+                managedObjectContext.delete(message)
+            }
+            moveUserToBan(user)
+            self.saveContext()
+            NotificationCenter.default.post(name: refreshMessagesNotification, object: nil)
+        }
+    }
+
     func uploadUser(_ uid:String, result: @escaping(User?) -> ()) {
         if let existingUser = getUser(uid) {
             result(existingUser)
@@ -253,59 +274,17 @@ class Model: NSObject {
         }
     }
     
-    func userByName(_ name:String) -> User? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
-        let predicate = NSPredicate(format: "name = %@", name)
-        fetchRequest.predicate = predicate
-        if let user = try? managedObjectContext.fetch(fetchRequest).first as? User {
-            return user
-        } else {
-            return nil
-        }
-    }
-    
     func getFriends() -> [User] {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
-        let predicate = NSPredicate(format: "uid != %@", currentUser()!.uid!)
-        fetchRequest.predicate = predicate
+        fetchRequest.predicate = NSPredicate(format: "uid != %@", currentUser()!.uid!)
         if let all = try? managedObjectContext.fetch(fetchRequest) as! [User] {
-            return all
+            let filtered = all.filter({ user in
+                return !self.isUserBan(user)
+            })
+            return filtered
         } else {
             return []
         }
-    }
-    
-    func findFriends(_ complete:@escaping() -> ()) {
-        let params = ["fields" : "id,name"]
-        let token = UserDefaults.standard.value(forKey: "fbToken") as? String
-        if token == nil {
-            complete()
-            return
-        }
-        
-        let request = FBSDKGraphRequest(graphPath: "me/friends/", parameters: params, tokenString: token, version: nil, httpMethod: nil)
-        request!.start(completionHandler: { _, result, fbError in
-            if let friendList = result as? [String:Any], let list = friendList["data"] as? [Any] {
-                for item in list {
-                    if let profile = item as? [String:Any],
-                        let id = profile["id"] as? String {
-                        if self.facebookUser(id) == nil {
-                            let ref = FIRDatabase.database().reference()
-                            ref.child("users").queryOrdered(byChild: "facebookID").queryEqual(toValue: id).observeSingleEvent(of: .value, with: { snapshot in
-                                if let values = snapshot.value as? [String:Any] {
-                                    for uid in values.keys {
-                                        self.uploadUser(uid, result: { user in
-                                            NotificationCenter.default.post(name: newUserNotification, object: user)
-                                        })
-                                    }
-                                }
-                            })
-                        }
-                    }
-                }
-            }
-            complete()
-        })
     }
     
     // MARK: - Message table
@@ -339,6 +318,21 @@ class Model: NSObject {
             return message
         } else {
             return nil
+        }
+    }
+    
+    func userMessages(_ user:User) -> [Message] {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
+        fetchRequest.predicate = NSPredicate(format: "from = %@", user.uid!)
+        
+        do {
+            if let all = try managedObjectContext.fetch(fetchRequest) as? [Message] {
+                return all
+            } else {
+                return []
+            }
+        } catch {
+            return []
         }
     }
     
@@ -385,11 +379,24 @@ class Model: NSObject {
         newMessageRefHandle = messageQuery.observe(.childAdded, with: { (snapshot) -> Void in
             if currentUser() != nil && self.getMessage(snapshot.key) == nil {
                 let messageData = snapshot.value as! [String:Any]
-                if let from = messageData["from"] as? String, self.getUser(from) != nil {
-                    let message = self.createMessage(snapshot.key)
-                    message.setData(messageData, completion: {
-                        NotificationCenter.default.post(name: newMessageNotification, object: message)
-                    })
+                if let from = messageData["from"] as? String {
+                    if let user = self.getUser(from) {
+                        if !self.isUserBan(user) {
+                            let message = self.createMessage(snapshot.key)
+                            message.setData(messageData, completion: {
+                                NotificationCenter.default.post(name: newMessageNotification, object: message)
+                            })
+                        }
+                    } else {
+                        self.uploadUser(from, result: { user in
+                            if user != nil {
+                                let message = self.createMessage(snapshot.key)
+                                message.setData(messageData, completion: {
+                                    NotificationCenter.default.post(name: newMessageNotification, object: message)
+                                })
+                            }
+                        })
+                    }
                 } else {
                     print("Error! Could not decode message data \(messageData)")
                 }

@@ -100,9 +100,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             connectToFcm()
             if let user = FIRAuth.auth()?.currentUser {
                 Model.shared.publishToken(user, token: refreshedToken)
-            } else {
-                UserDefaults.standard.set(refreshedToken, forKey: "fcmToken")
-                UserDefaults.standard.synchronize()
             }
         }
     }

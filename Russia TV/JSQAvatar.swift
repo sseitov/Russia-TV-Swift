@@ -8,7 +8,7 @@
 
 import UIKit
 
-let refreshUserNotification = Notification.Name("REFRESH_USER")
+let refreshAvatarNotification = Notification.Name("REFRESH_USER")
 
 class JSQAvatar : NSObject, JSQMessageAvatarImageDataSource {
     
@@ -28,7 +28,7 @@ class JSQAvatar : NSObject, JSQMessageAvatarImageDataSource {
                     if image != nil {
                         self.userImage = image!.inCircle()
                         SDImageCache.shared().store(self.userImage, forKey: self.user!.avatar!, completion: {
-                            NotificationCenter.default.post(name: refreshUserNotification, object: self.indexPath)
+                            NotificationCenter.default.post(name: refreshAvatarNotification, object: self.indexPath)
                         })
                     }
                 })

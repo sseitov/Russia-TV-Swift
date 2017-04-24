@@ -10,13 +10,12 @@
 		2C0437D61E923CAE00B8B23E /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0437D51E923CAE00B8B23E /* ChannelCell.swift */; };
 		2C3E56F61EA60DCA00A66AEC /* ForumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E56F51EA60DCA00A66AEC /* ForumController.swift */; };
 		2C3E57001EA6120600A66AEC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E56FF1EA6120600A66AEC /* Extensions.swift */; };
-		2C3E57041EA6157100A66AEC /* CACTUS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E57021EA6157100A66AEC /* CACTUS.xcdatamodeld */; };
 		2C3E57061EA6159700A66AEC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E57051EA6159700A66AEC /* Model.swift */; };
 		2C3E57091EA6177000A66AEC /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E57071EA6177000A66AEC /* User+CoreDataClass.swift */; };
 		2C3E570A1EA6177000A66AEC /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E57081EA6177000A66AEC /* User+CoreDataProperties.swift */; };
 		2C43645D1EA68B9E00E61F64 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43645C1EA68B9E00E61F64 /* Credentials.swift */; };
 		2C43645F1EA68BB700E61F64 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C43645E1EA68BB700E61F64 /* GoogleService-Info.plist */; };
-		2C4364611EA68C1200E61F64 /* InviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4364601EA68C1200E61F64 /* InviteController.swift */; };
+		2C4364611EA68C1200E61F64 /* MembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4364601EA68C1200E61F64 /* MembersController.swift */; };
 		2C4364631EA6AA6C00E61F64 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4364621EA6AA6C00E61F64 /* MemberCell.swift */; };
 		2C64F7B11EAA18B400E85F0A /* EmailInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C64F7AF1EAA18B400E85F0A /* EmailInput.swift */; };
 		2C64F7B21EAA18B400E85F0A /* EmailInput.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C64F7B01EAA18B400E85F0A /* EmailInput.xib */; };
@@ -57,6 +56,7 @@
 		2CBF14A91EA9752B000DE321 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBF14A51EA9752B000DE321 /* FBSDKCoreKit.framework */; };
 		2CBF14AA1EA9752B000DE321 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBF14A61EA9752B000DE321 /* FBSDKLoginKit.framework */; };
 		2CBF14AB1EA9752B000DE321 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBF14A71EA9752B000DE321 /* FBSDKShareKit.framework */; };
+		2CF683A31EAE0F5E00AA1850 /* CACTUS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2CF683A11EAE0F5E00AA1850 /* CACTUS.xcdatamodeld */; };
 		E51362A30352F85F1ECB80A8 /* libPods-Russia TV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */; };
 /* End PBXBuildFile section */
 
@@ -66,13 +66,12 @@
 		2C3E56F21EA5F75B00A66AEC /* Russia TV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Russia TV.entitlements"; sourceTree = "<group>"; };
 		2C3E56F51EA60DCA00A66AEC /* ForumController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumController.swift; sourceTree = "<group>"; };
 		2C3E56FF1EA6120600A66AEC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		2C3E57031EA6157100A66AEC /* CACTUS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CACTUS.xcdatamodel; sourceTree = "<group>"; };
 		2C3E57051EA6159700A66AEC /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = model/Model.swift; sourceTree = "<group>"; };
 		2C3E57071EA6177000A66AEC /* User+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "User+CoreDataClass.swift"; path = "model/User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2C3E57081EA6177000A66AEC /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "User+CoreDataProperties.swift"; path = "model/User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2C43645C1EA68B9E00E61F64 /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = SOURCE_ROOT; };
 		2C43645E1EA68BB700E61F64 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		2C4364601EA68C1200E61F64 /* InviteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteController.swift; sourceTree = "<group>"; };
+		2C4364601EA68C1200E61F64 /* MembersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersController.swift; sourceTree = "<group>"; };
 		2C4364621EA6AA6C00E61F64 /* MemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
 		2C64F7AF1EAA18B400E85F0A /* EmailInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmailInput.swift; path = CustomViews/EmailInput.swift; sourceTree = "<group>"; };
 		2C64F7B01EAA18B400E85F0A /* EmailInput.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmailInput.xib; path = CustomViews/EmailInput.xib; sourceTree = "<group>"; };
@@ -124,6 +123,7 @@
 		2CBF14A51EA9752B000DE321 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		2CBF14A61EA9752B000DE321 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		2CBF14A71EA9752B000DE321 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		2CF683A21EAE0F5E00AA1850 /* CACTUS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CACTUS.xcdatamodel; sourceTree = "<group>"; };
 		3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Russia TV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		712D1CBF0B06E43304FDEE10 /* Pods-Russia TV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Russia TV.release.xcconfig"; path = "Pods/Target Support Files/Pods-Russia TV/Pods-Russia TV.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,7 +169,7 @@
 				2C9A67B41EA74AFF00891832 /* LocationMediaItem.swift */,
 				2C9A67D41EA78B4200891832 /* PhotoController.swift */,
 				2C9A67D61EA78D0800891832 /* LocationController.swift */,
-				2C4364601EA68C1200E61F64 /* InviteController.swift */,
+				2C4364601EA68C1200E61F64 /* MembersController.swift */,
 				2C4364621EA6AA6C00E61F64 /* MemberCell.swift */,
 			);
 			name = Forum;
@@ -178,7 +178,7 @@
 		2C3E57011EA6154000A66AEC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2C3E57021EA6157100A66AEC /* CACTUS.xcdatamodeld */,
+				2CF683A11EAE0F5E00AA1850 /* CACTUS.xcdatamodeld */,
 				2C9A67B01EA743C700891832 /* Message+CoreDataClass.swift */,
 				2C9A67B11EA743C700891832 /* Message+CoreDataProperties.swift */,
 				2C3E57071EA6177000A66AEC /* User+CoreDataClass.swift */,
@@ -447,6 +447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CF683A31EAE0F5E00AA1850 /* CACTUS.xcdatamodeld in Sources */,
 				2C6C9EC81E912964000A3557 /* YouTubeParser.m in Sources */,
 				2C64F7B41EAA197200E85F0A /* TextFieldContainer.swift in Sources */,
 				2C9A67D31EA7828C00891832 /* JSQAvatar.swift in Sources */,
@@ -459,8 +460,7 @@
 				2C4364631EA6AA6C00E61F64 /* MemberCell.swift in Sources */,
 				2C9A67B21EA743C700891832 /* Message+CoreDataClass.swift in Sources */,
 				2C9A67C31EA775BA00891832 /* LGAlertView.m in Sources */,
-				2C4364611EA68C1200E61F64 /* InviteController.swift in Sources */,
-				2C3E57041EA6157100A66AEC /* CACTUS.xcdatamodeld in Sources */,
+				2C4364611EA68C1200E61F64 /* MembersController.swift in Sources */,
 				2C8E75AA1EA352E700DC69AA /* VideoView.swift in Sources */,
 				2C8E75A81EA34FF300DC69AA /* VideoController.swift in Sources */,
 				2C6C9EC31E91034E000A3557 /* HtmlScrapper.swift in Sources */,
@@ -688,12 +688,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		2C3E57021EA6157100A66AEC /* CACTUS.xcdatamodeld */ = {
+		2CF683A11EAE0F5E00AA1850 /* CACTUS.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				2C3E57031EA6157100A66AEC /* CACTUS.xcdatamodel */,
+				2CF683A21EAE0F5E00AA1850 /* CACTUS.xcdatamodel */,
 			);
-			currentVersion = 2C3E57031EA6157100A66AEC /* CACTUS.xcdatamodel */;
+			currentVersion = 2CF683A21EAE0F5E00AA1850 /* CACTUS.xcdatamodel */;
 			name = CACTUS.xcdatamodeld;
 			path = model/CACTUS.xcdatamodeld;
 			sourceTree = "<group>";
