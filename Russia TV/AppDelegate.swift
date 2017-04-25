@@ -53,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         
         // Connect FBSDK auth
+        FIRInvites.applicationDidFinishLaunching(options: launchOptions)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
         // UI additional
