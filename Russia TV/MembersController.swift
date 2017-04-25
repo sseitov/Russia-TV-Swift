@@ -9,8 +9,9 @@
 import UIKit
 import Firebase
 import MessageUI
+import GoogleSignIn
 
-class MembersController: UITableViewController {
+class MembersController: UITableViewController, FIRInviteDelegate, GIDSignInDelegate {
 
     private var friends:[User] = []
     
@@ -24,6 +25,25 @@ class MembersController: UITableViewController {
         setupBackButton()
         
         friends = Model.shared.getFriends()
+        let providers = FIRAuth.auth()!.currentUser!.providerData
+        for provider in providers {
+            print(provider.providerID)
+            if provider.providerID == "google.com" {
+                GIDSignIn.sharedInstance().delegate = self
+                GIDSignIn.sharedInstance().signInSilently()
+            }
+        }
+
+        print(GIDSignIn.sharedInstance().currentUser)
+        
+    }
+
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if user != nil {
+            let btn = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self, action: #selector(self.sendInvite))
+            btn.tintColor = UIColor.white
+            self.navigationItem.setRightBarButton(btn, animated: true)
+        }
     }
     
     func newUserNotify(_ notify:Notification) {
@@ -33,6 +53,31 @@ class MembersController: UITableViewController {
             self.friends.append(user)
             self.tableView.insertRows(at: [indexPath], with: .bottom)
             self.tableView.endUpdates()
+        }
+    }
+    
+    func sendInvite() {
+        if let invite = FIRInvites.inviteDialog() {
+            invite.setInviteDelegate(self)
+            var message = NSLocalizedString("invite", comment: "")
+            message += "\n----\n \(currentUser()!.name!)"
+            invite.setMessage(message)
+            invite.setTitle(NSLocalizedString("inviteTitle", comment: ""))
+            invite.setDeepLink("https://fb.me/407956749561194")
+            invite.setCallToActionText("Install")
+            invite.open()
+        }
+    }
+    
+    func inviteFinished(withInvitations invitationIds: [String], error: Error?) {
+        if let error = error {
+            if error.localizedDescription != "Canceled by User" {
+                let message = String(format: NSLocalizedString("inviteError", comment: ""), error.localizedDescription)
+                showMessage(message, messageType: .error)
+            }
+        } else {
+            let message = String(format: NSLocalizedString("inviteResult", comment: ""), invitationIds.count)
+            showMessage(message, messageType: .information)
         }
     }
     

@@ -52,6 +52,8 @@
 	<string>CACTUS can send your location as message.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>CACTUS needs your photo library for share photos.</string>
+    <key>NSContactsUsageDescription</key>
+    <string>CACTUS require contacts access to send invitations.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

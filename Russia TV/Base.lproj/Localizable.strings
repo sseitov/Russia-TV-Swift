@@ -7,8 +7,8 @@
 */
 
 "inviteTitle" = "Invite";
-"invite" = "<h3>Join us! Install <a href='https://fb.me/407956749561194'>CACTUS!</a></h3>";
-"inviteResult" = "Invite was sent.";
+"invite" = "Join us!\nInstall CACTUS.";
+"inviteResult" = "%d invites sent.";
 "inviteError" = "Can not send invite. Error: %@";
 
 "Success" = "Success";
