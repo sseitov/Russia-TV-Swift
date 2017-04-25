@@ -11,9 +11,14 @@ import Firebase
 import MessageUI
 import GoogleSignIn
 
-class MembersController: UITableViewController, FIRInviteDelegate, GIDSignInDelegate {
+class MembersController: UITableViewController, GIDSignInDelegate {
+
+    enum InviteType {
+        case none, facebook, google
+    }
 
     private var friends:[User] = []
+    private var inviteType:InviteType = .none
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -25,17 +30,18 @@ class MembersController: UITableViewController, FIRInviteDelegate, GIDSignInDele
         setupBackButton()
         
         friends = Model.shared.getFriends()
-        let providers = FIRAuth.auth()!.currentUser!.providerData
-        for provider in providers {
-            print(provider.providerID)
+        if let provider = FIRAuth.auth()!.currentUser!.providerData.first {
             if provider.providerID == "google.com" {
+                inviteType = .google
                 GIDSignIn.sharedInstance().delegate = self
                 GIDSignIn.sharedInstance().signInSilently()
+            } else if provider.providerID == "facebook.com" {
+                self.inviteType = .facebook
+                let btn = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self, action: #selector(self.sendInvite))
+                btn.tintColor = UIColor.white
+                self.navigationItem.setRightBarButton(btn, animated: true)
             }
         }
-
-        print(GIDSignIn.sharedInstance().currentUser)
-        
     }
 
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -57,27 +63,27 @@ class MembersController: UITableViewController, FIRInviteDelegate, GIDSignInDele
     }
     
     func sendInvite() {
-        if let invite = FIRInvites.inviteDialog() {
-            invite.setInviteDelegate(self)
-            var message = NSLocalizedString("invite", comment: "")
-            message += "\n----\n \(currentUser()!.name!)"
-            invite.setMessage(message)
-            invite.setTitle(NSLocalizedString("inviteTitle", comment: ""))
-            invite.setDeepLink("https://fb.me/407956749561194")
-            invite.setCallToActionText("Install")
-            invite.open()
-        }
-    }
-    
-    func inviteFinished(withInvitations invitationIds: [String], error: Error?) {
-        if let error = error {
-            if error.localizedDescription != "Canceled by User" {
-                let message = String(format: NSLocalizedString("inviteError", comment: ""), error.localizedDescription)
-                showMessage(message, messageType: .error)
+        switch inviteType {
+        case .google:
+            if let invite = FIRInvites.inviteDialog() {
+                invite.setInviteDelegate(self)
+                var message = NSLocalizedString("invite", comment: "")
+                message += "\n----\n \(currentUser()!.name!)"
+                invite.setMessage(message)
+                invite.setTitle(NSLocalizedString("inviteTitle", comment: ""))
+                invite.setDeepLink("https://fb.me/407956749561194")
+                invite.setCallToActionText("Install")
+                invite.open()
             }
-        } else {
-            let message = String(format: NSLocalizedString("inviteResult", comment: ""), invitationIds.count)
-            showMessage(message, messageType: .information)
+        case .facebook:
+            if let url = URL(string: "https://fb.me/407956749561194") {
+                let content = FBSDKAppInviteContent()
+                content.appLinkURL = url
+                content.destination = .facebook
+                FBSDKAppInviteDialog.show(from: self, with: content, delegate: self)
+            }
+        default:
+            break
         }
     }
     
@@ -123,4 +129,31 @@ class MembersController: UITableViewController, FIRInviteDelegate, GIDSignInDele
             tableView.endUpdates()
         }
     }
+}
+
+extension MembersController : FIRInviteDelegate {
+    
+    func inviteFinished(withInvitations invitationIds: [String], error: Error?) {
+        if let error = error {
+            if error.localizedDescription != "Canceled by User" {
+                let message = String(format: NSLocalizedString("inviteError", comment: ""), error.localizedDescription)
+                showMessage(message, messageType: .error)
+            }
+        } else {
+            let message = String(format: NSLocalizedString("inviteResult", comment: ""), invitationIds.count)
+            showMessage(message, messageType: .information)
+        }
+    }
+}
+
+extension MembersController : FBSDKAppInviteDialogDelegate {
+    
+    func appInviteDialog(_ appInviteDialog: FBSDKAppInviteDialog!, didCompleteWithResults results: [AnyHashable : Any]!) {
+        print(results)
+    }
+    
+    func appInviteDialog(_ appInviteDialog: FBSDKAppInviteDialog!, didFailWithError error: Error!) {
+        print(error)
+    }
+   
 }

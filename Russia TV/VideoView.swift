@@ -14,6 +14,7 @@ protocol PlayerDelegate {
     func playerStarted()
     func playSetPosition(_ elapsed:Double, duration:Double)
     func playerFinished()
+    func playerError(_ error:NSError?)
 }
 
 class VideoView: UIView {
@@ -114,7 +115,7 @@ class VideoView: UIView {
                     self.delegate!.playerStarted()
                 }
             case .failed:
-                print(error?.localizedDescription as Any)
+                self.delegate?.playerError(error)
             default:
                 break
             }

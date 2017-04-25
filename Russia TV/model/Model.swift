@@ -104,13 +104,10 @@ class Model: NSObject {
     func signOut(_ completion: @escaping() -> ()) {
         let ref = FIRDatabase.database().reference()
         ref.child("tokens").child(currentUser()!.uid!).removeValue(completionBlock: { _, _ in
-            let providers = FIRAuth.auth()!.currentUser!.providerData
-            for provider in providers {
-                print(provider.providerID)
+            if let provider = FIRAuth.auth()!.currentUser!.providerData.first {
                 if provider.providerID == "facebook.com" {
                     FBSDKLoginManager().logOut()
-                }
-                if provider.providerID == "google.com" {
+                } else if provider.providerID == "google.com" {
                     GIDSignIn.sharedInstance().signOut()
                 }
             }

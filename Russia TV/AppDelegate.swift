@@ -119,20 +119,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // MARK: - Application delegate
-    
+
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if url.scheme!.hasPrefix("com.google") {
+        
+        if url.scheme! == "cactus" {
+            return true
+        } else if url.scheme!.hasPrefix("com.google") {
             return self.application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: "")
         } else {
             return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
         }
     }
-    
-    func application(_ application: UIApplication,
-                     open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+ 
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
         if let invite = FIRInvites.handle(url, sourceApplication:sourceApplication, annotation:annotation) as? FIRReceivedInvite {
-            let matchType =
-                (invite.matchType == .weak) ? "Weak" : "Strong"
+            let matchType = (invite.matchType == .weak) ? "Weak" : "Strong"
             print("Invite received from: \(sourceApplication ?? "") Deeplink: \(invite.deepLink)," +
                 "Id: \(invite.inviteId), Type: \(matchType)")
             return true
@@ -140,7 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
     }
-    
+
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if application.applicationState != .active {

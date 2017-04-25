@@ -96,6 +96,7 @@
             NSDictionary *dict = [[self class] videosWithYoutubeID:youtubeID];
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSString* media = [dict objectForKey:@"medium"];
+//                NSString* media = [dict objectForKey:@"small"];
                 completeBlock(media, nil);
             });
         });

@@ -106,6 +106,13 @@ class VideoController: UIViewController, PlayerDelegate {
         play()
     }
     
+    func playerError(_ error:NSError?) {
+        DispatchQueue.main.async {
+            SVProgressHUD.dismiss()
+            self.showMessage(error!.localizedDescription, messageType: .error)
+        }
+    }
+
     private func timeToString(_ time:Double) -> String {
         let hour = Int(time) / 3600
         let min = hour == 0 ? Int(time) / 60 : (Int(time) % 3600) / 60

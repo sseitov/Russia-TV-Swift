@@ -54,10 +54,6 @@ class LoginView: UIView, GIDSignInDelegate {
         })
     }
     
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        try? FIRAuth.auth()?.signOut()
-    }
-    
     // MARK: - Facebook Auth
     
     @IBAction func facebookLogin(_ sender: Any) {

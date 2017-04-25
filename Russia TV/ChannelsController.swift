@@ -105,14 +105,6 @@ class ChannelsController: UITableViewController {
                 SVProgressHUD.dismiss()
                 let target:[String:Any] = ["title" : channel.channelTitle!, "url" : url]
                 self.performSegue(withIdentifier: "video", sender: target)
-/*
-                let video = AVPlayerViewController()
-                self.present(video, animated: true, completion: {
-                    video.player = AVPlayer(url: url)
-                    video.player?.seek(to: CMTimeMakeWithSeconds(10, 1))
-                    video.player?.play()
-                })
- */
             } else {
                 self.showMessage("Can not load content.", messageType: .error)
             }

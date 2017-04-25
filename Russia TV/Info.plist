@@ -25,14 +25,22 @@
 			</array>
 		</dict>
 		<dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>com.googleusercontent.apps.202252791821-r6f8u8nthao99paq0t2610fbum0oggof</string>
-            </array>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.202252791821-r6f8u8nthao99paq0t2610fbum0oggof</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.vchannel.russia-tv</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>cactus</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>4</string>
 	<key>FacebookAppID</key>
 	<string>406686613021541</string>
 	<key>FacebookDisplayName</key>
@@ -48,12 +56,12 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>CACTUS needs your camera for share photos.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>CACTUS require contacts access to send invitations.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>CACTUS can send your location as message.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>CACTUS needs your photo library for share photos.</string>
-    <key>NSContactsUsageDescription</key>
-    <string>CACTUS require contacts access to send invitations.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
