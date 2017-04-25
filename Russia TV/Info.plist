@@ -25,16 +25,14 @@
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>cactus</string>
-			</array>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.202252791821-r6f8u8nthao99paq0t2610fbum0oggof</string>
+            </array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>FacebookAppID</key>
 	<string>406686613021541</string>
 	<key>FacebookDisplayName</key>

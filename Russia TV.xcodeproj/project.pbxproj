@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2C0437D61E923CAE00B8B23E /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0437D51E923CAE00B8B23E /* ChannelCell.swift */; };
+		2C2F1C461EAF2B8E00377A89 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2F1C451EAF2B8E00377A89 /* LoginView.swift */; };
+		2C2F1C491EAF2C8D00377A89 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2F1C4B1EAF2C8D00377A89 /* LoginView.xib */; };
 		2C3E56F61EA60DCA00A66AEC /* ForumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E56F51EA60DCA00A66AEC /* ForumController.swift */; };
 		2C3E57001EA6120600A66AEC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E56FF1EA6120600A66AEC /* Extensions.swift */; };
 		2C3E57061EA6159700A66AEC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E57051EA6159700A66AEC /* Model.swift */; };
@@ -63,6 +65,10 @@
 /* Begin PBXFileReference section */
 		21AC0E742ABCD93C084F1C49 /* Pods-Russia TV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Russia TV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Russia TV/Pods-Russia TV.debug.xcconfig"; sourceTree = "<group>"; };
 		2C0437D51E923CAE00B8B23E /* ChannelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelCell.swift; sourceTree = "<group>"; };
+		2C2F1C451EAF2B8E00377A89 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		2C2F1C481EAF2C6900377A89 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		2C2F1C4A1EAF2C8D00377A89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginView.xib; sourceTree = "<group>"; };
+		2C2F1C4D1EAF2C9100377A89 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LoginView.strings; sourceTree = "<group>"; };
 		2C3E56F21EA5F75B00A66AEC /* Russia TV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Russia TV.entitlements"; sourceTree = "<group>"; };
 		2C3E56F51EA60DCA00A66AEC /* ForumController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumController.swift; sourceTree = "<group>"; };
 		2C3E56FF1EA6120600A66AEC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -79,7 +85,6 @@
 		2C64F7B51EAA243F00E85F0A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2C64F7BC1EAA2C1100E85F0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2C64F7BF1EAA2C8E00E85F0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2C64F7C11EAA2CC300E85F0A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		2C64F7C21EAA2CC300E85F0A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2C64F7C31EAA2CC300E85F0A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2C64F7C41EAA2CC400E85F0A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -164,6 +169,8 @@
 		2C3E56F41EA60D9B00A66AEC /* Forum */ = {
 			isa = PBXGroup;
 			children = (
+				2C2F1C4B1EAF2C8D00377A89 /* LoginView.xib */,
+				2C2F1C451EAF2B8E00377A89 /* LoginView.swift */,
 				2C3E56F51EA60DCA00A66AEC /* ForumController.swift */,
 				2C9A67D21EA7828C00891832 /* JSQAvatar.swift */,
 				2C9A67B41EA74AFF00891832 /* LocationMediaItem.swift */,
@@ -383,6 +390,7 @@
 				2C64F7B21EAA18B400E85F0A /* EmailInput.xib in Resources */,
 				2C9A67C81EA775BA00891832 /* LGTextFieldAlertView.xib in Resources */,
 				2CB6B86C1E84FB3A009A3A61 /* logo.png in Resources */,
+				2C2F1C491EAF2C8D00377A89 /* LoginView.xib in Resources */,
 				2C9A67C61EA775BA00891832 /* LGProgressAlertView.xib in Resources */,
 				2C9A67C91EA775BA00891832 /* LGVAlertView.xib in Resources */,
 				2CB6B85E1E84F3B7009A3A61 /* LaunchScreen.storyboard in Resources */,
@@ -468,6 +476,7 @@
 				2C3E56F61EA60DCA00A66AEC /* ForumController.swift in Sources */,
 				2C3E57061EA6159700A66AEC /* Model.swift in Sources */,
 				2C64F7B11EAA18B400E85F0A /* EmailInput.swift in Sources */,
+				2C2F1C461EAF2B8E00377A89 /* LoginView.swift in Sources */,
 				2C3E570A1EA6177000A66AEC /* User+CoreDataProperties.swift in Sources */,
 				2C9A67B31EA743C700891832 /* Message+CoreDataProperties.swift in Sources */,
 				2C9A67D11EA778E700891832 /* LocationManager.swift in Sources */,
@@ -482,6 +491,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		2C2F1C4B1EAF2C8D00377A89 /* LoginView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C2F1C4A1EAF2C8D00377A89 /* Base */,
+				2C2F1C4D1EAF2C9100377A89 /* ru */,
+			);
+			name = LoginView.xib;
+			sourceTree = "<group>";
+		};
 		2C64F7BD1EAA2C1100E85F0A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -504,7 +522,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2CB6B8581E84F3B7009A3A61 /* Base */,
-				2C64F7C11EAA2CC300E85F0A /* ru */,
+				2C2F1C481EAF2C6900377A89 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

@@ -6,6 +6,8 @@ target 'Russia TV' do
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
     pod 'Firebase/Messaging'
+    pod 'Firebase/Invites'
+    pod 'GoogleSignIn'
     
     pod 'AFNetworking'
     pod 'HCYoutubeParser'

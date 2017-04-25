@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import UserNotifications
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -48,8 +49,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.registerForRemoteNotifications()
 
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        // Connect Google auth
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         
+        // Connect FBSDK auth
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+
+        // UI additional
         SVProgressHUD.setDefaultStyle(.custom)
         SVProgressHUD.setBackgroundColor(UIColor.mainColor())
         SVProgressHUD.setForegroundColor(UIColor.white)
@@ -115,7 +121,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Application delegate
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        if url.scheme!.hasPrefix("com.google") {
+            return GIDSignIn.sharedInstance().handle(url, sourceApplication:options[.sourceApplication] as? String, annotation: [:])
+        } else {
+            return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        }
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],

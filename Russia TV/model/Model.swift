@@ -103,6 +103,13 @@ class Model: NSObject {
     func signOut(_ completion: @escaping() -> ()) {
         let ref = FIRDatabase.database().reference()
         ref.child("tokens").child(currentUser()!.uid!).removeValue(completionBlock: { _, _ in
+            let providers = FIRAuth.auth()!.currentUser!.providerData
+            for provider in providers {
+                if provider.providerID == "facebook.com" {
+                    FBSDKLoginManager().logOut()
+                }
+            }
+            
             try? FIRAuth.auth()?.signOut()
             
             self.newTokenRefHandle = nil
@@ -110,7 +117,7 @@ class Model: NSObject {
             self.newMessageRefHandle = nil
             self.deleteMessageRefHandle = nil
             
-            FBSDKLoginManager().logOut()
+            completion()
         })
     }
     

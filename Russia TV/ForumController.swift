@@ -9,9 +9,9 @@
 import UIKit
 import Firebase
 
-class ForumController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ForumController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, LoginDelegate {
 
-    var fbButton:UIButton?
+    var loginView:LoginView?
     var messages:[JSQMessage] = []
 
     deinit {
@@ -42,11 +42,12 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if fbButton != nil {
-            fbButton?.center = collectionView.center
+        if loginView != nil {
+            loginView!.frame = CGRect(x: 0, y: 0, width: 260, height: 300)
+            loginView!.center = collectionView.center
         }
     }
-    
+
     func didLogout() {
         setupTitle(NSLocalizedString("registration", comment: ""))
         self.senderId = ""
@@ -54,12 +55,16 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
         navigationItem.rightBarButtonItem?.isEnabled = false
         navigationItem.leftBarButtonItem?.isEnabled = false
         inputToolbar.isHidden = true
-        
-        fbButton = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 130))
-        fbButton?.setImage(UIImage(named: "fb"), for: .normal)
-        fbButton?.addTarget(self, action: #selector(self.facebookSignIn), for: .touchUpInside)
-        fbButton?.center = collectionView.center
-        collectionView.addSubview(fbButton!)
+
+        if loginView == nil {
+            loginView = Bundle.main.loadNibNamed("LoginView", owner: nil, options: nil)?.first as? LoginView
+            if loginView != nil {
+                loginView!.delegate = self
+                loginView!.frame = CGRect(x: 0, y: 0, width: 260, height: 300)
+                loginView!.center = collectionView.center
+                collectionView.addSubview(loginView!)
+            }
+        }
         
         NotificationCenter.default.removeObserver(self)
         Model.shared.clearMessages()
@@ -69,10 +74,12 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
     
     func didLogin() {
         setupTitle(NSLocalizedString("forum", comment: ""))
-        if fbButton != nil {
-            fbButton?.removeFromSuperview()
-            fbButton = nil
+        
+        if loginView != nil {
+            loginView!.removeFromSuperview()
+            loginView = nil
         }
+        
         self.senderId = currentUser()!.uid!
         self.senderDisplayName = currentUser()!.name!
         navigationItem.rightBarButtonItem?.isEnabled = true
@@ -193,42 +200,6 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
             SVProgressHUD.dismiss()
             self.didLogout()
         }
-    }
-
-    func facebookSignIn() {
-        FBSDKLoginManager().logIn(withReadPermissions: ["public_profile","email","user_friends"], from: self, handler: { result, error in
-            if error != nil {
-                self.showMessage("Facebook authorization error.", messageType: .error)
-                return
-            }
-            
-            SVProgressHUD.show(withStatus: "Login...")
-            let params = ["fields" : "id,name,email,picture.width(480).height(480)"]
-            let request = FBSDKGraphRequest(graphPath: "me", parameters: params)
-            request!.start(completionHandler: { _, result, fbError in
-                if fbError != nil {
-                    SVProgressHUD.dismiss()
-                    self.showMessage(fbError!.localizedDescription, messageType: .error)
-                } else {
-                    let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-                    FIRAuth.auth()?.signIn(with: credential, completion: { firUser, error in
-                        if error != nil {
-                            SVProgressHUD.dismiss()
-                            self.showMessage((error as NSError?)!.localizedDescription, messageType: .error)
-                        } else {
-                            if let profile = result as? [String:Any] {
-                                Model.shared.createFacebookUser(firUser!, profile: profile)
-                                SVProgressHUD.dismiss()
-                                self.didLogin()
-                            } else {
-                                self.showMessage("Can not read user profile.", messageType: .error)
-                                try? FIRAuth.auth()?.signOut()
-                            }
-                        }
-                    })
-                }
-            })
-        })
     }
     
     // MARK: - Send / receive messages
