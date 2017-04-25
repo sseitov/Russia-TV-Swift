@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
-class ForumController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, LoginDelegate {
+class ForumController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, LoginDelegate, GIDSignInUIDelegate {
 
     var loginView:LoginView?
     var messages:[JSQMessage] = []

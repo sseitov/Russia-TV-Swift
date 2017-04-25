@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Firebase
+import GoogleSignIn
 
 func currentUser() -> User? {
     if let firUser = FIRAuth.auth()?.currentUser {
@@ -105,8 +106,12 @@ class Model: NSObject {
         ref.child("tokens").child(currentUser()!.uid!).removeValue(completionBlock: { _, _ in
             let providers = FIRAuth.auth()!.currentUser!.providerData
             for provider in providers {
+                print(provider.providerID)
                 if provider.providerID == "facebook.com" {
                     FBSDKLoginManager().logOut()
+                }
+                if provider.providerID == "google.com" {
+                    GIDSignIn.sharedInstance().signOut()
                 }
             }
             
@@ -257,9 +262,20 @@ class Model: NSObject {
         })
     }
     
+    func createGoogleUser(_ user:FIRUser, googleProfile: GIDProfileData!) {
+        let cashedUser = createUser(user.uid)
+        cashedUser.email = googleProfile.email
+        cashedUser.name = googleProfile.name
+        if googleProfile.hasImage {
+            if let url = googleProfile.imageURL(withDimension: 100) {
+                cashedUser.avatar = url.absoluteString
+            }
+        }
+        updateUser(cashedUser)
+    }
+
     func createFacebookUser(_ user:FIRUser, profile:[String:Any]) {
         let cashedUser = createUser(user.uid)
-        cashedUser.facebookID = profile["id"] as? String
         cashedUser.email = profile["email"] as? String
         cashedUser.name = profile["name"] as? String
         if let picture = profile["picture"] as? [String:Any] {
@@ -268,17 +284,6 @@ class Model: NSObject {
             }
         }
         updateUser(cashedUser)
-    }
-
-    func facebookUser(_ id:String) -> User? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
-        let predicate = NSPredicate(format: "facebookID = %@", id)
-        fetchRequest.predicate = predicate
-        if let user = try? managedObjectContext.fetch(fetchRequest).first as? User {
-            return user
-        } else {
-            return nil
-        }
     }
     
     func getFriends() -> [User] {

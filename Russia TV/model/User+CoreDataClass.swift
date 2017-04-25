@@ -23,14 +23,10 @@ public class User: NSManagedObject {
         if avatar != nil {
             profile["avatar"] = avatar!
         }
-        if facebookID != nil {
-            profile["facebookID"] = facebookID!
-        }
         return profile
     }
     
     func setData(_ profile:[String : Any]) {
-        facebookID = profile["facebookID"] as? String
         email = profile["email"] as? String
         name = profile["name"] as? String
         avatar = profile["avatar"] as? String

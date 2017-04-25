@@ -69,6 +69,7 @@
 		2C2F1C481EAF2C6900377A89 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		2C2F1C4A1EAF2C8D00377A89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginView.xib; sourceTree = "<group>"; };
 		2C2F1C4D1EAF2C9100377A89 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LoginView.strings; sourceTree = "<group>"; };
+		2C2F1C4E1EAF371F00377A89 /* CACTUS 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CACTUS 2.xcdatamodel"; sourceTree = "<group>"; };
 		2C3E56F21EA5F75B00A66AEC /* Russia TV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Russia TV.entitlements"; sourceTree = "<group>"; };
 		2C3E56F51EA60DCA00A66AEC /* ForumController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumController.swift; sourceTree = "<group>"; };
 		2C3E56FF1EA6120600A66AEC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -709,9 +710,10 @@
 		2CF683A11EAE0F5E00AA1850 /* CACTUS.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				2C2F1C4E1EAF371F00377A89 /* CACTUS 2.xcdatamodel */,
 				2CF683A21EAE0F5E00AA1850 /* CACTUS.xcdatamodel */,
 			);
-			currentVersion = 2CF683A21EAE0F5E00AA1850 /* CACTUS.xcdatamodel */;
+			currentVersion = 2C2F1C4E1EAF371F00377A89 /* CACTUS 2.xcdatamodel */;
 			name = CACTUS.xcdatamodeld;
 			path = model/CACTUS.xcdatamodeld;
 			sourceTree = "<group>";
