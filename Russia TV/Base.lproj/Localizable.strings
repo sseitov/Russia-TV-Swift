@@ -16,8 +16,11 @@
 "Error" = "Error";
 "emailInputTitle" = "Friend email";
 
+"Are you really want to leave chat?" = "Are you really want to leave chat?";
+
 "members" = "MEMBERS";
-"friends" = "forum members";
+"friends" = "my friends";
+"not_friends" = "add to friends";
 
 "forum" = "FORUM";
 "registration" = "REGISTRATION";
@@ -32,3 +35,8 @@
 "Delete message" = "Delete message";
 "Show photo?" = "Show photo?";
 "Show map?" = "Show map?";
+
+"terms" = "Пользовательское соглашение";
+"eula" = "I will not use in the chat materials containing potentially inappropriate content, such as erotic and pornographic materials or materials with profanity.";
+"agree" = "Agree";
+"reject" = "Reject";

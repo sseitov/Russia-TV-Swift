@@ -30,14 +30,14 @@
 				<string>com.googleusercontent.apps.202252791821-r6f8u8nthao99paq0t2610fbum0oggof</string>
 			</array>
 		</dict>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.vchannel.russia-tv</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>cactus</string>
-			</array>
-		</dict>
+        <dict>
+            <key>CFBundleURLName</key>
+            <string>com.vchannel.russia-tv</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>cactus</string>
+            </array>
+        </dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>4</string>

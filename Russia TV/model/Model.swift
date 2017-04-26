@@ -164,30 +164,27 @@ class Model: NSObject {
         }
     }
 
-    func moveUserToBan(_ user:User) {
-        var banList = UserDefaults.standard.object(forKey: "banList") as? [String]
-        if banList == nil {
-            banList = []
+    func addUser(_ data:[String:Any], user: @escaping(User?) -> ()) {
+        if let uid = data["uid"] as? String {
+            let newUser = self.createUser(uid)
+            newUser.setData(data)
+            self.getUserToken(uid, token: { token in
+                newUser.token = token
+                self.saveContext()
+                user(newUser)
+            })
+        } else {
+            user(nil)
         }
-        banList?.append(user.uid!)
-        UserDefaults.standard.set(banList!, forKey: "banList")
-        UserDefaults.standard.synchronize()
     }
     
-    func isUserBan(_ user:User) -> Bool {
-        if let banList = UserDefaults.standard.object(forKey: "banList") as? [String] {
-            return banList.contains(user.uid!)
-        } else {
-            return false
-        }
-    }
     func deleteUser(_ uid:String) {
         if let user = getUser(uid) {
             let messages = userMessages(user)
             for message in messages {
                 managedObjectContext.delete(message)
             }
-            moveUserToBan(user)
+            managedObjectContext.delete(user)
             self.saveContext()
             NotificationCenter.default.post(name: refreshMessagesNotification, object: nil)
         }
@@ -286,14 +283,57 @@ class Model: NSObject {
     func getFriends() -> [User] {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
         fetchRequest.predicate = NSPredicate(format: "uid != %@", currentUser()!.uid!)
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         if let all = try? managedObjectContext.fetch(fetchRequest) as! [User] {
-            let filtered = all.filter({ user in
-                return !self.isUserBan(user)
-            })
-            return filtered
+            return all
         } else {
             return []
         }
+    }
+    
+    func members(_ completion: @escaping([Any]) -> ()) {
+        let ref = FIRDatabase.database().reference()
+        ref.child("users").observeSingleEvent(of: .value, with: { snapshot in
+            if let values = snapshot.value as? [String:Any] {
+                var users:[Any] = []
+                for (key, value) in values {
+                    if self.getUser(key) == nil {
+                        var user = value as? [String:Any]
+                        if user != nil {
+                            user!["uid"] = key
+                            users.append(user!)
+                        }
+                    }
+                }
+                let next = NSCondition()
+                var live:[Any] = []
+                DispatchQueue.global().async {
+                    for item in users {
+                        DispatchQueue.main.async {
+                            let user = item as? [String:Any]
+                            let uid = user!["uid"] as? String
+                            self.getUserToken(uid!, token: { token in
+                                if token != nil {
+                                    live.append(user!)
+                                }
+                                next.lock()
+                                next.signal()
+                                next.unlock()
+                            })
+                        }
+                        next.lock()
+                        next.wait()
+                        next.unlock()
+                    }
+                    DispatchQueue.main.async {
+                        completion(live)
+                    }
+                }
+            } else {
+                completion([])
+            }
+        })
     }
     
     // MARK: - Message table
@@ -389,21 +429,10 @@ class Model: NSObject {
             if currentUser() != nil && self.getMessage(snapshot.key) == nil {
                 let messageData = snapshot.value as! [String:Any]
                 if let from = messageData["from"] as? String {
-                    if let user = self.getUser(from) {
-                        if !self.isUserBan(user) {
-                            let message = self.createMessage(snapshot.key)
-                            message.setData(messageData, completion: {
-                                NotificationCenter.default.post(name: newMessageNotification, object: message)
-                            })
-                        }
-                    } else {
-                        self.uploadUser(from, result: { user in
-                            if user != nil {
-                                let message = self.createMessage(snapshot.key)
-                                message.setData(messageData, completion: {
-                                    NotificationCenter.default.post(name: newMessageNotification, object: message)
-                                })
-                            }
+                    if self.getUser(from) != nil {
+                        let message = self.createMessage(snapshot.key)
+                        message.setData(messageData, completion: {
+                            NotificationCenter.default.post(name: newMessageNotification, object: message)
                         })
                     }
                 } else {

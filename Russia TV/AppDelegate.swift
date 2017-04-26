@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Use Firebase library to configure APIs
+        FIROptions.default().deepLinkURLScheme = "cactus"
         FIRApp.configure()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification(_:)), name: .firInstanceIDTokenRefresh, object: nil)
@@ -120,12 +121,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // MARK: - Application delegate
-
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        
-        if url.scheme! == "cactus" {
-            return true
-        } else if url.scheme!.hasPrefix("com.google") {
+        if url.scheme!.hasPrefix("com.google") {
             return self.application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: "")
         } else {
             return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
@@ -136,12 +134,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let invite = FIRInvites.handle(url, sourceApplication:sourceApplication, annotation:annotation) as? FIRReceivedInvite {
             let matchType = (invite.matchType == .weak) ? "Weak" : "Strong"
-            print("Invite received from: \(sourceApplication ?? "") Deeplink: \(invite.deepLink)," +
-                "Id: \(invite.inviteId), Type: \(matchType)")
+            let log = "Invite received from: \(sourceApplication ?? "") Deeplink: \(invite.deepLink)," +
+                "Id: \(invite.inviteId), Type: \(matchType)"
+            print(log)
             return true
         }
         
         return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
+    }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        guard let dynamicLinks = FIRDynamicLinks.dynamicLinks() else {
+            return false
+        }
+        
+        let handled = dynamicLinks.handleUniversalLink(userActivity.webpageURL!) { (dynamiclink, error) in
+            if dynamiclink != nil {
+            }
+        }
+        
+        return handled
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],

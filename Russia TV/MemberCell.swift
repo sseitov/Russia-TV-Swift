@@ -12,11 +12,13 @@ class MemberCell: UITableViewCell {
 
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var email: UILabel!
     
-    var user:User? {
+    var friend:User? {
         didSet {
-            name.text = user!.name
-            let url = URL(string: user!.avatar!)
+            name.text = friend!.name
+            email.text = friend!.email
+            let url = URL(string: friend!.avatar!)
             SDWebImageDownloader.shared().downloadImage(with: url, options: [], progress: nil, completed: {image, _, _, _ in
                 if image != nil {
                     self.avatar.image = image!.inCircle()
@@ -25,18 +27,18 @@ class MemberCell: UITableViewCell {
         }
     }
     
-    var friend:[String:Any]? {
+    var member:[String:Any]? {
         didSet {
-            name.text = friend!["name"] as? String
-            if let picture = friend!["picture"] as? [String:Any],
-                let data = picture["data"] as? [String:Any],
-                let url = data["url"] as? String
-            {
-                SDWebImageDownloader.shared().downloadImage(with: URL(string: url), options: [], progress: nil, completed: {image, _, _, _ in
-                    if image != nil {
-                        self.avatar.image = image!.inCircle()
-                    }
-                })
+            if member != nil {
+                name.text = member!["name"] as? String
+                email.text = member!["email"] as? String
+                if let picture = member!["avatar"] as? String {
+                    SDWebImageDownloader.shared().downloadImage(with: URL(string: picture), options: [], progress: nil, completed: {image, _, _, _ in
+                        if image != nil {
+                            self.avatar.image = image!.inCircle()
+                        }
+                    })
+                }
             }
         }
     }

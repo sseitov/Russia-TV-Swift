@@ -48,6 +48,15 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
             loginView!.center = collectionView.center
         }
     }
+    
+    func checkAgreement(_ accept: @escaping(Bool) -> ()) {
+        let alert = createQuestion(NSLocalizedString("eula", comment: ""),
+                                   acceptTitle: NSLocalizedString("agree", comment: ""),
+                                   cancelTitle: NSLocalizedString("reject", comment: ""),
+                                   acceptHandler: { accept(true) }, cancelHandler: { accept(false) })
+        alert?.titleLabel.text = NSLocalizedString("terms", comment: "")
+        alert?.show()
+    }
 
     func didLogout() {
         setupTitle(NSLocalizedString("registration", comment: ""))
@@ -196,11 +205,15 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
     // MARK: - Facebook Auth
     
     @IBAction func signOut(_ sender: Any) {
-        SVProgressHUD.show(withStatus: "Logout...")
-        Model.shared.signOut {
-            SVProgressHUD.dismiss()
-            self.didLogout()
-        }
+        let question = createQuestion(NSLocalizedString("Are you really want to leave chat?", comment: ""),
+                                      acceptTitle: "Yes", cancelTitle: "Cancel", acceptHandler: {
+                                        SVProgressHUD.show(withStatus: "Logout...")
+                                        Model.shared.signOut({
+                                            SVProgressHUD.dismiss()
+                                            self.didLogout()
+                                        })
+        })
+        question?.show()
     }
     
     // MARK: - Send / receive messages

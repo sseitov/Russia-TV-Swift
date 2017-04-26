@@ -11,6 +11,7 @@ import Firebase
 import GoogleSignIn
 
 protocol LoginDelegate {
+    func checkAgreement(_ accept: @escaping(Bool) -> ())
     func didLogin()
 }
 
@@ -31,7 +32,11 @@ class LoginView: UIView, GIDSignInDelegate {
     // MARK: - Google+ Auth
     
     @IBAction func googleLogin(_ sender: Any) {
-        GIDSignIn.sharedInstance().signIn()
+        delegate?.checkAgreement({ accept in
+            if accept {
+                GIDSignIn.sharedInstance().signIn()
+            }
+        })
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -57,38 +62,42 @@ class LoginView: UIView, GIDSignInDelegate {
     // MARK: - Facebook Auth
     
     @IBAction func facebookLogin(_ sender: Any) {
-        FBSDKLoginManager().logIn(withReadPermissions: ["public_profile","email","user_friends"], from: host, handler: { result, error in
-            if error != nil {
-                self.host?.showMessage("Facebook authorization error.", messageType: .error)
-                return
-            }
-            
-            SVProgressHUD.show(withStatus: "Login...")
-            let params = ["fields" : "id,name,email,picture.width(480).height(480)"]
-            let request = FBSDKGraphRequest(graphPath: "me", parameters: params)
-            request!.start(completionHandler: { _, result, fbError in
-                if fbError != nil {
-                    SVProgressHUD.dismiss()
-                    self.host?.showMessage(fbError!.localizedDescription, messageType: .error)
-                } else {
-                    let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-                    FIRAuth.auth()?.signIn(with: credential, completion: { firUser, error in
-                        if error != nil {
+        delegate?.checkAgreement({ accept in
+            if accept {
+                FBSDKLoginManager().logIn(withReadPermissions: ["public_profile","email","user_friends"], from: self.host, handler: { result, error in
+                    if error != nil {
+                        self.host?.showMessage("Facebook authorization error.", messageType: .error)
+                        return
+                    }
+                    
+                    SVProgressHUD.show(withStatus: "Login...")
+                    let params = ["fields" : "id,name,email,picture.width(480).height(480)"]
+                    let request = FBSDKGraphRequest(graphPath: "me", parameters: params)
+                    request!.start(completionHandler: { _, result, fbError in
+                        if fbError != nil {
                             SVProgressHUD.dismiss()
-                            self.host?.showMessage((error as NSError?)!.localizedDescription, messageType: .error)
+                            self.host?.showMessage(fbError!.localizedDescription, messageType: .error)
                         } else {
-                            if let profile = result as? [String:Any] {
-                                Model.shared.createFacebookUser(firUser!, profile: profile)
-                                SVProgressHUD.dismiss()
-                                self.delegate?.didLogin()
-                            } else {
-                                self.host?.showMessage("Can not read user profile.", messageType: .error)
-                                try? FIRAuth.auth()?.signOut()
-                            }
+                            let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                            FIRAuth.auth()?.signIn(with: credential, completion: { firUser, error in
+                                if error != nil {
+                                    SVProgressHUD.dismiss()
+                                    self.host?.showMessage((error as NSError?)!.localizedDescription, messageType: .error)
+                                } else {
+                                    if let profile = result as? [String:Any] {
+                                        Model.shared.createFacebookUser(firUser!, profile: profile)
+                                        SVProgressHUD.dismiss()
+                                        self.delegate?.didLogin()
+                                    } else {
+                                        self.host?.showMessage("Can not read user profile.", messageType: .error)
+                                        try? FIRAuth.auth()?.signOut()
+                                    }
+                                }
+                            })
                         }
                     })
-                }
-            })
+                })
+            }
         })
     }
 

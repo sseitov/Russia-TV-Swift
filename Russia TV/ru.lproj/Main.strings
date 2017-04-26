@@ -1,6 +1,9 @@
 
+/* Class = "UIButton"; normalTitle = "Send an invitation"; ObjectID = "LTY-I4-rRQ"; */
+"LTY-I4-rRQ.normalTitle" = "Отправить приглашение";
+
 /* Class = "UITabBarItem"; title = "FORUM"; ObjectID = "LbX-AF-OLi"; */
-"LbX-AF-OLi.title" = "ФОРУМ";
+"LbX-AF-OLi.title" = "FORUM";
 
 /* Class = "UITabBarItem"; title = "CACTUS"; ObjectID = "yqY-qB-Fcs"; */
-"yqY-qB-Fcs.title" = "КАКТУС";
+"yqY-qB-Fcs.title" = "CACTUS";

@@ -11,14 +11,13 @@ import Firebase
 import MessageUI
 import GoogleSignIn
 
-class MembersController: UITableViewController, GIDSignInDelegate {
+class MembersController: UIViewController, UITableViewDelegate, UITableViewDataSource, GIDSignInDelegate {
 
-    enum InviteType {
-        case none, facebook, google
-    }
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var inviteBarHeight: NSLayoutConstraint!
 
     private var friends:[User] = []
-    private var inviteType:InviteType = .none
+    private var members:[Any] = []
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -30,25 +29,37 @@ class MembersController: UITableViewController, GIDSignInDelegate {
         setupBackButton()
         
         friends = Model.shared.getFriends()
+        tableView.isEditing = true
+        inviteBarHeight.constant = 0
+        refresh()
+    }
+    
+    @IBAction func refresh() {
+        SVProgressHUD.show(withStatus: "Refresh...")
+        Model.shared.members({ members in
+            SVProgressHUD.dismiss()
+            self.members = members
+            self.tableView.reloadData()
+        })
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if let provider = FIRAuth.auth()!.currentUser!.providerData.first {
             if provider.providerID == "google.com" {
-                inviteType = .google
                 GIDSignIn.sharedInstance().delegate = self
                 GIDSignIn.sharedInstance().signInSilently()
-            } else if provider.providerID == "facebook.com" {
-                self.inviteType = .facebook
-                let btn = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self, action: #selector(self.sendInvite))
-                btn.tintColor = UIColor.white
-                self.navigationItem.setRightBarButton(btn, animated: true)
             }
         }
     }
-
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if user != nil {
-            let btn = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self, action: #selector(self.sendInvite))
-            btn.tintColor = UIColor.white
-            self.navigationItem.setRightBarButton(btn, animated: true)
+            self.view.layoutIfNeeded()
+            inviteBarHeight.constant = 44
+            UIView.animate(withDuration: 0.5, animations: {
+                self.view.layoutIfNeeded()
+            })
         }
     }
     
@@ -62,71 +73,108 @@ class MembersController: UITableViewController, GIDSignInDelegate {
         }
     }
     
-    func sendInvite() {
-        switch inviteType {
-        case .google:
-            if let invite = FIRInvites.inviteDialog() {
-                invite.setInviteDelegate(self)
-                var message = NSLocalizedString("invite", comment: "")
-                message += "\n----\n \(currentUser()!.name!)"
-                invite.setMessage(message)
-                invite.setTitle(NSLocalizedString("inviteTitle", comment: ""))
-                invite.setDeepLink("https://fb.me/407956749561194")
-                invite.setCallToActionText("Install")
-                invite.open()
+    @IBAction func sendInvite() {
+        if let invite = FIRInvites.inviteDialog() {
+            invite.setInviteDelegate(self)
+            var message = NSLocalizedString("invite", comment: "")
+            message += "\n---------------------\n \(currentUser()!.name!)"
+            if currentUser()!.email != nil {
+                message += "\n \(currentUser()!.email!)"
             }
-        case .facebook:
-            if let url = URL(string: "https://fb.me/407956749561194") {
-                let content = FBSDKAppInviteContent()
-                content.appLinkURL = url
-                content.destination = .facebook
-                FBSDKAppInviteDialog.show(from: self, with: content, delegate: self)
-            }
-        default:
-            break
+            invite.setMessage(message)
+            invite.setTitle(NSLocalizedString("inviteTitle", comment: ""))
+            invite.setDeepLink(deepLink)
+            invite.setCallToActionText("Install")
+            invite.open()
         }
     }
     
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? friends.count : members.count
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return NSLocalizedString("friends", comment: "")
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section == 0 ? NSLocalizedString("friends", comment: "") : NSLocalizedString("not_friends", comment: "")
     }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return indexPath.section == 0 ? .delete : .insert
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "member", for: indexPath) as! MemberCell
-        cell.user = friends[indexPath.row]
+        if indexPath.section == 0 {
+            cell.friend = friends[indexPath.row]
+        } else {
+            cell.member = members[indexPath.row] as? [String:Any]
+        }
         return cell
     }
-
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            tableView.beginUpdates()
             let user = friends[indexPath.row]
+            
+            tableView.beginUpdates()
+            
+            var member = ["uid" : user.uid!]
+            if user.name != nil {
+                member["name"] = user.name!
+            }
+            if user.email != nil {
+                member["email"] = user.email!
+            }
+            if user.avatar != nil {
+                member["avatar"] = user.avatar!
+            }
+            let insertPath = IndexPath(row: members.count, section: 1)
+            members.append(member)
+            tableView.insertRows(at: [insertPath], with: .bottom)
+            tableView.endUpdates()
+            
+            tableView.beginUpdates()
             Model.shared.deleteUser(user.uid!)
             friends.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .top)
+            let deletePath = indexPath
+            tableView.deleteRows(at: [deletePath], with: .top)
             tableView.endUpdates()
+        } else if editingStyle == .insert {
+            if let member = members[indexPath.row] as? [String:Any] {
+                SVProgressHUD.show(withStatus: "Add...")
+                Model.shared.addUser(member, user: { user in
+                    SVProgressHUD.dismiss()
+                    if user != nil {
+                        tableView.beginUpdates()
+                        self.members.remove(at: indexPath.row)
+                        let deletePath = indexPath
+                        tableView.deleteRows(at: [deletePath], with: .fade)
+                        tableView.endUpdates()
+                        
+                        tableView.beginUpdates()
+                        let insertPath = IndexPath(row: self.friends.count, section: 0)
+                        self.friends.append(user!)
+                        self.tableView.insertRows(at: [insertPath], with: .fade)
+                        tableView.endUpdates()
+                    } else {
+                        self.showMessage("Can not add this user.", messageType: .error)
+                        return
+                    }
+                })
+            }
         }
     }
 }
