@@ -19,8 +19,9 @@
 "Are you really want to leave chat?" = "Are you really want to leave chat?";
 
 "members" = "MEMBERS";
-"friends" = "my friends";
-"not_friends" = "add to friends";
+"friends" = "MY FRIENDS";
+"addToFriends" = "Add to friends";
+"sendInvite" = "Send an invitation";
 
 "forum" = "FORUM";
 "registration" = "REGISTRATION";

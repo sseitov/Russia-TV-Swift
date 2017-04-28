@@ -122,7 +122,7 @@ extension UIViewController {
     func createQuestion(_ question:String, acceptTitle:String, cancelTitle:String, acceptHandler:@escaping () -> (), cancelHandler: (() -> ())? = nil) -> LGAlertView? {
         
         let alert = LGAlertView.alert(
-            withTitle: "Attention!",
+            withTitle: "",
             message: question,
             cancelButtonTitle: cancelTitle,
             otherButtonTitle: acceptTitle,

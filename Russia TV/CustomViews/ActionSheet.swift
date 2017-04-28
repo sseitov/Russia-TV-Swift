@@ -18,18 +18,16 @@ class ActionSheet: LGAlertView {
     
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var thirdButtonHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var cancelConstraint: NSLayoutConstraint!
     
     var handler1:CompletionBlock?
     var handler2:CompletionBlock?
     var handler3:CompletionBlock?
     
-    class func create(title:String, actions:[String], handler1:CompletionBlock?, handler2:CompletionBlock?, handler3:CompletionBlock? = nil, cancelHandler:LGAlertViewCancelBlock? = nil) -> ActionSheet? {
+    class func create(actions:[String], handler1:CompletionBlock?, handler2:CompletionBlock?, handler3:CompletionBlock? = nil, cancelHandler:LGAlertViewCancelBlock? = nil) -> ActionSheet? {
         if actions.count < 2 || actions.count > 3 {
             return nil
         }
         if let actionView = Bundle.main.loadNibNamed("ActionSheet", owner: nil, options: nil)?.first as? ActionSheet {
-            actionView.titleLabel.text = title
             actionView.firstButton.setTitle(actions[0], for: .normal)
             actionView.secondButton.setTitle(actions[1], for: .normal)
             actionView.cancelButtonBlock = cancelHandler
@@ -37,8 +35,7 @@ class ActionSheet: LGAlertView {
             actionView.handler2 = handler2
             if actions.count == 2 {
                 actionView.thirdButtonHeightConstraint.constant = 0
-                actionView.heightConstraint.constant = 240
-                actionView.cancelConstraint.constant = 20
+                actionView.heightConstraint.constant = 180
             } else {
                 actionView.thirdButton.setTitle(actions[2], for: .normal)
                 actionView.handler3 = handler3

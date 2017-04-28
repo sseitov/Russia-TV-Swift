@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import Firebase
 import GoogleSignIn
+import TwitterKit
 
 func currentUser() -> User? {
     if let firUser = FIRAuth.auth()?.currentUser {
@@ -105,21 +106,30 @@ class Model: NSObject {
         let ref = FIRDatabase.database().reference()
         ref.child("tokens").child(currentUser()!.uid!).removeValue(completionBlock: { _, _ in
             if let provider = FIRAuth.auth()!.currentUser!.providerData.first {
+                print(provider.providerID)
                 if provider.providerID == "facebook.com" {
                     FBSDKLoginManager().logOut()
                 } else if provider.providerID == "google.com" {
                     GIDSignIn.sharedInstance().signOut()
+                } else if provider.providerID == "twitter.com" {
+                    let client = TWTRAPIClient.withCurrentUser()
+                    if let uid = client.userID {
+                        Twitter.sharedInstance().sessionStore.logOutUserID(uid)
+                    }
                 }
             }
-            
-            try? FIRAuth.auth()?.signOut()
-            
-            self.newTokenRefHandle = nil
-            self.updateTokenRefHandle = nil
-            self.newMessageRefHandle = nil
-            self.deleteMessageRefHandle = nil
-            
-            completion()
+            ref.child("users").child(currentUser()!.uid!).removeValue(completionBlock: { _, _ in
+                self.clearMessages()
+                self.clearUsers()
+                try? FIRAuth.auth()?.signOut()
+                
+                self.newTokenRefHandle = nil
+                self.updateTokenRefHandle = nil
+                self.newMessageRefHandle = nil
+                self.deleteMessageRefHandle = nil
+                
+                completion()
+            })
         })
     }
     
@@ -164,17 +174,14 @@ class Model: NSObject {
         }
     }
 
-    func addUser(_ data:[String:Any], user: @escaping(User?) -> ()) {
+    func addUser(_ data:[String:Any]) -> User? {
         if let uid = data["uid"] as? String {
             let newUser = self.createUser(uid)
             newUser.setData(data)
-            self.getUserToken(uid, token: { token in
-                newUser.token = token
-                self.saveContext()
-                user(newUser)
-            })
+            saveContext()
+            return newUser
         } else {
-            user(nil)
+            return nil
         }
     }
     
@@ -199,11 +206,6 @@ class Model: NSObject {
                 if let userData = snapshot.value as? [String:Any] {
                     let user = self.createUser(uid)
                     user.setData(userData)
-                    self.getUserToken(uid, token: { token in
-                        user.token = token
-                        self.saveContext()
-                        result(user)
-                    })
                 } else {
                     result(nil)
                 }
@@ -215,17 +217,6 @@ class Model: NSObject {
         saveContext()
         let ref = FIRDatabase.database().reference()
         ref.child("users").child(user.uid!).setValue(user.getData())
-    }
-    
-    fileprivate func getUserToken(_ uid:String, token: @escaping(String?) -> ()) {
-        let ref = FIRDatabase.database().reference()
-        ref.child("tokens").child(uid).observeSingleEvent(of: .value, with: { snapshot in
-            if let result = snapshot.value as? String {
-                token(result)
-            } else {
-                token(nil)
-            }
-        })
     }
     
     func publishToken(_ user:FIRUser,  token:String) {
@@ -241,7 +232,7 @@ class Model: NSObject {
             if let user = self.getUser(snapshot.key) {
                 if let token = snapshot.value as? String {
                     user.token = token
-                    self.saveContext()
+                    self.updateUser(user)
                 }
             }
         })
@@ -254,30 +245,6 @@ class Model: NSObject {
                 }
             }
         })
-    }
-    
-    func createGoogleUser(_ user:FIRUser, googleProfile: GIDProfileData!) {
-        let cashedUser = createUser(user.uid)
-        cashedUser.email = googleProfile.email
-        cashedUser.name = googleProfile.name
-        if googleProfile.hasImage {
-            if let url = googleProfile.imageURL(withDimension: 100) {
-                cashedUser.avatar = url.absoluteString
-            }
-        }
-        updateUser(cashedUser)
-    }
-
-    func createFacebookUser(_ user:FIRUser, profile:[String:Any]) {
-        let cashedUser = createUser(user.uid)
-        cashedUser.email = profile["email"] as? String
-        cashedUser.name = profile["name"] as? String
-        if let picture = profile["picture"] as? [String:Any] {
-            if let data = picture["data"] as? [String:Any] {
-                cashedUser.avatar = data["url"] as? String
-            }
-        }
-        updateUser(cashedUser)
     }
     
     func getFriends() -> [User] {
@@ -300,42 +267,25 @@ class Model: NSObject {
                 for (key, value) in values {
                     if self.getUser(key) == nil {
                         var user = value as? [String:Any]
-                        if user != nil {
+                        if user != nil, user!["token"] != nil {
                             user!["uid"] = key
                             users.append(user!)
                         }
                     }
                 }
-                let next = NSCondition()
-                var live:[Any] = []
-                DispatchQueue.global().async {
-                    for item in users {
-                        DispatchQueue.main.async {
-                            let user = item as? [String:Any]
-                            let uid = user!["uid"] as? String
-                            self.getUserToken(uid!, token: { token in
-                                if token != nil {
-                                    live.append(user!)
-                                }
-                                next.lock()
-                                next.signal()
-                                next.unlock()
-                            })
-                        }
-                        next.lock()
-                        next.wait()
-                        next.unlock()
-                    }
-                    DispatchQueue.main.async {
-                        completion(live)
-                    }
-                }
+                completion(users)
             } else {
                 completion([])
             }
         })
     }
     
+    func clearUsers() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        _ = try? persistentStoreCoordinator.execute(deleteRequest, with: managedObjectContext)
+    }
+
     // MARK: - Message table
     
     func createMessage(_ uid:String) -> Message {

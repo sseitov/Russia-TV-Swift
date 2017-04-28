@@ -19,8 +19,9 @@
 "Are you really want to leave chat?" = "Вы действительно хотите покинуть чат?";
 
 "members" = "УЧАСТНИКИ";
-"friends" = "мои друзья";
-"not_friends" = "добавить в друзья";
+"friends" = "МОИ ДРУЗЬЯ";
+"addToFriends" = "Добавить в друзья";
+"sendInvite" = "Отправить приглашение";
 
 "forum" = "ФОРУМ";
 "registration" = "РЕГИСТРАЦИЯ";

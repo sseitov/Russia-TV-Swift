@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 import UserNotifications
 import GoogleSignIn
+import Fabric
+import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -57,6 +59,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRInvites.applicationDidFinishLaunching(options: launchOptions)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
+        // Connect Twitter auth
+        Fabric.with([Twitter.self])
+
+ /*
+        let ref = FIRDatabase.database().reference()
+        ref.child("users").observeSingleEvent(of: .value, with: { snapshot in
+            if let values = snapshot.value as? [String:Any] {
+                for (key, value) in values {
+                    var userData = value as? [String:Any]
+                    if userData != nil, userData!["token"] == nil {
+                        ref.child("tokens").child(key).observeSingleEvent(of: .value, with: { snapshot in
+                            if let token = snapshot.value as? String {
+                                userData!["token"] = token
+                                ref.child("users").child(key).setValue(userData!)
+                            }
+                        })
+                    }
+                }
+            }
+        })
+*/
         // UI additional
         SVProgressHUD.setDefaultStyle(.custom)
         SVProgressHUD.setBackgroundColor(UIColor.mainColor())
@@ -123,7 +146,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Application delegate
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if url.scheme!.hasPrefix("com.google") {
+        if (Twitter.sharedInstance().application(app, open: url, options: options)) {
+            return true
+        } else if url.scheme!.hasPrefix("com.google") {
             return self.application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: "")
         } else {
             return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)

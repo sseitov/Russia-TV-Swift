@@ -23,6 +23,9 @@ public class User: NSManagedObject {
         if avatar != nil {
             profile["avatar"] = avatar!
         }
+        if token != nil {
+            profile["token"] = avatar!
+        }
         return profile
     }
     
@@ -30,6 +33,7 @@ public class User: NSManagedObject {
         email = profile["email"] as? String
         name = profile["name"] as? String
         avatar = profile["avatar"] as? String
+        token = profile["token"] as? String
     }
 
 }

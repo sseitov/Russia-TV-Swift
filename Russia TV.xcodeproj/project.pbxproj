@@ -17,7 +17,7 @@
 		2C3E570A1EA6177000A66AEC /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3E57081EA6177000A66AEC /* User+CoreDataProperties.swift */; };
 		2C43645D1EA68B9E00E61F64 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43645C1EA68B9E00E61F64 /* Credentials.swift */; };
 		2C43645F1EA68BB700E61F64 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C43645E1EA68BB700E61F64 /* GoogleService-Info.plist */; };
-		2C4364611EA68C1200E61F64 /* MembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4364601EA68C1200E61F64 /* MembersController.swift */; };
+		2C4364611EA68C1200E61F64 /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4364601EA68C1200E61F64 /* FriendsController.swift */; };
 		2C4364631EA6AA6C00E61F64 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4364621EA6AA6C00E61F64 /* MemberCell.swift */; };
 		2C64F7B11EAA18B400E85F0A /* EmailInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C64F7AF1EAA18B400E85F0A /* EmailInput.swift */; };
 		2C64F7B21EAA18B400E85F0A /* EmailInput.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C64F7B01EAA18B400E85F0A /* EmailInput.xib */; };
@@ -59,6 +59,11 @@
 		2CBF14AA1EA9752B000DE321 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBF14A61EA9752B000DE321 /* FBSDKLoginKit.framework */; };
 		2CBF14AB1EA9752B000DE321 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBF14A71EA9752B000DE321 /* FBSDKShareKit.framework */; };
 		2CF683A31EAE0F5E00AA1850 /* CACTUS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2CF683A11EAE0F5E00AA1850 /* CACTUS.xcdatamodeld */; };
+		2CFDA34D1EB31907005C4DEA /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFDA3491EB31907005C4DEA /* Fabric.framework */; };
+		2CFDA34E1EB31907005C4DEA /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFDA34A1EB31907005C4DEA /* TwitterKit.framework */; };
+		2CFDA34F1EB31907005C4DEA /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CFDA34B1EB31907005C4DEA /* TwitterKitResources.bundle */; };
+		2CFDA3501EB31907005C4DEA /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFDA34C1EB31907005C4DEA /* TwitterCore.framework */; };
+		2CFDA3541EB35A0C005C4DEA /* MembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFDA3531EB35A0C005C4DEA /* MembersController.swift */; };
 		E51362A30352F85F1ECB80A8 /* libPods-Russia TV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */; };
 /* End PBXBuildFile section */
 
@@ -77,7 +82,7 @@
 		2C3E57081EA6177000A66AEC /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "User+CoreDataProperties.swift"; path = "model/User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2C43645C1EA68B9E00E61F64 /* Credentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = SOURCE_ROOT; };
 		2C43645E1EA68BB700E61F64 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		2C4364601EA68C1200E61F64 /* MembersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersController.swift; sourceTree = "<group>"; };
+		2C4364601EA68C1200E61F64 /* FriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
 		2C4364621EA6AA6C00E61F64 /* MemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
 		2C64F7AF1EAA18B400E85F0A /* EmailInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmailInput.swift; path = CustomViews/EmailInput.swift; sourceTree = "<group>"; };
 		2C64F7B01EAA18B400E85F0A /* EmailInput.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmailInput.xib; path = CustomViews/EmailInput.xib; sourceTree = "<group>"; };
@@ -92,7 +97,6 @@
 		2C6C9EC41E910FDA000A3557 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2C6C9EC61E912964000A3557 /* YouTubeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouTubeParser.h; sourceTree = "<group>"; };
 		2C6C9EC71E912964000A3557 /* YouTubeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouTubeParser.m; sourceTree = "<group>"; };
-		2C879AB01EB13BEE00528991 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		2C8E75A71EA34FF300DC69AA /* VideoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
 		2C8E75A91EA352E700DC69AA /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		2C9A67B01EA743C700891832 /* Message+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Message+CoreDataClass.swift"; path = "model/Message+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -130,6 +134,12 @@
 		2CBF14A61EA9752B000DE321 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		2CBF14A71EA9752B000DE321 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		2CF683A21EAE0F5E00AA1850 /* CACTUS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CACTUS.xcdatamodel; sourceTree = "<group>"; };
+		2CFDA3491EB31907005C4DEA /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		2CFDA34A1EB31907005C4DEA /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
+		2CFDA34B1EB31907005C4DEA /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
+		2CFDA34C1EB31907005C4DEA /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
+		2CFDA3521EB355D0005C4DEA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		2CFDA3531EB35A0C005C4DEA /* MembersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersController.swift; sourceTree = "<group>"; };
 		3556669FAC53A823378E4EB0 /* libPods-Russia TV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Russia TV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		712D1CBF0B06E43304FDEE10 /* Pods-Russia TV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Russia TV.release.xcconfig"; path = "Pods/Target Support Files/Pods-Russia TV/Pods-Russia TV.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,10 +150,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C64F7B61EAA243F00E85F0A /* MessageUI.framework in Frameworks */,
+				2CFDA34E1EB31907005C4DEA /* TwitterKit.framework in Frameworks */,
 				2CBF14A81EA9752B000DE321 /* Bolts.framework in Frameworks */,
 				2CBF14A91EA9752B000DE321 /* FBSDKCoreKit.framework in Frameworks */,
 				2CBF14AA1EA9752B000DE321 /* FBSDKLoginKit.framework in Frameworks */,
+				2CFDA3501EB31907005C4DEA /* TwitterCore.framework in Frameworks */,
 				2CBF14AB1EA9752B000DE321 /* FBSDKShareKit.framework in Frameworks */,
+				2CFDA34D1EB31907005C4DEA /* Fabric.framework in Frameworks */,
 				2C6C9EC51E910FDA000A3557 /* AVFoundation.framework in Frameworks */,
 				2CB6B8701E850284009A3A61 /* AVKit.framework in Frameworks */,
 				E51362A30352F85F1ECB80A8 /* libPods-Russia TV.a in Frameworks */,
@@ -177,7 +190,8 @@
 				2C9A67B41EA74AFF00891832 /* LocationMediaItem.swift */,
 				2C9A67D41EA78B4200891832 /* PhotoController.swift */,
 				2C9A67D61EA78D0800891832 /* LocationController.swift */,
-				2C4364601EA68C1200E61F64 /* MembersController.swift */,
+				2C4364601EA68C1200E61F64 /* FriendsController.swift */,
+				2CFDA3531EB35A0C005C4DEA /* MembersController.swift */,
 				2C4364621EA6AA6C00E61F64 /* MemberCell.swift */,
 			);
 			name = Forum;
@@ -289,6 +303,10 @@
 		2CB6B8661E84F7A5009A3A61 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CFDA3491EB31907005C4DEA /* Fabric.framework */,
+				2CFDA34A1EB31907005C4DEA /* TwitterKit.framework */,
+				2CFDA34B1EB31907005C4DEA /* TwitterKitResources.bundle */,
+				2CFDA34C1EB31907005C4DEA /* TwitterCore.framework */,
 				2C64F7B51EAA243F00E85F0A /* MessageUI.framework */,
 				2CBF14A41EA9752B000DE321 /* Bolts.framework */,
 				2CBF14A51EA9752B000DE321 /* FBSDKCoreKit.framework */,
@@ -323,6 +341,7 @@
 				2CB6B84E1E84F3B4009A3A61 /* Resources */,
 				90E5EAD5057249350591B652 /* [CP] Embed Pods Frameworks */,
 				4232CF28988CE4E6D8F15913 /* [CP] Copy Pods Resources */,
+				2CFDA3481EB318D6005C4DEA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -394,6 +413,7 @@
 				2C64F7B21EAA18B400E85F0A /* EmailInput.xib in Resources */,
 				2C9A67C81EA775BA00891832 /* LGTextFieldAlertView.xib in Resources */,
 				2CB6B86C1E84FB3A009A3A61 /* logo.png in Resources */,
+				2CFDA34F1EB31907005C4DEA /* TwitterKitResources.bundle in Resources */,
 				2C2F1C491EAF2C8D00377A89 /* LoginView.xib in Resources */,
 				2C9A67C61EA775BA00891832 /* LGProgressAlertView.xib in Resources */,
 				2C9A67C91EA775BA00891832 /* LGVAlertView.xib in Resources */,
@@ -407,6 +427,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2CFDA3481EB318D6005C4DEA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "releaseConfig=\"Release\"\n\nif [ \"$releaseConfig\" = \"${CONFIGURATION}\" ]; then\necho \"Running Fabric\"\n./Fabric.framework/run c01e70f276107c573a71a72b21766ebe4ba90066 3e34252f5bdbf35c51e80d0178bb229479cdde0c1bd271bbfe85b67c4a558ed9\nfi\n";
+		};
 		4232CF28988CE4E6D8F15913 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -464,6 +497,7 @@
 				2C64F7B41EAA197200E85F0A /* TextFieldContainer.swift in Sources */,
 				2C9A67D31EA7828C00891832 /* JSQAvatar.swift in Sources */,
 				2C3E57001EA6120600A66AEC /* Extensions.swift in Sources */,
+				2CFDA3541EB35A0C005C4DEA /* MembersController.swift in Sources */,
 				2C9A67B51EA74AFF00891832 /* LocationMediaItem.swift in Sources */,
 				2C9A67CA1EA775BA00891832 /* NSPointerArray+AbstractionHelpers.m in Sources */,
 				2C9A67CE1EA7761100891832 /* ActionSheet.swift in Sources */,
@@ -472,7 +506,7 @@
 				2C4364631EA6AA6C00E61F64 /* MemberCell.swift in Sources */,
 				2C9A67B21EA743C700891832 /* Message+CoreDataClass.swift in Sources */,
 				2C9A67C31EA775BA00891832 /* LGAlertView.m in Sources */,
-				2C4364611EA68C1200E61F64 /* MembersController.swift in Sources */,
+				2C4364611EA68C1200E61F64 /* FriendsController.swift in Sources */,
 				2C8E75AA1EA352E700DC69AA /* VideoView.swift in Sources */,
 				2C8E75A81EA34FF300DC69AA /* VideoController.swift in Sources */,
 				2C6C9EC31E91034E000A3557 /* HtmlScrapper.swift in Sources */,
@@ -526,7 +560,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2CB6B8581E84F3B7009A3A61 /* Base */,
-				2C879AB01EB13BEE00528991 /* ru */,
+				2CFDA3521EB355D0005C4DEA /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

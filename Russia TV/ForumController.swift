@@ -44,7 +44,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if loginView != nil {
-            loginView!.frame = CGRect(x: 0, y: 0, width: 260, height: 300)
+            loginView!.frame = CGRect(x: 0, y: 0, width: 260, height: 350)
             loginView!.center = collectionView.center
         }
     }
@@ -54,7 +54,6 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
                                    acceptTitle: NSLocalizedString("agree", comment: ""),
                                    cancelTitle: NSLocalizedString("reject", comment: ""),
                                    acceptHandler: { accept(true) }, cancelHandler: { accept(false) })
-        alert?.titleLabel.text = NSLocalizedString("terms", comment: "")
         alert?.show()
     }
 
@@ -70,7 +69,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
             loginView = Bundle.main.loadNibNamed("LoginView", owner: nil, options: nil)?.first as? LoginView
             if loginView != nil {
                 loginView!.delegate = self
-                loginView!.frame = CGRect(x: 0, y: 0, width: 260, height: 300)
+                loginView!.frame = CGRect(x: 0, y: 0, width: 260, height: 350)
                 loginView!.center = collectionView.center
                 collectionView.addSubview(loginView!)
             }
@@ -89,7 +88,6 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
             loginView!.removeFromSuperview()
             loginView = nil
         }
-        
         self.senderId = currentUser()!.uid!
         self.senderDisplayName = currentUser()!.name!
         navigationItem.rightBarButtonItem?.isEnabled = true
@@ -228,7 +226,6 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
         UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
         
         let actionView = ActionSheet.create(
-            title: NSLocalizedString("Choose Data", comment: ""),
             actions: [NSLocalizedString("Photo from Camera Roll", comment: ""),
                       NSLocalizedString("Create photo use Camera", comment: ""),
                       NSLocalizedString("My current location", comment: "")],
@@ -279,9 +276,22 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
         return bubbleImageFactory!.incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
     }
     
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        let message = messages[indexPath.item]
+        if let user = Model.shared.getUser(message.senderId), let name = user.name {
+            return NSAttributedString(string: name)
+        } else {
+            return NSAttributedString(string: "")
+        }
+    }
+    
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellBottomLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         let message = messages[indexPath.item]
         return NSAttributedString(string: Model.shared.textDateFormatter.string(from: message.date))
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForCellTopLabelAt indexPath:IndexPath) -> CGFloat {
+        return 20
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForCellBottomLabelAt indexPath:IndexPath) -> CGFloat {
@@ -329,7 +339,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
         let message = messages[indexPath.item]
         if message.isMediaMessage || message.senderId == currentUser()!.uid! {
-            if IS_PAD() {
+//            if IS_PAD() {
                 if message.senderId == currentUser()!.uid! {
                     var handler:CompletionBlock?
                     var titles = [NSLocalizedString("Delete message", comment: "")]
@@ -344,7 +354,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
                         }
                         titles.insert(NSLocalizedString("Show map", comment: ""), at: 0)
                     }
-                    let alert = ActionSheet.create(title: "Action", actions: titles, handler1: handler, handler2: {
+                    let alert = ActionSheet.create(actions: titles, handler1: handler, handler2: {
                         if let msg = Model.shared.myMessage(message.date) {
                             SVProgressHUD.show(withStatus: "Delete...")
                             Model.shared.deleteMessage(msg, completion: {
@@ -366,6 +376,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
                         alert?.show()
                     }
                 }
+/*
             } else {
                 let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                 if (message.media as? JSQPhotoMediaItem) != nil {
@@ -392,6 +403,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
                 alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
                 present(alert, animated: true, completion: nil)
             }
+ */
         }
     }
     

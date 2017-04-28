@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import TwitterKit
 
 protocol LoginDelegate {
     func checkAgreement(_ accept: @escaping(Bool) -> ())
@@ -28,6 +29,39 @@ class LoginView: UIView, GIDSignInDelegate {
     }
     
     private var host:UIViewController?
+    
+    // MARK: - Twitter Auth
+    
+    @IBAction func twitterLogin(_ sender: Any) {
+        delegate?.checkAgreement({ accept in
+            if accept {
+                Twitter.sharedInstance().logIn(completion: { session, error in
+                    if let error = error {
+                        self.host?.showMessage(error.localizedDescription, messageType: .error)
+                    } else {
+                        let client = TWTRAPIClient.withCurrentUser()
+                        client.loadUser(withID: client.userID!, completion: { user, error in
+                            let credential = FIRTwitterAuthProvider.credential(withToken: session!.authToken, secret: session!.authTokenSecret)
+                            SVProgressHUD.show(withStatus: "Login...")
+                            FIRAuth.auth()?.signIn(with: credential, completion: { firUser, error in
+                                SVProgressHUD.dismiss()
+                                if error != nil {
+                                    self.host?.showMessage((error as NSError?)!.localizedDescription, messageType: .error)
+                                } else {
+                                    let cashedUser =  Model.shared.createUser(firUser!.uid)
+                                    cashedUser.email = "#\(user!.screenName)"
+                                    cashedUser.name = user!.name
+                                    cashedUser.avatar = user!.profileImageURL
+                                    Model.shared.updateUser(cashedUser)
+                                    self.delegate?.didLogin()
+                                }
+                            })
+                        })
+                    }
+                })
+            }
+        })
+    }
     
     // MARK: - Google+ Auth
     
@@ -53,7 +87,15 @@ class LoginView: UIView, GIDSignInDelegate {
             if error != nil {
                 self.host?.showMessage((error as NSError?)!.localizedDescription, messageType: .error)
             } else {
-                Model.shared.createGoogleUser(firUser!, googleProfile: user.profile)
+                let cashedUser =  Model.shared.createUser(firUser!.uid)
+                cashedUser.email = user.profile.email
+                cashedUser.name = user.profile.name
+                if user.profile.hasImage {
+                    if let url = user.profile.imageURL(withDimension: 100) {
+                        cashedUser.avatar = url.absoluteString
+                    }
+                }
+                Model.shared.updateUser(cashedUser)
                 self.delegate?.didLogin()
             }
         })
@@ -85,7 +127,15 @@ class LoginView: UIView, GIDSignInDelegate {
                                     self.host?.showMessage((error as NSError?)!.localizedDescription, messageType: .error)
                                 } else {
                                     if let profile = result as? [String:Any] {
-                                        Model.shared.createFacebookUser(firUser!, profile: profile)
+                                        let cashedUser = Model.shared.createUser(firUser!.uid)
+                                        cashedUser.email = profile["email"] as? String
+                                        cashedUser.name = profile["name"] as? String
+                                        if let picture = profile["picture"] as? [String:Any] {
+                                            if let data = picture["data"] as? [String:Any] {
+                                                cashedUser.avatar = data["url"] as? String
+                                            }
+                                        }
+                                        Model.shared.updateUser(cashedUser)
                                         SVProgressHUD.dismiss()
                                         self.delegate?.didLogin()
                                     } else {
