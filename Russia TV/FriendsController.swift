@@ -13,14 +13,14 @@ import GoogleSignIn
 
 class FriendsController: UITableViewController, GIDSignInDelegate {
 
-    private var friends:[User] = []
+    private var friends:[AppUser] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTitle(NSLocalizedString("friends", comment: ""))
         setupBackButton()
         
-        if let provider = FIRAuth.auth()!.currentUser!.providerData.first {
+        if let provider = Auth.auth().currentUser!.providerData.first {
             if provider.providerID == "google.com" {
                 GIDSignIn.sharedInstance().delegate = self
                 GIDSignIn.sharedInstance().signInSilently()
@@ -43,7 +43,7 @@ class FriendsController: UITableViewController, GIDSignInDelegate {
     }
     
     func newUserNotify(_ notify:Notification) {
-        if let user = notify.object as? User {
+        if let user = notify.object as? AppUser {
             self.tableView.beginUpdates()
             let indexPath = IndexPath(row: self.friends.count, section: 0)
             self.friends.append(user)
@@ -53,7 +53,7 @@ class FriendsController: UITableViewController, GIDSignInDelegate {
     }
     
     func sendInvite() {
-        if let invite = FIRInvites.inviteDialog() {
+        if let invite = Invites.inviteDialog() {
             invite.setInviteDelegate(self)
             var message = NSLocalizedString("invite", comment: "")
             message += "\n---------------------\n \(currentUser()!.name!)"
@@ -125,7 +125,7 @@ class FriendsController: UITableViewController, GIDSignInDelegate {
     }
 }
 
-extension FriendsController : FIRInviteDelegate {
+extension FriendsController : InviteDelegate {
     
     func inviteFinished(withInvitations invitationIds: [String], error: Error?) {
         if let error = error {

@@ -13,7 +13,7 @@ let refreshAvatarNotification = Notification.Name("REFRESH_USER")
 class JSQAvatar : NSObject, JSQMessageAvatarImageDataSource {
     
     var userImage:UIImage?
-    var user:User?
+    var user:AppUser?
     var indexPath:IndexPath?
     
     init(_ userID:String, indexPath: IndexPath) {

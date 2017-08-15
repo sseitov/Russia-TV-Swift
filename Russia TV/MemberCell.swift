@@ -14,7 +14,7 @@ class MemberCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var email: UILabel!
     
-    var friend:User? {
+    var friend:AppUser? {
         didSet {
             name.text = friend!.name
             email.text = friend!.email

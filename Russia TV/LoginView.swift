@@ -22,7 +22,7 @@ class LoginView: UIView, GIDSignInDelegate {
         didSet {
             host = delegate as? UIViewController
             
-            GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+            GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
             GIDSignIn.sharedInstance().delegate = self
             GIDSignIn.sharedInstance().uiDelegate = host as! GIDSignInUIDelegate
         }
@@ -41,9 +41,9 @@ class LoginView: UIView, GIDSignInDelegate {
                     } else {
                         let client = TWTRAPIClient.withCurrentUser()
                         client.loadUser(withID: client.userID!, completion: { user, error in
-                            let credential = FIRTwitterAuthProvider.credential(withToken: session!.authToken, secret: session!.authTokenSecret)
+                            let credential = TwitterAuthProvider.credential(withToken: session!.authToken, secret: session!.authTokenSecret)
                             SVProgressHUD.show(withStatus: "Login...")
-                            FIRAuth.auth()?.signIn(with: credential, completion: { firUser, error in
+                            Auth.auth().signIn(with: credential, completion: { firUser, error in
                                 SVProgressHUD.dismiss()
                                 if error != nil {
                                     self.host?.showMessage((error as NSError?)!.localizedDescription, messageType: .error)
@@ -79,10 +79,10 @@ class LoginView: UIView, GIDSignInDelegate {
             return
         }
         let authentication = user.authentication
-        let credential = FIRGoogleAuthProvider.credential(withIDToken: (authentication?.idToken)!,
+        let credential = GoogleAuthProvider.credential(withIDToken: (authentication?.idToken)!,
                                                           accessToken: (authentication?.accessToken)!)
         SVProgressHUD.show(withStatus: "Login...")
-        FIRAuth.auth()?.signIn(with: credential, completion: { firUser, error in
+        Auth.auth().signIn(with: credential, completion: { firUser, error in
             SVProgressHUD.dismiss()
             if error != nil {
                 self.host?.showMessage((error as NSError?)!.localizedDescription, messageType: .error)
@@ -120,8 +120,8 @@ class LoginView: UIView, GIDSignInDelegate {
                             SVProgressHUD.dismiss()
                             self.host?.showMessage(fbError!.localizedDescription, messageType: .error)
                         } else {
-                            let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-                            FIRAuth.auth()?.signIn(with: credential, completion: { firUser, error in
+                            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                            Auth.auth().signIn(with: credential, completion: { firUser, error in
                                 if error != nil {
                                     SVProgressHUD.dismiss()
                                     self.host?.showMessage((error as NSError?)!.localizedDescription, messageType: .error)
@@ -140,7 +140,7 @@ class LoginView: UIView, GIDSignInDelegate {
                                         self.delegate?.didLogin()
                                     } else {
                                         self.host?.showMessage("Can not read user profile.", messageType: .error)
-                                        try? FIRAuth.auth()?.signOut()
+                                        try? Auth.auth().signOut()
                                     }
                                 }
                             })

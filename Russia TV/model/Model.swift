@@ -12,8 +12,8 @@ import Firebase
 import GoogleSignIn
 import TwitterKit
 
-func currentUser() -> User? {
-    if let firUser = FIRAuth.auth()?.currentUser {
+func currentUser() -> AppUser? {
+    if let firUser = Auth.auth().currentUser {
         if let user = Model.shared.getUser(firUser.uid) {
             return user;
         } else {
@@ -103,9 +103,9 @@ class Model: NSObject {
     // MARK: - SignOut from cloud
     
     func signOut(_ completion: @escaping() -> ()) {
-        let ref = FIRDatabase.database().reference()
+        let ref = Database.database().reference()
         ref.child("tokens").child(currentUser()!.uid!).removeValue(completionBlock: { _, _ in
-            if let provider = FIRAuth.auth()!.currentUser!.providerData.first {
+            if let provider = Auth.auth().currentUser!.providerData.first {
                 print(provider.providerID)
                 if provider.providerID == "facebook.com" {
                     FBSDKLoginManager().logOut()
@@ -121,7 +121,7 @@ class Model: NSObject {
             ref.child("users").child(currentUser()!.uid!).removeValue(completionBlock: { _, _ in
                 self.clearMessages()
                 self.clearUsers()
-                try? FIRAuth.auth()?.signOut()
+                try? Auth.auth().signOut()
                 
                 self.newTokenRefHandle = nil
                 self.updateTokenRefHandle = nil
@@ -144,37 +144,37 @@ class Model: NSObject {
         }
     }
     
-    lazy var storageRef: FIRStorageReference = FIRStorage.storage().reference(forURL: firStorage)
+    lazy var storageRef: StorageReference = Storage.storage().reference(forURL: firStorage)
     
-    private var newTokenRefHandle: FIRDatabaseHandle?
-    private var updateTokenRefHandle: FIRDatabaseHandle?
+    private var newTokenRefHandle: DatabaseHandle?
+    private var updateTokenRefHandle: DatabaseHandle?
 
-    private var newMessageRefHandle: FIRDatabaseHandle?
-    private var deleteMessageRefHandle: FIRDatabaseHandle?
+    private var newMessageRefHandle: DatabaseHandle?
+    private var deleteMessageRefHandle: DatabaseHandle?
     
     // MARK: - User table
     
-    func createUser(_ uid:String) -> User {
+    func createUser(_ uid:String) -> AppUser {
         var user = getUser(uid)
         if user == nil {
-            user = NSEntityDescription.insertNewObject(forEntityName: "User", into: managedObjectContext) as? User
+            user = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: managedObjectContext) as? AppUser
             user!.uid = uid
         }
         return user!
     }
     
-    func getUser(_ uid:String) -> User? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+    func getUser(_ uid:String) -> AppUser? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AppUser")
         let predicate = NSPredicate(format: "uid = %@", uid)
         fetchRequest.predicate = predicate
-        if let user = try? managedObjectContext.fetch(fetchRequest).first as? User {
+        if let user = try? managedObjectContext.fetch(fetchRequest).first as? AppUser {
             return user
         } else {
             return nil
         }
     }
 
-    func addUser(_ data:[String:Any]) -> User? {
+    func addUser(_ data:[String:Any]) -> AppUser? {
         if let uid = data["uid"] as? String {
             let newUser = self.createUser(uid)
             newUser.setData(data)
@@ -197,11 +197,11 @@ class Model: NSObject {
         }
     }
 
-    func uploadUser(_ uid:String, result: @escaping(User?) -> ()) {
+    func uploadUser(_ uid:String, result: @escaping(AppUser?) -> ()) {
         if let existingUser = getUser(uid) {
             result(existingUser)
         } else {
-            let ref = FIRDatabase.database().reference()
+            let ref = Database.database().reference()
             ref.child("users").child(uid).observeSingleEvent(of: .value, with: { snapshot in
                 if let userData = snapshot.value as? [String:Any] {
                     let user = self.createUser(uid)
@@ -213,19 +213,19 @@ class Model: NSObject {
         }
     }
     
-    func updateUser(_ user:User) {
+    func updateUser(_ user:AppUser) {
         saveContext()
-        let ref = FIRDatabase.database().reference()
+        let ref = Database.database().reference()
         ref.child("users").child(user.uid!).setValue(user.getData())
     }
     
-    func publishToken(_ user:FIRUser,  token:String) {
-        let ref = FIRDatabase.database().reference()
-        ref.child("tokens").child(user.uid).setValue(token)
+    func publishToken(_ user:AppUser,  token:String) {
+        let ref = Database.database().reference()
+        ref.child("tokens").child(user.uid!).setValue(token)
     }
     
     fileprivate func observeTokens() {
-        let ref = FIRDatabase.database().reference()
+        let ref = Database.database().reference()
         let coordQuery = ref.child("tokens").queryLimited(toLast:25)
         
         newTokenRefHandle = coordQuery.observe(.childAdded, with: { (snapshot) -> Void in
@@ -247,12 +247,12 @@ class Model: NSObject {
         })
     }
     
-    func getFriends() -> [User] {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+    func getFriends() -> [AppUser] {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AppUser")
         fetchRequest.predicate = NSPredicate(format: "uid != %@", currentUser()!.uid!)
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        if let all = try? managedObjectContext.fetch(fetchRequest) as! [User] {
+        if let all = try? managedObjectContext.fetch(fetchRequest) as! [AppUser] {
             return all
         } else {
             return []
@@ -260,7 +260,7 @@ class Model: NSObject {
     }
     
     func members(_ completion: @escaping([Any]) -> ()) {
-        let ref = FIRDatabase.database().reference()
+        let ref = Database.database().reference()
         ref.child("users").observeSingleEvent(of: .value, with: { snapshot in
             if let values = snapshot.value as? [String:Any] {
                 var users:[Any] = []
@@ -320,7 +320,7 @@ class Model: NSObject {
         }
     }
     
-    func userMessages(_ user:User) -> [Message] {
+    func userMessages(_ user:AppUser) -> [Message] {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
         fetchRequest.predicate = NSPredicate(format: "from = %@", user.uid!)
         
@@ -336,7 +336,7 @@ class Model: NSObject {
     }
     
     func deleteMessage(_ message:Message, completion: @escaping() -> ()) {
-        let ref = FIRDatabase.database().reference()
+        let ref = Database.database().reference()
         if let image = message.imageURL {
             self.storageRef.child(image).delete(completion: { _ in
                 ref.child("messages").child(message.uid!).removeValue(completionBlock:{_, _ in
@@ -372,7 +372,7 @@ class Model: NSObject {
     }
     
     private func observeMessages() {
-        let ref = FIRDatabase.database().reference()
+        let ref = Database.database().reference()
         let messageQuery = ref.child("messages").queryLimited(toLast:25)
         
         newMessageRefHandle = messageQuery.observe(.childAdded, with: { (snapshot) -> Void in
@@ -401,7 +401,7 @@ class Model: NSObject {
     }
     
     func sendTextMessage(_ text:String) {
-        let ref = FIRDatabase.database().reference()
+        let ref = Database.database().reference()
         let dateStr = dateFormatter.string(from: Date())
         let messageItem:[String:Any] = ["from" : currentUser()!.uid!,
                                         "text" : text,
@@ -414,13 +414,13 @@ class Model: NSObject {
             return
         }
         if let imageData = UIImageJPEGRepresentation(image, 0.5) {
-            let meta = FIRStorageMetadata()
+            let meta = StorageMetadata()
             meta.contentType = "image/jpeg"
-            self.storageRef.child(UUID().uuidString).put(imageData, metadata: meta, completion: { metadata, error in
+            self.storageRef.child(UUID().uuidString).putData(imageData, metadata: meta, completion: { metadata, error in
                 if error != nil {
                     result(error as NSError?)
                 } else {
-                    let ref = FIRDatabase.database().reference()
+                    let ref = Database.database().reference()
                     let dateStr = self.dateFormatter.string(from: Date())
                     let messageItem:[String:Any] = ["from" : currentUser()!.uid!,
                                                     "image" : metadata!.path!,
@@ -433,7 +433,7 @@ class Model: NSObject {
     }
     
     func sendLocationMessage(_ coordinate:CLLocationCoordinate2D) {
-        let ref = FIRDatabase.database().reference()
+        let ref = Database.database().reference()
         let dateStr = dateFormatter.string(from: Date())
         let messageItem:[String:Any] = ["from" : currentUser()!.uid!,
                                         "date" : dateStr,

@@ -22,16 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Use Firebase library to configure APIs
-        FIROptions.default().deepLinkURLScheme = "cactus"
-        FIRApp.configure()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification(_:)), name: .firInstanceIDTokenRefresh, object: nil)
-        
-        FIRAuth.auth()?.addStateDidChangeListener({ auth, user in
-            if let token = FIRInstanceID.instanceID().token(), let currUser = auth.currentUser {
-                Model.shared.publishToken(currUser, token:token)
-            }
-        })
+        FirebaseOptions.defaultOptions()?.deepLinkURLScheme = "cactus"
+        FirebaseApp.configure()
 
         // Register_for_notifications
         
@@ -42,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 completionHandler: {_, _ in })
             
             UNUserNotificationCenter.current().delegate = self
-            FIRMessaging.messaging().remoteMessageDelegate = self
             
         } else {
             let settings: UIUserNotificationSettings =
@@ -53,33 +44,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
 
         // Connect Google auth
-        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         
         // Connect FBSDK auth
-        FIRInvites.applicationDidFinishLaunching(options: launchOptions)
+        Invites.applicationDidFinishLaunching(options: launchOptions)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
         // Connect Twitter auth
         Fabric.with([Twitter.self])
-
- /*
-        let ref = FIRDatabase.database().reference()
-        ref.child("users").observeSingleEvent(of: .value, with: { snapshot in
-            if let values = snapshot.value as? [String:Any] {
-                for (key, value) in values {
-                    var userData = value as? [String:Any]
-                    if userData != nil, userData!["token"] == nil {
-                        ref.child("tokens").child(key).observeSingleEvent(of: .value, with: { snapshot in
-                            if let token = snapshot.value as? String {
-                                userData!["token"] = token
-                                ref.child("users").child(key).setValue(userData!)
-                            }
-                        })
-                    }
-                }
-            }
-        })
-*/
+        
         // UI additional
         SVProgressHUD.setDefaultStyle(.custom)
         SVProgressHUD.setBackgroundColor(UIColor.mainColor())
@@ -91,7 +64,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController = window?.rootViewController as? UITabBarController
         
         UITabBar.appearance().tintColor = UIColor.white
-        UITabBar.appearance().unselectedItemTintColor = UIColor.color(204, 204, 204, 1)
+        if #available(iOS 10.0, *) {
+            UITabBar.appearance().unselectedItemTintColor = UIColor.color(204, 204, 204, 1)
+        }
         
         return true
     }
@@ -123,26 +98,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return tabBarController!.tabBar.frame.origin.y < window!.rootViewController!.view.frame.maxY
     }
     
-    // MARK: - Refresh FCM token
-    
-    func tokenRefreshNotification(_ notification: Notification) {
-        if let refreshedToken = FIRInstanceID.instanceID().token() {
-            print("InstanceID token: \(refreshedToken)")
-            connectToFcm()
-            if let user = FIRAuth.auth()?.currentUser {
-                Model.shared.publishToken(user, token: refreshedToken)
-            }
-        }
-    }
-    
-    func connectToFcm() {
-        FIRMessaging.messaging().connect { (error) in
-            if error != nil {
-                print("Unable to connect with FCM. \(error!.localizedDescription)")
-            }
-        }
-    }
-    
     // MARK: - Application delegate
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -157,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
-        if let invite = FIRInvites.handle(url, sourceApplication:sourceApplication, annotation:annotation) as? FIRReceivedInvite {
+        if let invite = Invites.handle(url, sourceApplication:sourceApplication, annotation:annotation) as? ReceivedInvite {
             let matchType = (invite.matchType == .weak) ? "Weak" : "Strong"
             let log = "Invite received from: \(sourceApplication ?? "") Deeplink: \(invite.deepLink)," +
                 "Id: \(invite.inviteId), Type: \(matchType)"
@@ -169,7 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
-        guard let dynamicLinks = FIRDynamicLinks.dynamicLinks() else {
+        guard let dynamicLinks = DynamicLinks.dynamicLinks() else {
             return false
         }
         
@@ -197,9 +152,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         #if DEBUG
-            FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
+            Messaging.messaging().setAPNSToken(deviceToken, type: .sandbox)
         #else
-            FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.prod)
+            Messaging.messaging().setAPNSToken(deviceToken, type: .prod)
         #endif
     }
 
@@ -243,9 +198,14 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     }
 }
 
-extension AppDelegate : FIRMessagingDelegate {
-    // Receive data message on iOS 10 devices while app is in the foreground.
-    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+extension AppDelegate : MessagingDelegate {
+    
+    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+        Messaging.messaging().shouldEstablishDirectChannel = true
+        if let currUser = currentUser() {
+            currUser.token = fcmToken
+            Model.shared.publishToken(currUser, token: fcmToken)
+        }
     }
+    
 }
-
