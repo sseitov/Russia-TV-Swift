@@ -52,7 +52,7 @@ class FriendsController: UITableViewController, GIDSignInDelegate {
         }
     }
     
-    func sendInvite() {
+    @objc func sendInvite() {
         if let invite = Invites.inviteDialog() {
             invite.setInviteDelegate(self)
             var message = NSLocalizedString("invite", comment: "")

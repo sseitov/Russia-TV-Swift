@@ -21,7 +21,9 @@ class MemberCell: UITableViewCell {
             let url = URL(string: friend!.avatar!)
             SDWebImageDownloader.shared().downloadImage(with: url, options: [], progress: nil, completed: {image, _, _, _ in
                 if image != nil {
-                    self.avatar.image = image!.inCircle()
+                    self.avatar.image = image!.withSize(self.avatar.frame.size).inCircle()
+                } else {
+                    self.avatar.image = UIImage(named:"user")
                 }
             })
         }
@@ -35,7 +37,9 @@ class MemberCell: UITableViewCell {
                 if let picture = member!["avatar"] as? String {
                     SDWebImageDownloader.shared().downloadImage(with: URL(string: picture), options: [], progress: nil, completed: {image, _, _, _ in
                         if image != nil {
-                            self.avatar.image = image!.inCircle()
+                            self.avatar.image = image!.withSize(self.avatar.frame.size).inCircle()
+                        } else {
+                            self.avatar.image = UIImage(named:"user")
                         }
                     })
                 }

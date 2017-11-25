@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setBackgroundColor(UIColor.mainColor())
         SVProgressHUD.setForegroundColor(UIColor.white)
         
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName : UIFont.condensedFont()], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font : UIFont.condensedFont()], for: .normal)
         SVProgressHUD.setFont(UIFont.condensedFont())
         
         tabBarController = window?.rootViewController as? UITabBarController
@@ -111,15 +111,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
  
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        
-        if let invite = Invites.handle(url, sourceApplication:sourceApplication, annotation:annotation) as? ReceivedInvite {
-            let matchType = (invite.matchType == .weak) ? "Weak" : "Strong"
-            let log = "Invite received from: \(sourceApplication ?? "") Deeplink: \(invite.deepLink)," +
-                "Id: \(invite.inviteId), Type: \(matchType)"
-            print(log)
-            return true
-        }
-        
         return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
@@ -168,6 +159,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let video = window?.rootViewController as? ChannelsController {
             video.refreshTable()
         }
+        if let currUser = currentUser(), let fcmToken = Messaging.messaging().fcmToken {
+            Model.shared.publishToken(currUser, token: fcmToken)
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -203,7 +197,6 @@ extension AppDelegate : MessagingDelegate {
     func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
         Messaging.messaging().shouldEstablishDirectChannel = true
         if let currUser = currentUser() {
-            currUser.token = fcmToken
             Model.shared.publishToken(currUser, token: fcmToken)
         }
     }

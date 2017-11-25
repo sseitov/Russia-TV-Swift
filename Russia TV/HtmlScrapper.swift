@@ -73,7 +73,7 @@ class HtmlScrapper {
         var weight = 0
         
         if let className = node.attribute(forName: "class")?.stringValue() {
-            let classNameRange = NSMakeRange(0, className.characters.count)
+            let classNameRange = NSMakeRange(0, className.count)
             if let posetiveRegExp = posetiveRegExp {
                 if posetiveRegExp.matches(in: className, options: .reportProgress, range:classNameRange).count > 0 {
                     weight += 35
@@ -94,7 +94,7 @@ class HtmlScrapper {
         }
         
         if let id = node.attribute(forName: "id")?.stringValue() {
-            let idRange = NSMakeRange(0, id.characters.count)
+            let idRange = NSMakeRange(0, id.count)
             if let posetiveRegExp = posetiveRegExp {
                 if posetiveRegExp.matches(in: id, options: .reportProgress, range:idRange ).count > 0 {
                     weight += 40
@@ -116,7 +116,7 @@ class HtmlScrapper {
         
         if let style = node.attribute(forName:"style")?.stringValue() {
             if let negativeRegExp = negativeRegExp {
-                if negativeRegExp.matches(in: style, options: .reportProgress, range:NSMakeRange(0, style.characters.count)).count > 0 {
+                if negativeRegExp.matches(in: style, options: .reportProgress, range:NSMakeRange(0, style.count)).count > 0 {
                     weight -= 50
                 }
             }
@@ -138,7 +138,7 @@ class HtmlScrapper {
             children.forEach { (childObj: Any) in
                 if let childNode = childObj as? GDataXMLElement {
                     let text = childNode.stringValue()
-                    let length = text!.characters.count
+                    let length = text!.count
                     if  length < 20 {
                         return
                     }
@@ -253,7 +253,7 @@ class HtmlScrapper {
         if let importantNodes = importantNodes() {
             importantNodes.forEach { (node: GDataXMLElement) in
                 var weight = weightNode(node)
-                weight += node.stringValue().characters.count / 10
+                weight += node.stringValue().count / 10
                 weight += weightChildNodes(node)
                 if ( weight > maxWeight )
                 {
@@ -295,7 +295,7 @@ class HtmlScrapper {
     private func altWeight(_ imgNode: GDataXMLElement) -> Int {
         var weight = 0
         if let altStr = imgNode.attribute(forName: "alt")?.stringValue() {
-            if ( altStr.characters.count > 35 ) {
+            if ( altStr.count > 35 ) {
                 weight += 20
             }
         }
@@ -306,7 +306,7 @@ class HtmlScrapper {
     private func titleWeight(_ imgNode: GDataXMLElement) -> Int {
         var weight = 0
         if let titleStr = imgNode.attribute(forName: "title")?.stringValue() {
-            if ( titleStr.characters.count > 35 ) {
+            if ( titleStr.count > 35 ) {
                 weight += 20
             }
         }
@@ -359,7 +359,7 @@ class HtmlScrapper {
         let texts = (node.stringValue() as NSString).replacingOccurrences(of: "\t", with:"").components(separatedBy: .newlines)
         var importantTexts = [String]()
         texts.forEach({ (text: String) in
-            let length = text.characters.count
+            let length = text.count
             if length > 140 {
                 importantTexts.append(text)
             }

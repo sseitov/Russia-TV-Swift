@@ -214,12 +214,15 @@ class Model: NSObject {
     }
     
     func updateUser(_ user:AppUser) {
+        user.token = Messaging.messaging().fcmToken
         saveContext()
         let ref = Database.database().reference()
         ref.child("users").child(user.uid!).setValue(user.getData())
     }
     
     func publishToken(_ user:AppUser,  token:String) {
+        user.token = token
+        saveContext()
         let ref = Database.database().reference()
         ref.child("tokens").child(user.uid!).setValue(token)
     }
@@ -267,7 +270,7 @@ class Model: NSObject {
                 for (key, value) in values {
                     if self.getUser(key) == nil {
                         var user = value as? [String:Any]
-                        if user != nil, user!["token"] != nil {
+                        if user != nil {
                             user!["uid"] = key
                             users.append(user!)
                         }
@@ -281,7 +284,7 @@ class Model: NSObject {
     }
     
     func clearUsers() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AppUser")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         _ = try? persistentStoreCoordinator.execute(deleteRequest, with: managedObjectContext)
     }

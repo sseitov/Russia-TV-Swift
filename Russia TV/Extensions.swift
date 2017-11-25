@@ -53,6 +53,22 @@ extension UIImage {
         return image!
     }
     
+    func withSize(_ newSize:CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
+        let aspect = self.size.width / self.size.height
+        var width = newSize.width
+        var height = newSize.height
+        if aspect > 1 { // landscape
+            width = aspect*height
+        } else if aspect < 1 {
+            height = width / aspect
+        }
+        self.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+
     func inCircle() -> UIImage {
         let newImage = self.copy() as! UIImage
         let cornerRadius = self.size.height/2
@@ -94,7 +110,7 @@ extension UIViewController {
         navigationItem.leftBarButtonItem?.action = #selector(self.goBack)
     }
     
-    func goBack() {
+    @objc func goBack() {
         _ = self.navigationController!.popViewController(animated: true)
     }
     

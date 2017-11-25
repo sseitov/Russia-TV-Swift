@@ -50,12 +50,12 @@ class VideoView: UIView {
     
     // MARK: - Video commands
     
-    func sliderBeganTracking(_ slider: UISlider!) {
+    @objc func sliderBeganTracking(_ slider: UISlider!) {
         playerRateBeforeSeek = avPlayer!.rate
         avPlayer!.pause()
     }
     
-    func sliderEndedTracking(_ slider: UISlider!) {
+    @objc func sliderEndedTracking(_ slider: UISlider!) {
         let videoDuration = CMTimeGetSeconds(avPlayer!.currentItem!.duration)
         let elapsedTime: Float64 = videoDuration * Float64(slider.value)
         let time = CMTime(seconds: Double(elapsedTime), preferredTimescale: CMTimeScale(NSEC_PER_SEC))
@@ -72,7 +72,7 @@ class VideoView: UIView {
         })
     }
     
-    func itemDidFinishPlaying(_ notification:Notification) {
+    @objc func itemDidFinishPlaying(_ notification:Notification) {
         finished = true
         delegate!.playerFinished()
     }

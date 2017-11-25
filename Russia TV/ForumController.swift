@@ -125,7 +125,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
 
     // MARK: - Message management
     
-    func newMessageNotify(_ notify:Notification) {
+    @objc func newMessageNotify(_ notify:Notification) {
         if let message = notify.object as? Message {
             if let jsqMessage = addMessage(message) {
                 messages.append(jsqMessage)
@@ -134,7 +134,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
         }
     }
     
-    func deleteMessageNotify(_ notify:Notification) {
+    @objc func deleteMessageNotify(_ notify:Notification) {
         if let message = notify.object as? Message {
             if let msg = getMsg(sender:message.from!, date:message.date! as Date) {
                 if let index = messages.index(of: msg) {
@@ -148,13 +148,13 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
         }
     }
 
-    func refreshAvatarNotify(_ notify:Notification) {
+    @objc func refreshAvatarNotify(_ notify:Notification) {
         if let indexPath = notify.object as? IndexPath {
             collectionView.reloadItems(at: [indexPath])
         }
     }
     
-    func refreshMessagesNotify() {
+    @objc func refreshMessagesNotify() {
         messages.removeAll()
         let cashedMessages = Model.shared.chatMessages()
         for message in cashedMessages {
@@ -236,7 +236,7 @@ class ForumController: JSQMessagesViewController, UINavigationControllerDelegate
                 imagePicker.delegate = self
                 imagePicker.modalPresentationStyle = .formSheet
                 if let font = UIFont(name: "HelveticaNeue-CondensedBold", size: 15) {
-                    imagePicker.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.mainColor(), NSFontAttributeName : font]
+                    imagePicker.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.mainColor(), NSAttributedStringKey.font : font]
                 }
                 imagePicker.navigationBar.tintColor = UIColor.mainColor()
                 self.present(imagePicker, animated: true, completion: nil)

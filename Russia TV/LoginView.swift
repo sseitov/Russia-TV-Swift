@@ -50,8 +50,8 @@ class LoginView: UIView, GIDSignInDelegate {
                                 } else {
                                     let cashedUser =  Model.shared.createUser(firUser!.uid)
                                     cashedUser.email = "#\(user!.screenName)"
-                                    cashedUser.name = user!.name
-                                    cashedUser.avatar = user!.profileImageURL
+                                    cashedUser.name = firUser?.displayName
+                                    cashedUser.avatar = firUser?.photoURL?.absoluteString
                                     Model.shared.updateUser(cashedUser)
                                     self.delegate?.didLogin()
                                 }
@@ -88,8 +88,9 @@ class LoginView: UIView, GIDSignInDelegate {
                 self.host?.showMessage((error as NSError?)!.localizedDescription, messageType: .error)
             } else {
                 let cashedUser =  Model.shared.createUser(firUser!.uid)
-                cashedUser.email = user.profile.email
-                cashedUser.name = user.profile.name
+                cashedUser.email = firUser?.email
+                cashedUser.name = firUser?.displayName
+                cashedUser.avatar = firUser?.photoURL?.absoluteString
                 if user.profile.hasImage {
                     if let url = user.profile.imageURL(withDimension: 100) {
                         cashedUser.avatar = url.absoluteString

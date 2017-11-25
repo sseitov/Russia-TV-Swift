@@ -63,7 +63,7 @@ class VideoController: UIViewController, PlayerDelegate {
         videoPlayer?.start()
     }
 
-    func fullScreen() {
+    @objc func fullScreen() {
         isFullScreen = !isFullScreen
         self.navigationController?.setNavigationBarHidden(self.isFullScreen, animated: true)
         
@@ -87,12 +87,12 @@ class VideoController: UIViewController, PlayerDelegate {
     
     // MARK: - Video player
     
-    func play() {
+    @objc func play() {
         timeLine.setupButton(self, image: UIImage(named: "pause"), selector: #selector(self.pause))
         videoPlayer!.play()
     }
     
-    func pause() {
+    @objc func pause() {
         timeLine.setupButton(self, image: UIImage(named: "play"), selector: #selector(self.play))
         videoPlayer!.pause()
     }
